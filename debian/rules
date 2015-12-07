@@ -1,0 +1,38 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# (C) 2015 jw@owncloud.com
+# (C) 2015 struktur AG <opensource@struktur.de>
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+SHELL=/bin/bash
+
+export WEBROOT=$(CURDIR)/debian/owncloud-server/usr/lib/owncloud/www
+export CONFIGROOT=$(CURDIR)/debian/owncloud-server/etc/owncloud
+export DATAROOT=$(CURDIR)/debian/owncloud-server/var/lib/owncloud/data
+
+%:
+	dh $@
+
+override_dh_install:
+	dh_install
+	ln -s /var/lib/owncloud/data $(WEBROOT)/data
+	ln -s /etc/owncloud $(WEBROOT)/config
+	cp -r config/* $(CONFIGROOT)/
+	cp -r debian/*.config.php $(CONFIGROOT)/
+	cp debian/autoconfig.php $(CONFIGROOT)/autoconfig.php
+
+override_dh_fixperms:
+	dh_fixperms -X var/lib/owncloud/data -X etc/owncloud
+	chmod a+x $(WEBROOT)/occ
+	# chown at the end to ensure everything is chown'ed
+	# We must chown all apps folders, in each app, to be independent of installation order.
+	if [ -d "$(WEBROOT)/assets" ]; then chown www-data:www-data $(WEBROOT)/assets; fi
+	chown www-data:www-data    $(WEBROOT)/apps
+	chown www-data:www-data    $(WEBROOT)/assets
+	chown -R www-data:www-data $(WEBROOT)/themes
+	chown -R www-data:www-data $(CONFIGROOT)
+	# https://github.com/owncloud/core/issues/18222
+	chmod -R ug+rwx            $(CONFIGROOT)
+	chown -R www-data:www-data $(DATAROOT)

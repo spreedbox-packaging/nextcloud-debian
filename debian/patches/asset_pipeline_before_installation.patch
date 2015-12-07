@@ -1,0 +1,13 @@
+--- a/lib/private/template.php
++++ b/lib/private/template.php
+@@ -379,8 +379,9 @@
+ 	public static function isAssetPipelineEnabled() {
+ 		// asset management enabled?
+ 		$config = \OC::$server->getConfig();
++		$installed = $config->getSystemValue('installed', false);
+ 		$useAssetPipeline = $config->getSystemValue('asset-pipeline.enabled', false);
+-		if (!$useAssetPipeline) {
++		if (!$installed || !$useAssetPipeline) {
+ 			return false;
+ 		}
+ 

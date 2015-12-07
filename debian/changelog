@@ -1,0 +1,6 @@
+owncloud (8.2.1-1~strukturag+1) trusty; urgency=low
+
+  * Initial release, based on packaging for 8.2.1-1.1 by Jürgen Weigert
+    <jw@owncloud.com>.
+
+ -- Joachim Bauch <bauch@struktur.de>  Mon, 07 Dec 2015 14:33:36 +0100

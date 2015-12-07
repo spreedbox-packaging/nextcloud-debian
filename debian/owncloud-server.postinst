@@ -1,0 +1,45 @@
+#!/bin/sh -e
+# postinst script for owncloud-server
+
+# FROM http://anonscm.debian.org/cgit/pkg-owncloud/owncloud.git/plain/debian/postinst
+# https://github.com/owncloud/core/issues/12037
+# https://github.com/owncloud/core/issues/12125
+
+## CAUTION: keep in sync with debian.rules
+export WEBROOT=/usr/lib/owncloud/www
+export DATAROOT=/var/lib/owncloud/data
+
+export WWW_USER=www-data
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # Update the database on upgrade
+        # Don’t let it fail, since it exits with 3 if no upgrade is necessary
+        if [ -s /run/occ_maintenance_mode_during_owncloud_install ]; then
+            # https://github.com/owncloud/core/pull/19508
+            # https://github.com/owncloud/core/pull/19661
+            echo  "Leaving server in maintenance mode. Please run occ upgrade manually."
+            echo  ""
+            echo  "See https://doc.owncloud.org/server/8.2/admin_manual/maintenance/upgrade.html"
+            echo  ""
+            # enter maintenance mode again, just in case it failed during preinst.
+            su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --on" || true
+        fi
+        rm -f /run/occ_maintenance_mode_during_owncloud_install
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+exit 0
+
