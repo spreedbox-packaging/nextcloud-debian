@@ -35,7 +35,21 @@ Package: owncloud-server
 Architecture: all
 Depends:
  ${misc:Depends},
- owncloud-dependencies (= ${binary:Version})
+ php-xml-parser,
+ php5-common,
+ php5-cli,
+ php5-curl,
+ php5-gd,
+ php5-intl,
+ php5-json,
+ php5-ldap,
+ php5-mcrypt,
+ php5-mysqlnd | php5-mysql,
+ php5-pgsql,
+ php5-sqlite
+# Don't recommend php5-apcu for Ubuntu-14.04 https://github.com/owncloud/core/issues/14188
+# Don't use apcu before 4.0.6 https://github.com/owncloud/core/issues/14175
+Suggests: php5-apcu (>= 4.0.6) | php-apc
 ## Merged back all the apps into owncloud-server, due to https://github.com/owncloud/core/issues/18043
 ## According to https://www.debian.org/doc/debian-policy/ch-relationships.html replacing is done with three lists: Provides, Conflicts, Replaces.
 Breaks:
@@ -117,26 +131,3 @@ Provides:
 Description: The owncloud-server package
  .
  Server internals. For a complete system install package owncloud.
-
-Package: owncloud-dependencies
-Architecture: all
-Depends:
- ${misc:Depends},
- php-xml-parser,
- php5-common,
- php5-cli,
- php5-curl,
- php5-gd,
- php5-intl,
- php5-json,
- php5-ldap,
- php5-mcrypt,
- php5-mysqlnd | php5-mysql,
- php5-pgsql,
- php5-sqlite
-# Don't recommend php5-apcu for Ubuntu-14.04 https://github.com/owncloud/core/issues/14188
-# Don't use apcu before 4.0.6 https://github.com/owncloud/core/issues/14175
-Suggests: php5-apcu (>= 4.0.6) | php-apc
-Description: The owncloud-dependencies package
- .
- Owncloud dependencies. For a complete system install package owncloud.
