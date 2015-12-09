@@ -20,7 +20,6 @@ override_dh_install:
 	ln -s /var/lib/owncloud/data $(WEBROOT)/data
 	ln -s /etc/owncloud $(WEBROOT)/config
 	cp -r config/* $(CONFIGROOT)/
-	cp -r debian/*.config.php $(CONFIGROOT)/
 	cp debian/autoconfig.php $(CONFIGROOT)/autoconfig.php
 
 override_dh_fixperms:
