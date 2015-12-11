@@ -1,3 +1,10 @@
+owncloud (8.2.1-1~strukturag+2) trusty; urgency=low
+
+  * Depend on "cron".
+  * Install wrapper for occ tool.
+
+ -- Joachim Bauch <bauch@struktur.de>  Fri, 11 Dec 2015 14:51:36 +0100
+
 owncloud (8.2.1-1~strukturag+1) trusty; urgency=low
 
   * Initial release, based on packaging for 8.2.1-1.1 by Jürgen Weigert
