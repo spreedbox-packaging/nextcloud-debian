@@ -1,3 +1,11 @@
+owncloud (8.2.1-1~strukturag+3) trusty; urgency=low
+
+  * Check that script is being run as root.
+  * Install script as "occ" to avoid confusion with references in messages.
+  * Update passing of arguments.
+
+ -- Joachim Bauch <bauch@struktur.de>  Fri, 11 Dec 2015 16:08:46 +0100
+
 owncloud (8.2.1-1~strukturag+2) trusty; urgency=low
 
   * Depend on "cron".
