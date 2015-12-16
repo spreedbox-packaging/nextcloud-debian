@@ -1,3 +1,4 @@
+.htaccess	/usr/lib/owncloud/www/
 AUTHORS		/usr/lib/owncloud/
 apps		/usr/lib/owncloud/www/
 3rdparty	/usr/lib/owncloud/www/
