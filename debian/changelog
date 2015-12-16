@@ -1,3 +1,9 @@
+owncloud (8.2.1-1~strukturag+4) trusty; urgency=low
+
+  * Need to install .htacces which is used for internal version checks.
+
+ -- Joachim Bauch <bauch@struktur.de>  Wed, 16 Dec 2015 16:43:48 +0100
+
 owncloud (8.2.1-1~strukturag+3) trusty; urgency=low
 
   * Check that script is being run as root.
