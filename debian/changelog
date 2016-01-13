@@ -1,3 +1,9 @@
+owncloud (8.2.2-1~strukturag+1) trusty; urgency=low
+
+  * Imported Upstream version 8.2.2
+
+ -- Joachim Bauch <bauch@struktur.de>  Wed, 13 Jan 2016 16:48:13 +0100
+
 owncloud (8.2.1-1~strukturag+4) trusty; urgency=low
 
   * Need to install .htacces which is used for internal version checks.
