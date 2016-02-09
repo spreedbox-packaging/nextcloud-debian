@@ -20,14 +20,31 @@ case "$1" in
         # Update the database on upgrade
         # Don’t let it fail, since it exits with 3 if no upgrade is necessary
         if [ -s /run/occ_maintenance_mode_during_owncloud_install ]; then
-            # https://github.com/owncloud/core/pull/19508
-            # https://github.com/owncloud/core/pull/19661
-            echo  "Leaving server in maintenance mode. Please run occ upgrade manually."
-            echo  ""
-            echo  "See https://doc.owncloud.org/server/8.2/admin_manual/maintenance/upgrade.html"
-            echo  ""
-            # enter maintenance mode again, just in case it failed during preinst.
-            su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --on" || true
+            # For the Spreedbox we want to have automatic upgrades
+            if [ -x "/usr/bin/occ" ]; then
+                su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --off" || true
+
+                set +e
+                /usr/bin/occ upgrade
+                rc=$?
+                set -e
+                if [ "$rc" != "0" ] && [ "$rc" != "3" ]; then
+                    su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --on" || true
+                    echo  "Leaving server in maintenance mode. Please run occ upgrade manually."
+                    echo  ""
+                    echo  "See https://doc.owncloud.org/server/8.2/admin_manual/maintenance/upgrade.html"
+                    echo  ""
+                fi
+            else
+                # https://github.com/owncloud/core/pull/19508
+                # https://github.com/owncloud/core/pull/19661
+                echo  "Leaving server in maintenance mode. Please run occ upgrade manually."
+                echo  ""
+                echo  "See https://doc.owncloud.org/server/8.2/admin_manual/maintenance/upgrade.html"
+                echo  ""
+                # enter maintenance mode again, just in case it failed during preinst.
+                su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --on" || true
+            fi
         fi
         rm -f /run/occ_maintenance_mode_during_owncloud_install
     ;;
