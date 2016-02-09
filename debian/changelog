@@ -1,3 +1,9 @@
+owncloud (8.2.2-1~strukturag+2) trusty; urgency=low
+
+  * Run "occ upgrade" from postinst for automatic updates (FS#3326).
+
+ -- Joachim Bauch <bauch@struktur.de>  Tue, 09 Feb 2016 10:23:55 +0100
+
 owncloud (8.2.2-1~strukturag+1) trusty; urgency=low
 
   * Imported Upstream version 8.2.2
