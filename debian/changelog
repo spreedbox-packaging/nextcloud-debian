@@ -1,3 +1,9 @@
+owncloud (8.2.2-1~strukturag+3) trusty; urgency=low
+
+  * Make sure checked hostname can be shown in template.
+
+ -- Joachim Bauch <bauch@struktur.de>  Mon, 15 Feb 2016 17:56:21 +0100
+
 owncloud (8.2.2-1~strukturag+2) trusty; urgency=low
 
   * Run "occ upgrade" from postinst for automatic updates (FS#3326).
