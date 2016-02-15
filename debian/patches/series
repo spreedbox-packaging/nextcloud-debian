@@ -1,1 +1,2 @@
 asset_pipeline_before_installation.patch
+fix_untrusted_domain_variable.patch

@@ -1,0 +1,14 @@
+Description: Make sure checked hostname can be shown in template.
+Author: Joachim Bauch <bauch@struktur.de>
+Forwarded: https://github.com/owncloud/core/pull/22407
+--- a/lib/base.php
++++ b/lib/base.php
+@@ -679,7 +679,7 @@
+ 			header('Status: 400 Bad Request');
+ 
+ 			$tmpl = new OCP\Template('core', 'untrustedDomain', 'guest');
+-			$tmpl->assign('domain', $request->server['SERVER_NAME']);
++			$tmpl->assign('domain', $host);
+ 			$tmpl->printPage();
+ 
+ 			exit();
