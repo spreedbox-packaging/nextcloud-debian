@@ -1,3 +1,12 @@
+owncloud (9.0.1-1~strukturag+1) trusty; urgency=low
+
+  * Updated gbp configuration for new branches.
+  * Imported Upstream version 9.0.1
+  * Updated files/folders to install.
+  * Updated patches for new upstream version.
+
+ -- Joachim Bauch <bauch@struktur.de>  Tue, 12 Apr 2016 16:32:06 +0200
+
 owncloud (8.2.2-1~strukturag+3) trusty; urgency=low
 
   * Make sure checked hostname can be shown in template.
