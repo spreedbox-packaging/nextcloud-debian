@@ -1,23 +1,21 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Defining Background Jobs &mdash; ownCloud 8.2 Server Administration Manual 8.2 documentation</title>
+    <title>Defining Background Jobs &mdash; ownCloud 9.0 Server Administration Manual 9.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/style.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/main.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '8.2',
+        VERSION:     '9.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,87 +24,41 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap.js"></script>
-    <link rel="top" title="ownCloud 8.2 Server Administration Manual 8.2 documentation" href="../index.html" />
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="ownCloud 9.0 Server Administration Manual 9.0 documentation" href="../contents.html" />
     <link rel="up" title="ownCloud Server Configuration" href="index.html" />
     <link rel="next" title="Config.php Parameters" href="config_sample_php_parameters.html" />
     <link rel="prev" title="Configuring Memory Caching" href="caching_configuration.html" />
-<script type="text/javascript">
-(function () {
-  /**
-   * Patch TOC list.
-   *
-   * Will mutate the underlying span to have a correct ul for nav.
-   *
-   * @param $span: Span containing nested UL's to mutate.
-   * @param minLevel: Starting level for nested lists. (1: global, 2: local).
-   */
-  var patchToc = function ($ul, minLevel) {
-    var findA;
-
-    // Find all a "internal" tags, traversing recursively.
-    findA = function ($elem, level) {
-      var level = level || 0,
-        $items = $elem.find("> li > a.internal, > ul, > li > ul");
-
-      // Iterate everything in order.
-      $items.each(function (index, item) {
-        var $item = $(item),
-          tag = item.tagName.toLowerCase(),
-          pad = 15 + ((level - minLevel) * 10);
-
-        if (tag === 'a' && level >= minLevel) {
-          // Add to existing padding.
-          $item.css('padding-left', pad + "px");
-          console.log(level, $item, 'padding-left', pad + "px");
-        } else if (tag === 'ul') {
-          // Recurse.
-          findA($item, level + 1);
-        }
-      });
-    };
-
-    console.log("HERE");
-    findA($ul);
-  };
-
-  $(document).ready(function () {
-    // Add styling, structure to TOC's.
-    $(".dropdown-menu").each(function () {
-      $(this).find("ul").each(function (index, item){
-        var $item = $(item);
-        $item.addClass('unstyled');
-      });
-      $(this).find("li").each(function () {
-        $(this).parent().append(this);
-      });
-    });
-
-    // Patch in level.
-    patchToc($("ul.globaltoc"), 2);
-    patchToc($("ul.localtoc"), 2);
-
-    // Enable dropdown.
-    $('.dropdown-toggle').dropdown();
-  });
-}());
-</script>
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1d2d44">
 
   </head>
-  <body>
-  
+  <body role="document">
 
-<div class="container">
-  <div class="content">
-    <div class="page-header">
-      <h1><a href="../contents.html">ownCloud 8.2 Server Administration Manual</a></h1>
 
+<div class="wrap container not-front">
+  <div class="content row">
+  <main class="main">
+    <div class="row page-content-header">
+      <div class="col-md-5 col-md-offset-7">
+      
+        <form class="headersearch" style="margin-bottom:-3px;" action="../search.html" method="get">
+        <input type="text" value="" name="q" id="q" class="form-control" /> 
+        <button  class="btn btn-default" type="submit" id="searchsubmit">Search</button>
+        </form>
+      
+      </div>
     </div>
     
 			<div class="row">
-				<div class="span3">
+				<div class="col-md-3">
 					<div class="sidebar">
-						<div class="well">
 							<div class="menu-support-container">
 								<ul id="menu-support" class="menu">
 									<ul>
@@ -114,9 +66,9 @@
 <li><a href="../contents.html">Table of Contents</a></li>
 									</ul>
                   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 8.2 Server Administration Manual Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">ownCloud 8.2 Release Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in ownCloud 8.2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 9.0 Server Administration Manual Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">ownCloud 9.0 Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in ownCloud 9.0</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">ownCloud Server Configuration</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="security_setup_warnings.html">Warnings on Admin Page</a></li>
@@ -159,24 +111,36 @@
 <li class="toctree-l1"><a class="reference internal" href="../enterprise_server_branding/index.html">Enterprise Server Branding (ES only)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../enterprise_external_storage/index.html">External Storage (ES only)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../enterprise_user_management/index.html">User Management (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_files_drop/index.html">Enabling Anonymous Uploads with Files Drop (ES Only)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../enterprise_file_management/index.html">Enterprise File Management (ES Only)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../enterprise_logging/index.html">Enterprise Logging Apps (ES only)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../enterprise_firewall/index.html">Enterprise Firewall (ES only)</a></li>
 </ul>
 
 								</ul>
 							</div>
-						</div>
 					</div>
 				</div>
         
 
-				<div class="span9">
+				<div class="col-md-9">
 					<div class="page-content">
+            
+<ul class="prevnext-title list-unstyled list-inline">
+  <li class="prev">
+    <a href="caching_configuration.html" title="Previous Chapter: Configuring Memory Caching"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Configuring M...</span>
+    </a>
+  </li>
+  <li class="next">
+    <a href="config_sample_php_parameters.html" title="Next Chapter: Config.php Parameters"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Config.php Pa... &raquo;</span>
+    </a>
+  </li>
+</ul>
 						
   <div class="section" id="defining-background-jobs">
 <h1>Defining Background Jobs<a class="headerlink" href="#defining-background-jobs" title="Permalink to this headline">¶</a></h1>
 <p>A system like ownCloud sometimes requires tasks to be done on a regular basis without the need for user interaction or hindering ownCloud performance. For that purpose, as a system administrator, you can define background jobs (for example, database clean-ups) which are executed without any need for user interaction.</p>
-<p>These jobs are typically referred to as <em>cron jobs</em>.  Cron jobs are commands or shell-based scripts that are scheduled to run periodically at fixed times, dates, or intervals.   <tt class="docutils literal"><span class="pre">cron.php</span></tt> is an ownCloud internal process that runs such background jobs on demand.</p>
-<p>ownCloud plug-in applications register actions with <tt class="docutils literal"><span class="pre">cron.php</span></tt> automatically to take care of typical housekeeping operations, such as garbage collecting of temporary files or checking for newly updated files using <tt class="docutils literal"><span class="pre">filescan()</span></tt> for externally mounted file systems.</p>
+<p>These jobs are typically referred to as <em>cron jobs</em>.  Cron jobs are commands or shell-based scripts that are scheduled to run periodically at fixed times, dates, or intervals.   <code class="docutils literal"><span class="pre">cron.php</span></code> is an ownCloud internal process that runs such background jobs on demand.</p>
+<p>ownCloud plug-in applications register actions with <code class="docutils literal"><span class="pre">cron.php</span></code> automatically to take care of typical housekeeping operations, such as garbage collecting of temporary files or checking for newly updated files using <code class="docutils literal"><span class="pre">filescan()</span></code> for externally mounted file systems.</p>
 <div class="section" id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
 <p>In the admin settings menu you can configure how cron-jobs should be executed.
@@ -202,27 +166,30 @@ preferred.</p>
 </div>
 <div class="section" id="webcron">
 <h3>Webcron<a class="headerlink" href="#webcron" title="Permalink to this headline">¶</a></h3>
-<p>By registering your ownCloud <tt class="docutils literal"><span class="pre">cron.php</span></tt> script address at an external webcron
+<p>By registering your ownCloud <code class="docutils literal"><span class="pre">cron.php</span></code> script address at an external webcron
 service (for example, <a class="reference external" href="http://www.easycron.com/">easyCron</a>), you ensure that background jobs are executed
 regularly. To use this type of service, your server you must be able to access
 your server using the Internet. For example:</p>
-<div class="highlight-python"><pre>URL to call: http[s]://&lt;domain-of-your-server&gt;/owncloud/cron.php</pre>
+<div class="highlight-python"><div class="highlight"><pre>URL to call: http[s]://&lt;domain-of-your-server&gt;/owncloud/cron.php
+</pre></div>
 </div>
 </div>
 <div class="section" id="cron">
 <h3>Cron<a class="headerlink" href="#cron" title="Permalink to this headline">¶</a></h3>
-<p>Using the operating system cron feature is the preferred method for executing regular tasks.  This method enables the execution of scheduled jobs without the inherent limitations the web server might have.</p>
-<p>To run a cron job on a *nix system, every 15 minutes, under the default web server user (often, <tt class="docutils literal"><span class="pre">www-data</span></tt> or <tt class="docutils literal"><span class="pre">wwwrun</span></tt>), you must set up the following cron job to call the <strong>cron.php</strong> script:</p>
-<div class="highlight-python"><pre># crontab -u www-data -e
-*/15  *  *  *  * php -f /var/www/owncloud/cron.php</pre>
+<p>Using the operating system cron feature is the preferred method for executing regular tasks.  This method enables the execution of scheduled jobs without the inherent limitations the Web server might have.</p>
+<p>To run a cron job on a *nix system, every 15 minutes, under the default Web server user (often, <code class="docutils literal"><span class="pre">www-data</span></code> or <code class="docutils literal"><span class="pre">wwwrun</span></code>), you must set up the following cron job to call the <strong>cron.php</strong> script:</p>
+<div class="highlight-python"><div class="highlight"><pre># crontab -u www-data -e
+*/15  *  *  *  * php -f /var/www/owncloud/cron.php
+</pre></div>
 </div>
 <p>You can verify if the cron job has been added and scheduled by executing:</p>
-<div class="highlight-python"><pre># crontab -u www-data -l
-*/15  *  *  *  * php -f /var/www/owncloud/cron.php</pre>
+<div class="highlight-python"><div class="highlight"><pre># crontab -u www-data -l
+*/15  *  *  *  * php -f /var/www/owncloud/cron.php
+</pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">You have to replace the path <tt class="docutils literal"><span class="pre">/var/www/owncloud/cron.php</span></tt> with the path to your current ownCloud installation.</p>
+<p class="last">You have to replace the path <code class="docutils literal"><span class="pre">/var/www/owncloud/cron.php</span></code> with the path to your current ownCloud installation.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -237,10 +204,21 @@ your server using the Internet. For example:</p>
 </div>
 
 
+            
+<ul class="prevnext-title list-unstyled list-inline">
+  <li class="prev">
+    <a href="caching_configuration.html" title="Previous Chapter: Configuring Memory Caching"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Configuring M...</span>
+    </a>
+  </li>
+  <li class="next">
+    <a href="config_sample_php_parameters.html" title="Next Chapter: Config.php Parameters"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Config.php Pa... &raquo;</span>
+    </a>
+  </li>
+</ul>
 					</div>
 				</div>
 			</div>
-    
+  </main>  
   </div>
 </div>
   </body>

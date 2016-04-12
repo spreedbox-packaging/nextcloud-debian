@@ -18,7 +18,7 @@ This document will cover the following steps:
 
 * Setup of the ownCloud user in Oracle: This involves setting up a user space
   in Oracle for setting up the ownCloud database.
-* Installing the Oracle Instant Client on the web server (facilitating the
+* Installing the Oracle Instant Client on the Web server (facilitating the
   connection to the Oracle Database).
 * Compiling and installing the Oracle PHP Plugin oci8 module
 * Pointing ownCloud at the Oracle database in the initial setup process
@@ -37,7 +37,7 @@ Step one, if it has not already been completed by your :abbr:`DBA (DataBase Admi
 space on the Oracle instance for ownCloud.  This can be done by logging in as a
 DBA and running the script below:
 
-.. code-block:: sql
+::
 
   CREATE USER owncloud IDENTIFIED BY password;
   ALTER USER owncloud DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp QUOTA unlimited ON users;
@@ -157,7 +157,7 @@ Assuming all of the steps have been followed to completion, the first run wizard
 
 The configuration file should look something like this:
 
-.. code-block:: php
+::
 
     <?php
     $CONFIG = array (

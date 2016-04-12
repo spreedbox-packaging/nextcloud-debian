@@ -6,7 +6,7 @@ You may configure the URLs to your own download repositories for your ownCloud
 desktop clients and mobile apps in :file:`config/config.php`. This example shows 
 the default download locations:
 
-.. code-block:: php
+::
 
   <?php
 
@@ -23,4 +23,5 @@ You may test alternate URLs without editing :file:`config/config.php` by setting
 When you're finished testing you can disable the environment variable::
 
  unset OCC_UPDATE_URL
+ 
  
