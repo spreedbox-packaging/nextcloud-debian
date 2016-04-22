@@ -1,0 +1,10 @@
+--- a/lib/private/integritycheck/checker.php
++++ b/lib/private/integritycheck/checker.php
+@@ -93,6 +93,7 @@ class Checker {
+ 	 * @return bool
+ 	 */
+ 	public function isCodeCheckEnforced() {
++		return false;
+ 		$signedChannels = [
+ 			'daily',
+ 			'testing',
