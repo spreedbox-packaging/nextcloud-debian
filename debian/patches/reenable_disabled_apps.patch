@@ -1,0 +1,18 @@
+--- a/lib/private/updater.php
++++ b/lib/private/updater.php
+@@ -355,6 +355,15 @@ class Updater extends BasicEmitter {
+ 				$this->emit('\OC\Updater', 'finishedCheckCodeIntegrity');
+ 			}
+ 
++			// Re-enable disabled apps again
++			foreach ($disabledApps as $app) {
++				try {
++					\OC_App::enable($app);
++				} catch (\Exception $e) {
++					$this->log->logException($e, ['app' => $app]);
++				}
++			}
++
+ 			// only set the final version if everything went well
+ 			$this->config->setSystemValue('version', implode('.', \OCP\Util::getVersion()));
+ 		}
