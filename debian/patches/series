@@ -1,2 +1,3 @@
 asset_pipeline_before_installation.patch
 disable_integrity_check.patch
+disable_apps_updater.patch
