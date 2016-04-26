@@ -1,11 +1,20 @@
 owncloud (9.0.1-1~strukturag+1) trusty; urgency=low
 
+  [ Joachim Bauch ]
   * Updated gbp configuration for new branches.
   * Imported Upstream version 9.0.1
   * Updated files/folders to install.
   * Updated patches for new upstream version.
 
- -- Joachim Bauch <bauch@struktur.de>  Tue, 12 Apr 2016 16:32:06 +0200
+  [ Leon Klingele ]
+  * Add patch to disable ownCloud integrity check
+  * Add patch to disable apps updater
+  * Add patch to re-enable disabled apps after an upgrade
+
+  [ Joachim Bauch ]
+  * Packaging happens in default branches.
+
+ -- Joachim Bauch <bauch@struktur.de>  Tue, 26 Apr 2016 16:20:05 +0200
 
 owncloud (8.2.2-1~strukturag+3) trusty; urgency=low
 
