@@ -1,3 +1,9 @@
+owncloud (9.0.1-1~strukturag+2) trusty; urgency=low
+
+  * "Break" on old and unsupported polls app (FS#3598).
+
+ -- Joachim Bauch <bauch@struktur.de>  Fri, 06 May 2016 16:37:06 +0200
+
 owncloud (9.0.1-1~strukturag+1) trusty; urgency=low
 
   [ Joachim Bauch ]
