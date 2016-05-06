@@ -1,8 +1,12 @@
 owncloud (9.0.1-1~strukturag+2) trusty; urgency=low
 
+  [ Leon Klingele ]
+  * Fix patch for disabling the apps updater to hide the spinner after the app list was loaded (fixes FS#3593)
+
+  [ Joachim Bauch ]
   * "Break" on old and unsupported polls app (FS#3598).
 
- -- Joachim Bauch <bauch@struktur.de>  Fri, 06 May 2016 16:37:06 +0200
+ -- Joachim Bauch <bauch@struktur.de>  Fri, 06 May 2016 16:38:46 +0200
 
 owncloud (9.0.1-1~strukturag+1) trusty; urgency=low
 
