@@ -54,7 +54,8 @@ Suggests: php5-apcu (>= 4.0.6) | php-apc
 ## Merged back all the apps into owncloud-server, due to https://github.com/owncloud/core/issues/18043
 ## According to https://www.debian.org/doc/debian-policy/ch-relationships.html replacing is done with three lists: Provides, Conflicts, Replaces.
 Breaks:
- owncloud (<< 7.9.9)
+ owncloud (<< 7.9.9),
+ owncloud-app-polls (<< 0.7.0)
 Replaces:
  owncloud (<< 7.9.9),
  owncloud-3rdparty              (<< ${binary:Version}),
