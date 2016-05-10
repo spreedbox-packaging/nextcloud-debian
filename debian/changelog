@@ -1,3 +1,9 @@
+owncloud (9.0.2-1~strukturag+1) trusty; urgency=low
+
+  * Imported Upstream version 9.0.2
+
+ -- Joachim Bauch <bauch@struktur.de>  Tue, 10 May 2016 14:56:42 +0200
+
 owncloud (9.0.1-1~strukturag+2) trusty; urgency=low
 
   [ Leon Klingele ]
