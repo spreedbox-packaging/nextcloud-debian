@@ -1,3 +1,10 @@
+owncloud (9.0.2-1~strukturag+3) trusty; urgency=low
+
+  [ Leon Klingele ]
+  * CSP patch: Allow same-origin frames and WebSocket connections
+
+ -- Joachim Bauch <bauch@struktur.de>  Tue, 21 Jun 2016 15:03:52 +0200
+
 owncloud (9.0.2-1~strukturag+2) trusty; urgency=low
 
   [ Leon Klingele ]
