@@ -1,0 +1,15 @@
+--- a/lib/public/appframework/http/contentsecuritypolicy.php
++++ b/lib/public/appframework/http/contentsecuritypolicy.php
+@@ -85,4 +85,12 @@ class ContentSecurityPolicy extends EmptyContentSecurityPolicy {
+ 	];
+ 	/** @var array Domains from which web-workers and nested browsing content can load elements */
+ 	protected $allowedChildSrcDomains = [];
++
++	public function __construct() {
++		$request = \OC::$server->getRequest();
++		// The host has already been checked against the trusted_domains in
++		// lib/base.php (function init).
++		$this->addAllowedConnectDomain('wss://' . $request->getInsecureServerHost());
++		$this->addAllowedFrameDomain('\'self\'');
++	}
+ }
