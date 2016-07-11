@@ -35,6 +35,7 @@ Package: owncloud-server
 Architecture: all
 Depends:
  ${misc:Depends},
+ ca-certificates,
  cron,
  php-xml-parser,
  php5-common,
