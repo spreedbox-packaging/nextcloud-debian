@@ -1,3 +1,9 @@
+owncloud (9.0.2-1~strukturag+4) trusty; urgency=medium
+
+  * Use ca-certificates CA bundle
+
+ -- Simon Eisenmann <simon@struktur.de>  Mon, 11 Jul 2016 10:57:42 +0200
+
 owncloud (9.0.2-1~strukturag+3) trusty; urgency=low
 
   [ Leon Klingele ]
