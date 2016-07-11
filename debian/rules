@@ -21,6 +21,9 @@ override_dh_install:
 	ln -s /etc/owncloud $(WEBROOT)/config
 	cp -r config/* $(CONFIGROOT)/
 	cp debian/autoconfig.php $(CONFIGROOT)/autoconfig.php
+	# Replace ownCloud shipped CAs with system provided CAs provided by ca-certifiactes package.
+	rm -f $(WEBROOT)/resources/config/ca-bundle.crt
+	ln -s /etc/ssl/certs/ca-certificates.crt $(WEBROOT)/resources/config/ca-bundle.crt
 
 override_dh_fixperms:
 	dh_fixperms -X var/lib/owncloud/data -X etc/owncloud
