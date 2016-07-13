@@ -64,7 +64,7 @@ Depends:
  nextcloud-server (= ${binary:Version})
 # Let's hope that newer ownCloud packages provide alternatives mechanim for /usr/bin/occ
 Breaks:
- owncloud-server (<= 9.0.2)
+ owncloud-server (<< 9.0.2-2)
 Description: The Nextcloud commandline client
  .
  Provides system wide occ commandline client for Nextcloud.
