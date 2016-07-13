@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Configuring the ClamAV Antivirus Scanner &mdash; ownCloud 9.0 Server Administration Manual 9.0 documentation</title>
+    <title>Configuring the ClamAV Antivirus Scanner &mdash; Nextcloud 9 Server Administration Manual 9 documentation</title>
     
     <link rel="stylesheet" href="../_static/" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '9.0',
+        VERSION:     '9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,8 +28,8 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="ownCloud 9.0 Server Administration Manual 9.0 documentation" href="../contents.html" />
-    <link rel="up" title="ownCloud Server Configuration" href="index.html" />
+    <link rel="top" title="Nextcloud 9 Server Administration Manual 9 documentation" href="../contents.html" />
+    <link rel="up" title="Nextcloud Server Configuration" href="index.html" />
     <link rel="next" title="Configuring Memory Caching" href="caching_configuration.html" />
     <link rel="prev" title="Configuring the Activity App" href="activity_configuration.html" />
 <meta charset='utf-8'>
@@ -66,18 +66,17 @@
 <li><a href="../contents.html">Table of Contents</a></li>
 									</ul>
                   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 9.0 Server Administration Manual Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">ownCloud 9.0 Release Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in ownCloud 9.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Nextcloud 9 Server Administration Manual Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in Nextcloud 9</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">ownCloud Server Configuration</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Nextcloud Server Configuration</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="security_setup_warnings.html">Warnings on Admin Page</a></li>
 <li class="toctree-l2"><a class="reference internal" href="occ_command.html">Using the occ Command</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activity_configuration.html">Configuring the Activity App</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Configuring the ClamAV Antivirus Scanner</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#installing-clamav">Installing ClamAV</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#enabling-the-antivirus-app-for-files">Enabling the Antivirus App for Files</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#configuring-clamav-on-owncloud">Configuring ClamAV on ownCloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-clamav-on-nextcloud">Configuring ClamAV on Nextcloud</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="caching_configuration.html">Configuring Memory Caching</a></li>
@@ -94,7 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="thirdparty_php_configuration.html">Using Third Party PHP Components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="js_css_asset_management_configuration.html">JavaScript and CSS Asset Management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="automatic_configuration.html">Automatic Configuration Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="oc_server_tuning.html">ownCloud Server Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oc_server_tuning.html">Nextcloud Server Tuning</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_user/index.html">User Management</a></li>
@@ -104,16 +103,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operations/index.html">Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues and Troubleshooting</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_installation/index.html">Enterprise Subscription Installation (ES Only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_clients/index.html">Creating Branded ownCloud Clients (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_server_branding/index.html">Enterprise Server Branding (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_external_storage/index.html">External Storage (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_user_management/index.html">User Management (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_file_management/index.html">Enterprise File Management (ES Only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_logging/index.html">Enterprise Logging Apps (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_firewall/index.html">Enterprise Firewall (ES only)</a></li>
 </ul>
 
 								</ul>
@@ -138,18 +127,18 @@
 						
   <div class="section" id="configuring-the-clamav-antivirus-scanner">
 <h1>Configuring the ClamAV Antivirus Scanner<a class="headerlink" href="#configuring-the-clamav-antivirus-scanner" title="Permalink to this headline">¶</a></h1>
-<p>You can configure your ownCloud server to automatically run a virus scan on
+<p>You can configure your Nextcloud server to automatically run a virus scan on
 newly-uploaded files with the Antivirus App for Files. The Antivirus App for
-Files integrates the open source anti-virus engine <a class="reference external" href="http://www.clamav.net/index.html">ClamAV</a>  with ownCloud. ClamAV detects all forms
+Files integrates the open source anti-virus engine <a class="reference external" href="http://www.clamav.net/index.html">ClamAV</a>  with Nextcloud. ClamAV detects all forms
 of malware including Trojan horses, viruses, and worms, and it operates on all
 major file types including Windows, Linux, and Mac files, compressed files,
 executables, image files, Flash, PDF, and many others. ClamAV&#8217;s Freshclam
 daemon automatically updates its malware signature database at scheduled
 intervals.</p>
 <p>ClamAV runs on Linux and any Unix-type operating system, and Microsoft Windows.
-However, it has only been tested with ownCloud on Linux, so these instructions
+However, it has only been tested with Nextcloud on Linux, so these instructions
 are for Linux systems. You must first install ClamAV, and then install and
-configure the Antivirus App for Files on ownCloud.</p>
+configure the Antivirus App for Files on Nextcloud.</p>
 <div class="section" id="installing-clamav">
 <h2>Installing ClamAV<a class="headerlink" href="#installing-clamav" title="Permalink to this headline">¶</a></h2>
 <p>As always, the various Linux distributions manage installing and configuring
@@ -211,14 +200,14 @@ and <code class="docutils literal"><span class="pre">freshclam.conf</span></code
 </div>
 <div class="section" id="enabling-the-antivirus-app-for-files">
 <h2>Enabling the Antivirus App for Files<a class="headerlink" href="#enabling-the-antivirus-app-for-files" title="Permalink to this headline">¶</a></h2>
-<p>Simply go to your ownCloud Apps page to enable it.</p>
+<p>Simply go to your Nextcloud Apps page to enable it.</p>
 <div class="figure">
 <img alt="../_images/antivirus-app.png" src="../_images/antivirus-app.png" />
 </div>
 </div>
-<div class="section" id="configuring-clamav-on-owncloud">
-<h2>Configuring ClamAV on ownCloud<a class="headerlink" href="#configuring-clamav-on-owncloud" title="Permalink to this headline">¶</a></h2>
-<p>Next, go to your ownCloud Admin page and set your ownCloud logging level to
+<div class="section" id="configuring-clamav-on-nextcloud">
+<h2>Configuring ClamAV on Nextcloud<a class="headerlink" href="#configuring-clamav-on-nextcloud" title="Permalink to this headline">¶</a></h2>
+<p>Next, go to your Nextcloud Admin page and set your Nextcloud logging level to
 Everything.</p>
 <div class="figure">
 <img alt="../_images/antivirus-logging.png" src="../_images/antivirus-logging.png" />
@@ -229,20 +218,20 @@ Everything.</p>
 </div>
 <p>ClamAV runs in one of three modes:</p>
 <ul class="simple">
-<li>Daemon (Socket): ClamAV is running on the same server as ownCloud. The ClamAV
+<li>Daemon (Socket): ClamAV is running on the same server as Nextcloud. The ClamAV
 daemon, <code class="docutils literal"><span class="pre">clamd</span></code>, runs in the background. When there is no activity <code class="docutils literal"><span class="pre">clamd</span></code>
 places a minimal load on your system. If your users upload large volumes of
 files you will see high CPU usage.</li>
 <li>Daemon: ClamAV is running on a different server. This is a good option
-for ownCloud servers with high volumes of file uploads.</li>
-<li>Executable: ClamAV is running on the same server as ownCloud, and the
+for Nextcloud servers with high volumes of file uploads.</li>
+<li>Executable: ClamAV is running on the same server as Nextcloud, and the
 <code class="docutils literal"><span class="pre">clamscan</span></code> command is started and then stopped with each file upload.
 <code class="docutils literal"><span class="pre">clamscan</span></code> is slow and not always reliable for on-demand usage; it is
 better to use one of the daemon modes.</li>
 </ul>
 <dl class="docutils">
 <dt>Daemon (Socket)</dt>
-<dd><p class="first">ownCloud should detect your <code class="docutils literal"><span class="pre">clamd</span></code> socket and fill in the <code class="docutils literal"><span class="pre">Socket</span></code>
+<dd><p class="first">Nextcloud should detect your <code class="docutils literal"><span class="pre">clamd</span></code> socket and fill in the <code class="docutils literal"><span class="pre">Socket</span></code>
 field. This is the <code class="docutils literal"><span class="pre">LocalSocket</span></code> option in <code class="docutils literal"><span class="pre">clamd.conf</span></code>. You can
 run <code class="docutils literal"><span class="pre">netstat</span></code> to verify:</p>
 <div class="highlight-python"><div class="highlight"><pre>netstat -a|grep clam
@@ -269,7 +258,7 @@ server running ClamAV, and the server&#8217;s port number.</p>
 </dd>
 <dt>Executable</dt>
 <dd><p class="first">The Executable option requires the path to <code class="docutils literal"><span class="pre">clamscan</span></code>, which is the
-interactive ClamAV scanning command. ownCloud should find it automatically.</p>
+interactive ClamAV scanning command. Nextcloud should find it automatically.</p>
 <div class="last figure">
 <img alt="../_images/antivirus-executable.png" src="../_images/antivirus-executable.png" />
 </div>

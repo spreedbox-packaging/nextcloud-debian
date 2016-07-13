@@ -27,6 +27,7 @@
 
 namespace OCA\DAV\Connector\Sabre;
 
+use OCP\Files\ForbiddenException;
 use Sabre\DAV\Exception\NotFound;
 use Sabre\DAV\IFile;
 use \Sabre\DAV\PropFind;
@@ -76,15 +77,25 @@ class FilesPlugin extends \Sabre\DAV\ServerPlugin {
 	private $fileView;
 
 	/**
+	* @var IRequest
+	*/
+	private $request;
+
+	/**
 	 * @param \Sabre\DAV\Tree $tree
 	 * @param \OC\Files\View $view
+	 * @param \OCP\IRequest $request
 	 * @param bool $isPublic
 	 */
-	public function __construct(\Sabre\DAV\Tree $tree,
-	                            \OC\Files\View $view,
-	                            $isPublic = false) {
+	public function __construct(
+			\Sabre\DAV\Tree $tree,
+			\OC\Files\View $view,
+			\OCP\IRequest $request,
+			$isPublic = false
+	) {
 		$this->tree = $tree;
 		$this->fileView = $view;
+		$this->request = $request;
 		$this->isPublic = $isPublic;
 	}
 
@@ -192,7 +203,18 @@ class FilesPlugin extends \Sabre\DAV\ServerPlugin {
 		if (!($node instanceof IFile)) return;
 
 		// adds a 'Content-Disposition: attachment' header
-		$response->addHeader('Content-Disposition', 'attachment');
+		$filename = $node->getName();
+		if ($this->request->isUserAgent(
+			[
+				\OC\AppFramework\Http\Request::USER_AGENT_IE,
+				\OC\AppFramework\Http\Request::USER_AGENT_ANDROID_MOBILE_CHROME,
+				\OC\AppFramework\Http\Request::USER_AGENT_FREEBOX,
+			])) {
+			$response->addHeader('Content-Disposition', 'attachment; filename="' . rawurlencode($filename) . '"');
+		} else {
+			$response->addHeader('Content-Disposition', 'attachment; filename*=UTF-8\'\'' . rawurlencode($filename)
+												 . '; filename="' . rawurlencode($filename) . '"');
+		}
 
 		if ($node instanceof \OCA\DAV\Connector\Sabre\File) {
 			//Add OC-Checksum header
@@ -256,6 +278,8 @@ class FilesPlugin extends \Sabre\DAV\ServerPlugin {
 						return $directDownloadUrl['url'];
 					}
 				} catch (StorageNotAvailableException $e) {
+					return false;
+				} catch (ForbiddenException $e) {
 					return false;
 				}
 				return false;

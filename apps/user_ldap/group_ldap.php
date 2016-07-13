@@ -36,6 +36,7 @@ namespace OCA\user_ldap;
 
 use OCA\user_ldap\lib\Access;
 use OCA\user_ldap\lib\BackendUtility;
+use OC\Cache\CappedMemoryCache;
 
 class GROUP_LDAP extends BackendUtility implements \OCP\GroupInterface {
 	protected $enabled = false;
@@ -43,12 +44,12 @@ class GROUP_LDAP extends BackendUtility implements \OCP\GroupInterface {
 	/**
 	 * @var string[] $cachedGroupMembers array of users with gid as key
 	 */
-	protected $cachedGroupMembers = array();
+	protected $cachedGroupMembers;
 
 	/**
 	 * @var string[] $cachedGroupsByMember array of groups with uid as key
 	 */
-	protected $cachedGroupsByMember = array();
+	protected $cachedGroupsByMember;
 
 	public function __construct(Access $access) {
 		parent::__construct($access);
@@ -57,6 +58,9 @@ class GROUP_LDAP extends BackendUtility implements \OCP\GroupInterface {
 		if(!empty($filter) && !empty($gassoc)) {
 			$this->enabled = true;
 		}
+
+		$this->cachedGroupMembers = new CappedMemoryCache();
+		$this->cachedGroupsByMember = new CappedMemoryCache();
 	}
 
 	/**
@@ -469,16 +473,17 @@ class GROUP_LDAP extends BackendUtility implements \OCP\GroupInterface {
 					// apply filter via ldap search to see if this user is in this
 					// dynamic group
 					$userMatch = $this->access->readAttribute(
-						$uid,
+						$userDN,
 						$this->access->connection->ldapUserDisplayName,
 						$memberUrlFilter
 					);
 					if ($userMatch !== false) {
 						// match found so this user is in this group
-						$pos = strpos($dynamicGroup['dn'][0], ',');
-						if ($pos !== false) {
-							$membershipGroup = substr($dynamicGroup['dn'][0],3,$pos-3);
-							$groups[] = $membershipGroup;
+						$groupName = $this->access->dn2groupname($dynamicGroup['dn'][0]);
+						if(is_string($groupName)) {
+							// be sure to never return false if the dn could not be
+							// resolved to a name, for whatever reason.
+							$groups[] = $groupName;
 						}
 					}
 				} else {
@@ -530,11 +535,12 @@ class GROUP_LDAP extends BackendUtility implements \OCP\GroupInterface {
 		}
 
 		if(isset($this->cachedGroupsByMember[$uid])) {
-			$groups = $this->cachedGroupsByMember[$uid];
+			$groups = array_merge($groups, $this->cachedGroupsByMember[$uid]);
 		} else {
-			$groups = array_values($this->getGroupsByMember($uid));
-			$groups = $this->access->ownCloudGroupNames($groups);
-			$this->cachedGroupsByMember[$uid] = $groups;
+			$groupsByMember = array_values($this->getGroupsByMember($uid));
+			$groupsByMember = $this->access->ownCloudGroupNames($groupsByMember);
+			$this->cachedGroupsByMember[$uid] = $groupsByMember;
+			$groups = array_merge($groups, $groupsByMember);
 		}
 
 		if($primaryGroup !== false) {

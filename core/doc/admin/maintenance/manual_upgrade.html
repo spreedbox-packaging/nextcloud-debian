@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Manual ownCloud Upgrade &mdash; ownCloud 9.0 Server Administration Manual 9.0 documentation</title>
+    <title>Manual Nextcloud Upgrade &mdash; Nextcloud 9 Server Administration Manual 9 documentation</title>
     
     <link rel="stylesheet" href="../_static/" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '9.0',
+        VERSION:     '9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,10 +28,10 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="ownCloud 9.0 Server Administration Manual 9.0 documentation" href="../contents.html" />
+    <link rel="top" title="Nextcloud 9 Server Administration Manual 9 documentation" href="../contents.html" />
     <link rel="up" title="Maintenance" href="index.html" />
-    <link rel="next" title="Restoring ownCloud" href="restore.html" />
-    <link rel="prev" title="Upgrading ownCloud with the Updater App" href="update.html" />
+    <link rel="next" title="Restoring Nextcloud" href="restore.html" />
+    <link rel="prev" title="Upgrading Nextcloud with the Updater App" href="update.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -66,42 +66,32 @@
 <li><a href="../contents.html">Table of Contents</a></li>
 									</ul>
                   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 9.0 Server Administration Manual Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">ownCloud 9.0 Release Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in ownCloud 9.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Nextcloud 9 Server Administration Manual Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in Nextcloud 9</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../configuration_server/index.html">ownCloud Server Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration_server/index.html">Nextcloud Server Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_user/index.html">User Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_files/index.html">File Sharing and Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_database/index.html">Database Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_mimetypes/index.html">Mimetypes Management</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Maintenance</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="enable_maintenance.html">Maintenance Mode Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="backup.html">Backing up ownCloud</a></li>
-<li class="toctree-l2"><a class="reference internal" href="upgrade.html">How to Upgrade Your ownCloud Server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="package_upgrade.html">Upgrade ownCloud From Packages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="update.html">Upgrading ownCloud with the Updater App</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Manual ownCloud Upgrade</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="backup.html">Backing up Nextcloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrade.html">How to Upgrade Your Nextcloud Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_upgrade.html">Upgrade Nextcloud From Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Upgrading Nextcloud with the Updater App</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Manual Nextcloud Upgrade</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#previous-nextcloud-releases">Previous Nextcloud Releases</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#reverse-upgrade">Reverse Upgrade</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="restore.html">Restoring ownCloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restore.html">Restoring Nextcloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="migrating.html">Migrating to a Different Server</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../operations/index.html">Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues and Troubleshooting</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_installation/index.html">Enterprise Subscription Installation (ES Only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_clients/index.html">Creating Branded ownCloud Clients (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_server_branding/index.html">Enterprise Server Branding (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_external_storage/index.html">External Storage (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_user_management/index.html">User Management (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_file_management/index.html">Enterprise File Management (ES Only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_logging/index.html">Enterprise Logging Apps (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_firewall/index.html">Enterprise Firewall (ES only)</a></li>
 </ul>
 
 								</ul>
@@ -115,17 +105,17 @@
             
 <ul class="prevnext-title list-unstyled list-inline">
   <li class="prev">
-    <a href="update.html" title="Previous Chapter: Upgrading ownCloud with the Updater App"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Upgrading own...</span>
+    <a href="update.html" title="Previous Chapter: Upgrading Nextcloud with the Updater App"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Upgrading Nex...</span>
     </a>
   </li>
   <li class="next">
-    <a href="restore.html" title="Next Chapter: Restoring ownCloud"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Restoring own... &raquo;</span>
+    <a href="restore.html" title="Next Chapter: Restoring Nextcloud"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Restoring Nex... &raquo;</span>
     </a>
   </li>
 </ul>
 						
-  <div class="section" id="manual-owncloud-upgrade">
-<h1>Manual ownCloud Upgrade<a class="headerlink" href="#manual-owncloud-upgrade" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="manual-nextcloud-upgrade">
+<h1>Manual Nextcloud Upgrade<a class="headerlink" href="#manual-nextcloud-upgrade" title="Permalink to this headline">¶</a></h1>
 <p>Always start by making a fresh backup and disabling all 3rd party apps.</p>
 <p>Put your server in maintenance mode. This prevents new logins, locks the
 sessions of logged-in users, and displays a status screen so users know what is
@@ -138,44 +128,37 @@ your HTTP user. This example is for Ubuntu Linux:</p>
 <p>The other way is by entering your <code class="docutils literal"><span class="pre">config.php</span></code> file and changing
 <code class="docutils literal"><span class="pre">'maintenance'</span> <span class="pre">=&gt;</span> <span class="pre">false,</span></code> to <code class="docutils literal"><span class="pre">'maintenance'</span> <span class="pre">=&gt;</span> <span class="pre">true,</span></code>.</p>
 <ol class="arabic">
-<li><p class="first">Back up your existing ownCloud Server database, data directory, and
-<code class="docutils literal"><span class="pre">config.php</span></code> file. (See <a class="reference internal" href="backup.html"><em>Backing up ownCloud</em></a>.)</p>
+<li><p class="first">Back up your existing Nextcloud or ownCloud Server database, data directory, and
+<code class="docutils literal"><span class="pre">config.php</span></code> file. (See <a class="reference internal" href="backup.html"><em>Backing up Nextcloud</em></a>.)</p>
 </li>
-<li><p class="first">Download and unpack the latest ownCloud Server release (Archive file) from
-<a class="reference external" href="https://owncloud.org/install/">owncloud.org/install/</a> into an empty directory outside
+<li><p class="first">Download and unpack the latest Nextcloud Server release (Archive file) from
+<a class="reference external" href="https://nextcloud.com/install/">nextcloud.com/install/</a> into an empty directory outside
 of your current installation.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">To unpack your new tarball, run:
-tar xjf owncloud-[version].tar.bz2</p>
+tar xjf nextcloud-[version].tar.bz2</p>
 </div>
 </li>
-</ol>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Enterprise users must download their new ownCloud archives from
-their accounts on <a class="reference external" href="https://customer.owncloud.com/owncloud/">https://customer.owncloud.com/owncloud/</a></p>
-</div>
-<ol class="arabic" start="3">
 <li><p class="first">Stop your Web server.</p>
 </li>
-<li><p class="first">Rename your current ownCloud directory, for example <code class="docutils literal"><span class="pre">owncloud-old</span></code>.</p>
+<li><p class="first">Rename your current ownCloud or Nextcloud directory, for example <code class="docutils literal"><span class="pre">owncloud-old</span></code>.</p>
 </li>
-<li><p class="first">Unpacking the new archive creates a new <code class="docutils literal"><span class="pre">owncloud</span></code> directory populated
+<li><p class="first">Unpacking the new archive creates a new <code class="docutils literal"><span class="pre">Nextcloud</span></code> directory populated
 with your new server files. Copy this directory and its contents to the
 original location of your old server, for example <code class="docutils literal"><span class="pre">/var/www/</span></code>, so that
-once again you have <code class="docutils literal"><span class="pre">/var/www/owncloud</span></code>.</p>
+you have <code class="docutils literal"><span class="pre">/var/www/nextcloud</span></code>.</p>
 </li>
-<li><p class="first">Copy the <code class="docutils literal"><span class="pre">config.php</span></code> file from your old ownCloud directory to your new
-ownCloud directory.</p>
+<li><p class="first">Copy the <code class="docutils literal"><span class="pre">config.php</span></code> file from your old Nextcloud directory to your new
+Nextcloud directory.</p>
 </li>
 <li><p class="first">If you keep your <code class="docutils literal"><span class="pre">data/</span></code> directory in your <code class="docutils literal"><span class="pre">owncloud/</span></code> directory, copy
-it from your old version of ownCloud to your new <code class="docutils literal"><span class="pre">owncloud/</span></code>. If you keep
+it from your old version of Nextcloud to your new <code class="docutils literal"><span class="pre">nextcloud/</span></code>. If you keep
 it outside of <code class="docutils literal"><span class="pre">owncloud/</span></code> then you don&#8217;t have to do anything with it,
 because its location is configured in your original <code class="docutils literal"><span class="pre">config.php</span></code>, and
 none of the upgrade steps touch it.</p>
 </li>
-<li><p class="first">If you are using 3rd party applications, look in your new <code class="docutils literal"><span class="pre">owncloud/apps/</span></code>
+<li><p class="first">If you are using 3rd party applications, look in your new <code class="docutils literal"><span class="pre">nextcloud/apps/</span></code>
 directory to see if they are there. If not, copy them from your old <code class="docutils literal"><span class="pre">apps/</span></code>
 directory to your new one. Make sure the directory permissions of your third
 party application directories are the same as for the other ones.</p>
@@ -201,14 +184,19 @@ message, or an error message that will tell where it went wrong.</p>
 verify the version number. Check your other settings to make sure they&#8217;re
 correct. Go to the Apps page and review the core apps to make sure the right
 ones are enabled. Re-enable your third-party apps. Then apply strong
-permissions to your ownCloud directories (<a class="reference internal" href="../installation/installation_wizard.html#strong-perms-label"><span>Setting Strong Directory Permissions</span></a>).</p>
+permissions to your Nextcloud directories (<a class="reference internal" href="../installation/installation_wizard.html#strong-perms-label"><span>Setting Strong Directory Permissions</span></a>).</p>
+<div class="section" id="previous-nextcloud-releases">
+<h2>Previous Nextcloud Releases<a class="headerlink" href="#previous-nextcloud-releases" title="Permalink to this headline">¶</a></h2>
+<p>You&#8217;ll find previous ownCloud releases in the <a class="reference external" href="https://owncloud.org/changelog/">ownCloud Server Changelog</a> and previous Nextcloud releases in the
+<a class="reference external" href="https://nextcloud.com/changelog/">Nextcloud Server Changelog</a>.</p>
+</div>
 <div class="section" id="reverse-upgrade">
 <h2>Reverse Upgrade<a class="headerlink" href="#reverse-upgrade" title="Permalink to this headline">¶</a></h2>
-<p>If you need to reverse your upgrade, see <a class="reference internal" href="restore.html"><em>Restoring ownCloud</em></a>.</p>
+<p>If you need to reverse your upgrade, see <a class="reference internal" href="restore.html"><em>Restoring Nextcloud</em></a>.</p>
 </div>
 <div class="section" id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
-<p>When upgrading ownCloud and you are running MySQL or MariaDB with binary
+<p>When upgrading Nextcloud and you are running MySQL or MariaDB with binary
 logging
 enabled, your upgrade may fail with these errors in your MySQL/MariaDB log:</p>
 <div class="highlight-python"><div class="highlight"><pre>An unhandled exception has been thrown:
@@ -226,9 +214,9 @@ help:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php console.php files:scan --all
 </pre></div>
 </div>
-<p>See <a class="reference external" href="https://owncloud.org/support">the owncloud.org support page</a> for further
+<p>See <a class="reference external" href="https://nextcloud.com/support">the nextcloud.com support page</a> for further
 resources for both home and enterprise users.</p>
-<p>Sometimes, ownCloud can get <em>stuck in a upgrade</em>. This is usually due to the
+<p>Sometimes, Nextcloud can get <em>stuck in a upgrade</em>. This is usually due to the
 process taking too long and encountering a PHP time-out. Stop the upgrade
 process this way:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ maintenance:mode --off
@@ -249,11 +237,11 @@ process this way:</p>
             
 <ul class="prevnext-title list-unstyled list-inline">
   <li class="prev">
-    <a href="update.html" title="Previous Chapter: Upgrading ownCloud with the Updater App"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Upgrading own...</span>
+    <a href="update.html" title="Previous Chapter: Upgrading Nextcloud with the Updater App"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Upgrading Nex...</span>
     </a>
   </li>
   <li class="next">
-    <a href="restore.html" title="Next Chapter: Restoring ownCloud"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Restoring own... &raquo;</span>
+    <a href="restore.html" title="Next Chapter: Restoring Nextcloud"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Restoring Nex... &raquo;</span>
     </a>
   </li>
 </ul>

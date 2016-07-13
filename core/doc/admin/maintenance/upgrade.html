@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>How to Upgrade Your ownCloud Server &mdash; ownCloud 9.0 Server Administration Manual 9.0 documentation</title>
+    <title>How to Upgrade Your Nextcloud Server &mdash; Nextcloud 9 Server Administration Manual 9 documentation</title>
     
     <link rel="stylesheet" href="../_static/" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '9.0',
+        VERSION:     '9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,10 +28,10 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="ownCloud 9.0 Server Administration Manual 9.0 documentation" href="../contents.html" />
+    <link rel="top" title="Nextcloud 9 Server Administration Manual 9 documentation" href="../contents.html" />
     <link rel="up" title="Maintenance" href="index.html" />
-    <link rel="next" title="Upgrade ownCloud From Packages" href="package_upgrade.html" />
-    <link rel="prev" title="Backing up ownCloud" href="backup.html" />
+    <link rel="next" title="Upgrade Nextcloud From Packages" href="package_upgrade.html" />
+    <link rel="prev" title="Backing up Nextcloud" href="backup.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -66,42 +66,30 @@
 <li><a href="../contents.html">Table of Contents</a></li>
 									</ul>
                   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 9.0 Server Administration Manual Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">ownCloud 9.0 Release Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in ownCloud 9.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Nextcloud 9 Server Administration Manual Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in Nextcloud 9</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../configuration_server/index.html">ownCloud Server Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration_server/index.html">Nextcloud Server Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_user/index.html">User Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_files/index.html">File Sharing and Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_database/index.html">Database Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_mimetypes/index.html">Mimetypes Management</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Maintenance</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="enable_maintenance.html">Maintenance Mode Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="backup.html">Backing up ownCloud</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">How to Upgrade Your ownCloud Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="backup.html">Backing up Nextcloud</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">How to Upgrade Your Nextcloud Server</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#encryption-migration-from-oc-7-0-to-8-0-and-8-0-to-8-1">Encryption migration from oC 7.0 to 8.0 and 8.0 to 8.1</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="package_upgrade.html">Upgrade ownCloud From Packages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="update.html">Upgrading ownCloud with the Updater App</a></li>
-<li class="toctree-l2"><a class="reference internal" href="manual_upgrade.html">Manual ownCloud Upgrade</a></li>
-<li class="toctree-l2"><a class="reference internal" href="restore.html">Restoring ownCloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_upgrade.html">Upgrade Nextcloud From Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="update.html">Upgrading Nextcloud with the Updater App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manual_upgrade.html">Manual Nextcloud Upgrade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restore.html">Restoring Nextcloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="migrating.html">Migrating to a Different Server</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../operations/index.html">Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues and Troubleshooting</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_installation/index.html">Enterprise Subscription Installation (ES Only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_clients/index.html">Creating Branded ownCloud Clients (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_server_branding/index.html">Enterprise Server Branding (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_external_storage/index.html">External Storage (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_user_management/index.html">User Management (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_file_management/index.html">Enterprise File Management (ES Only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_logging/index.html">Enterprise Logging Apps (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_firewall/index.html">Enterprise Firewall (ES only)</a></li>
 </ul>
 
 								</ul>
@@ -115,67 +103,62 @@
             
 <ul class="prevnext-title list-unstyled list-inline">
   <li class="prev">
-    <a href="backup.html" title="Previous Chapter: Backing up ownCloud"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Backing up ow...</span>
+    <a href="backup.html" title="Previous Chapter: Backing up Nextcloud"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Backing up Ne...</span>
     </a>
   </li>
   <li class="next">
-    <a href="package_upgrade.html" title="Next Chapter: Upgrade ownCloud From Packages"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Upgrade ownCl... &raquo;</span>
+    <a href="package_upgrade.html" title="Next Chapter: Upgrade Nextcloud From Packages"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Upgrade Nextc... &raquo;</span>
     </a>
   </li>
 </ul>
 						
-  <div class="section" id="how-to-upgrade-your-owncloud-server">
-<h1>How to Upgrade Your ownCloud Server<a class="headerlink" href="#how-to-upgrade-your-owncloud-server" title="Permalink to this headline">¶</a></h1>
-<p>There are three ways to upgrade your ownCloud server:</p>
+  <div class="section" id="how-to-upgrade-your-nextcloud-server">
+<h1>How to Upgrade Your Nextcloud Server<a class="headerlink" href="#how-to-upgrade-your-nextcloud-server" title="Permalink to this headline">¶</a></h1>
+<p>There are three ways to upgrade your Nextcloud server:</p>
 <ul class="simple">
 <li>Using your <a class="reference internal" href="package_upgrade.html"><em>Linux package manager</em></a> with our official
-ownCloud repositories. This is the recommended method.</li>
+Nextcloud repositories. This is the recommended method.</li>
 <li>With the <a class="reference internal" href="update.html"><em>Updater App</em></a> (Server Edition only). Recommended for
 shared hosters, and for users who want an easy way to track different
 release channels. (It is not available and not supported on the Enterprise
 edition.)</li>
-<li><a class="reference internal" href="manual_upgrade.html"><em>Manually upgrading</em></a> with the ownCloud <code class="docutils literal"><span class="pre">.tar</span></code> archive
-from <a class="reference external" href="https://owncloud.org/install/">owncloud.org/install/</a>.</li>
-<li>Enterprise Subscription customers will use their Enterprise software
-repositories to maintain their ownCloud servers, rather than the Open Build
-Service. Please see <a class="reference internal" href="../enterprise_installation/linux_installation.html"><em>Installing &amp; Upgrading ownCloud Enterprise Subscription</em></a> for
-more information.</li>
+<li><a class="reference internal" href="manual_upgrade.html"><em>Manually upgrading</em></a> with the Nextcloud <code class="docutils literal"><span class="pre">.tar</span></code> archive
+from <a class="reference external" href="https://nextcloud.com/install">https://nextcloud.com/install</a>.</li>
+<li>Manually upgrading is also an option for users on shared hosting; download
+and unpack the Nextcloud tarball to your PC. Delete your existing Nextcloud
+files, except <code class="docutils literal"><span class="pre">data/</span></code> and <code class="docutils literal"><span class="pre">config/</span></code> files, on your hosting account. Then
+transfer the new Nextcloud files to your hosting account, again
+preserving your existing <code class="docutils literal"><span class="pre">data/</span></code> and <code class="docutils literal"><span class="pre">config/</span></code> files.</li>
 </ul>
-<p>When an update is available for your ownCloud server, you will see a
-notification at the top of your ownCloud Web interface. When you click the
+<p>When an update is available for your Nextcloud server, you will see a
+notification at the top of your Nextcloud Web interface. When you click the
 notification it brings you here, to this page.</p>
-<p><strong>It is best to keep your ownCloud server upgraded regularly</strong>, and to install
+<p><strong>It is best to keep your Nextcloud server upgraded regularly</strong>, and to install
 all point releases and major releases without skipping any of them, as skipping
 releases increases the risk of errors. Major releases are 8.0, 8.1, 8.2, and
 9.0. Point releases are intermediate releases for each major release. For
 example, 8.0.9 and 8.1.3 are point releases. <strong>Skipping major releases is not
 supported.</strong></p>
-<p><strong>Upgrading is disruptive</strong>. Your ownCloud server will be put into maintenance
+<p><strong>Upgrading is disruptive</strong>. Your Nextcloud server will be put into maintenance
 mode, so your users will be locked out until the upgrade is completed. Large
 installations may take several hours to complete the upgrade.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last"><strong>Downgrading is not supported</strong> and risks corrupting your data! If
-you want to revert to an older ownCloud version, make a new, fresh
+<p><strong>Downgrading is not supported</strong> and risks corrupting your data!</p>
+<p class="last">If you want to revert to an older Nextcloud version, make a new, fresh
 installation and then restore your data from backup. Before doing this,
 file a support ticket (if you have paid support) or ask for help in the
-ownCloud forums to see if your issue can be resolved without downgrading.</p>
+Nextcloud forums to see if your issue can be resolved without downgrading.</p>
 </div>
 <div class="section" id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <p>You should always maintain <a class="reference internal" href="backup.html"><em>regular backups</em></a> and make a fresh
 backup before every upgrade.</p>
 <p>Then review third-party apps, if you have any, for compatibility with the new
-ownCloud release. Any apps that are not developed by ownCloud show a 3rd party
+Nextcloud release. Any apps that are not developed by Nextcloud show a 3rd party
 designation. <strong>Install unsupported apps at your own risk</strong>. Then, before the
 upgrade, all 3rd party apps must be disabled. After the upgrade is complete you
 may re-enable them.</p>
-</div>
-<div class="section" id="encryption-migration-from-oc-7-0-to-8-0-and-8-0-to-8-1">
-<h2>Encryption migration from oC 7.0 to 8.0 and 8.0 to 8.1<a class="headerlink" href="#encryption-migration-from-oc-7-0-to-8-0-and-8-0-to-8-1" title="Permalink to this headline">¶</a></h2>
-<p>The encryption backend was changed twice between ownCloud 7.0 and 8.0 as well as
-between 8.0 and 8.1. If you&#8217;re upgrading from these older versions please refer to
-<a class="reference internal" href="../configuration_files/encryption_configuration.html#upgrading-encryption-label"><span>Encryption migration to ownCloud 8.0</span></a> for the needed migration steps.</p>
 </div>
 </div>
 
@@ -183,11 +166,11 @@ between 8.0 and 8.1. If you&#8217;re upgrading from these older versions please 
             
 <ul class="prevnext-title list-unstyled list-inline">
   <li class="prev">
-    <a href="backup.html" title="Previous Chapter: Backing up ownCloud"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Backing up ow...</span>
+    <a href="backup.html" title="Previous Chapter: Backing up Nextcloud"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Backing up Ne...</span>
     </a>
   </li>
   <li class="next">
-    <a href="package_upgrade.html" title="Next Chapter: Upgrade ownCloud From Packages"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Upgrade ownCl... &raquo;</span>
+    <a href="package_upgrade.html" title="Next Chapter: Upgrade Nextcloud From Packages"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Upgrade Nextc... &raquo;</span>
     </a>
   </li>
 </ul>

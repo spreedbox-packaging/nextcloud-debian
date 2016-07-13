@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using the occ Command &mdash; ownCloud 9.0 Server Administration Manual 9.0 documentation</title>
+    <title>Using the occ Command &mdash; Nextcloud 9 Server Administration Manual 9 documentation</title>
     
     <link rel="stylesheet" href="../_static/" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '9.0',
+        VERSION:     '9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,8 +28,8 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="ownCloud 9.0 Server Administration Manual 9.0 documentation" href="../contents.html" />
-    <link rel="up" title="ownCloud Server Configuration" href="index.html" />
+    <link rel="top" title="Nextcloud 9 Server Administration Manual 9 documentation" href="../contents.html" />
+    <link rel="up" title="Nextcloud Server Configuration" href="index.html" />
     <link rel="next" title="Configuring the Activity App" href="activity_configuration.html" />
     <link rel="prev" title="Warnings on Admin Page" href="security_setup_warnings.html" />
 <meta charset='utf-8'>
@@ -66,11 +66,10 @@
 <li><a href="../contents.html">Table of Contents</a></li>
 									</ul>
                   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 9.0 Server Administration Manual Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">ownCloud 9.0 Release Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in ownCloud 9.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Nextcloud 9 Server Administration Manual Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in Nextcloud 9</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">ownCloud Server Configuration</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Nextcloud Server Configuration</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="security_setup_warnings.html">Warnings on Admin Page</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Using the occ Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#occ-command-directory">occ Command Directory</a></li>
@@ -90,7 +89,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#logging-commands">Logging Commands</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maintenance-commands">Maintenance Commands</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#security-import-ssl-certificates">Security (Import SSL Certificates)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#shibboleth-modes-enterprise-only">Shibboleth Modes (Enterprise only)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shibboleth-modes-enterprise-edition-only">Shibboleth Modes (Enterprise Edition only)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#trashbin">Trashbin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#user-commands">User Commands</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#versions">Versions</a></li>
@@ -114,7 +113,7 @@
 <li class="toctree-l2"><a class="reference internal" href="thirdparty_php_configuration.html">Using Third Party PHP Components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="js_css_asset_management_configuration.html">JavaScript and CSS Asset Management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="automatic_configuration.html">Automatic Configuration Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="oc_server_tuning.html">ownCloud Server Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oc_server_tuning.html">Nextcloud Server Tuning</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_user/index.html">User Management</a></li>
@@ -124,16 +123,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operations/index.html">Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues and Troubleshooting</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_installation/index.html">Enterprise Subscription Installation (ES Only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_clients/index.html">Creating Branded ownCloud Clients (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_server_branding/index.html">Enterprise Server Branding (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_external_storage/index.html">External Storage (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_user_management/index.html">User Management (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_file_management/index.html">Enterprise File Management (ES Only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_logging/index.html">Enterprise Logging Apps (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_firewall/index.html">Enterprise Firewall (ES only)</a></li>
 </ul>
 
 								</ul>
@@ -158,16 +147,16 @@
 						
   <div class="section" id="using-the-occ-command">
 <h1>Using the occ Command<a class="headerlink" href="#using-the-occ-command" title="Permalink to this headline">¶</a></h1>
-<p>ownCloud&#8217;s <code class="docutils literal"><span class="pre">occ</span></code> command (ownCloud console) is ownCloud&#8217;s command-line
+<p>Nextcloud&#8217;s <code class="docutils literal"><span class="pre">occ</span></code> command (Nextcloud console) is Nextcloud&#8217;s command-line
 interface. You can perform many common server operations with <code class="docutils literal"><span class="pre">occ</span></code>, such as
-installing and upgrading ownCloud, manage users, encryption, passwords, LDAP
+installing and upgrading Nextcloud, manage users, encryption, passwords, LDAP
 setting, and more.</p>
-<p><code class="docutils literal"><span class="pre">occ</span></code> is in the <code class="file docutils literal"><span class="pre">owncloud/</span></code> directory; for example
-<code class="file docutils literal"><span class="pre">/var/www/owncloud</span></code> on Ubuntu Linux. <code class="docutils literal"><span class="pre">occ</span></code> is a PHP script. <strong>You must
+<p><code class="docutils literal"><span class="pre">occ</span></code> is in the <code class="file docutils literal"><span class="pre">nextcloud/</span></code> directory; for example
+<code class="file docutils literal"><span class="pre">/var/www/nextcloud</span></code> on Ubuntu Linux. <code class="docutils literal"><span class="pre">occ</span></code> is a PHP script. <strong>You must
 run it as your HTTP user</strong> to ensure that the correct permissions are maintained
-on your ownCloud files and directories. In ownCloud 8.2+ you may run it from
+on your Nextcloud files and directories. In Nextcloud 8.2+ you may run it from
 any directory (specifying the filepath); in previous releases it had to be
-run from the <code class="file docutils literal"><span class="pre">owncloud/</span></code> directory.</p>
+run from the <code class="file docutils literal"><span class="pre">nextcloud/</span></code> directory.</p>
 <div class="section" id="occ-command-directory">
 <h2>occ Command Directory<a class="headerlink" href="#occ-command-directory" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -187,7 +176,7 @@ run from the <code class="file docutils literal"><span class="pre">owncloud/</sp
 <li><a class="reference internal" href="#logging-commands-label"><span>Logging Commands</span></a></li>
 <li><a class="reference internal" href="#maintenance-commands-label"><span>Maintenance Commands</span></a></li>
 <li><a class="reference internal" href="#security-commands-label"><span>Security (Import SSL Certificates)</span></a></li>
-<li><a class="reference internal" href="#shibboleth-label"><span>Shibboleth Modes (Enterprise only)</span></a></li>
+<li><a class="reference internal" href="#shibboleth-label"><span>Shibboleth Modes (Enterprise Edition only)</span></a></li>
 <li><a class="reference internal" href="#trashbin-label"><span>Trashbin</span></a></li>
 <li><a class="reference internal" href="#user-commands-label"><span>User Commands</span></a></li>
 <li><a class="reference internal" href="#versions-label"><span>Versions</span></a></li>
@@ -208,13 +197,13 @@ run from the <code class="file docutils literal"><span class="pre">owncloud/</sp
 <p>If your HTTP server is configured to use a different PHP version than the
 default (/usr/bin/php), <code class="docutils literal"><span class="pre">occ</span></code> should be run with the same version. For
 example, in CentOS 6.5 with SCL-PHP54 installed, the command looks like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo -u apache /opt/rh/php54/root/usr/bin/php /var/www/html/owncloud/occ
+<div class="highlight-python"><div class="highlight"><pre>sudo -u apache /opt/rh/php54/root/usr/bin/php /var/www/html/nextcloud/occ
 </pre></div>
 </div>
 <p>Running <code class="docutils literal"><span class="pre">occ</span></code> with no options lists all commands and options, like this
 example on Ubuntu:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ
-ownCloud version 9.0.0
+Nextcloud version 9.0.0
 
 Usage:
  command [options] [arguments]
@@ -246,12 +235,12 @@ Available commands:
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ -h
 </pre></div>
 </div>
-<p>Display your ownCloud version:</p>
+<p>Display your Nextcloud version:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ -V
-  ownCloud version 9.0.0
+  Nextcloud version 9.0.0
 </pre></div>
 </div>
-<p>Query your ownCloud server status:</p>
+<p>Query your Nextcloud server status:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ status
   - installed: true
   - version: 9.0.0.19
@@ -331,7 +320,7 @@ files_external enabled
 files_external disabled
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">app:check-code</span></code> has multiple checks: it checks if an app uses ownCloud&#8217;s
+<p><code class="docutils literal"><span class="pre">app:check-code</span></code> has multiple checks: it checks if an app uses Nextcloud&#8217;s
 public API (<code class="docutils literal"><span class="pre">OCP</span></code>) or private API (<code class="docutils literal"><span class="pre">OC_</span></code>), and it also checks for deprecated
 methods and the validity of the <code class="docutils literal"><span class="pre">info.xml</span></code> file. By default all checks are
 enabled. The Activity app is an example of a correctly-formatted app:</p>
@@ -341,7 +330,7 @@ App is compliant - awesome job!
 </div>
 <p>If your app has issues, you&#8217;ll see output like this:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ app:check-code foo_app
-Analysing /var/www/owncloud/apps/files/foo_app.php
+Analysing /var/www/nextcloud/apps/files/foo_app.php
 4 errors
    line   45: OCP\Response - Static method of deprecated class must not be
    called
@@ -354,7 +343,7 @@ Analysing /var/www/owncloud/apps/files/foo_app.php
 </div>
 <p>You can get the full filepath to an app:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ app:getpath notifications
-/var/www/owncloud/apps/notifications
+/var/www/nextcloud/apps/notifications
 </pre></div>
 </div>
 </div>
@@ -362,7 +351,7 @@ Analysing /var/www/owncloud/apps/files/foo_app.php
 <span id="background-jobs-selector-label"></span><h2>Background Jobs Selector<a class="headerlink" href="#background-jobs-selector" title="Permalink to this headline">¶</a></h2>
 <p>Use the <code class="docutils literal"><span class="pre">background</span></code> command to select which scheduler you want to use for
 controlling background jobs, Ajax, Webcron, or Cron. This is the same as using
-the <strong>Cron</strong> section on your ownCloud Admin page:</p>
+the <strong>Cron</strong> section on your Nextcloud Admin page:</p>
 <div class="highlight-python"><div class="highlight"><pre>background
  background:ajax       Use ajax to run background jobs
  background:cron       Use cron to run background jobs
@@ -383,7 +372,7 @@ the <strong>Cron</strong> section on your ownCloud Admin page:</p>
 </div>
 <div class="section" id="config-commands">
 <span id="config-commands-label"></span><h2>Config Commands<a class="headerlink" href="#config-commands" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal"><span class="pre">config</span></code> commands are used to configure the ownCloud server:</p>
+<p>The <code class="docutils literal"><span class="pre">config</span></code> commands are used to configure the Nextcloud server:</p>
 <div class="highlight-python"><div class="highlight"><pre>config
  config:app:delete      Delete an app config value
  config:app:get         Get an app config value
@@ -420,7 +409,7 @@ imported are left untouched:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">While it is possible to update/set/delete the versions and installation
-statuses of apps and ownCloud itself, it is <strong>not</strong> recommended to do this
+statuses of apps and Nextcloud itself, it is <strong>not</strong> recommended to do this
 directly. Use the <code class="docutils literal"><span class="pre">occ</span> <span class="pre">app:enable</span></code>, <code class="docutils literal"><span class="pre">occ</span> <span class="pre">app:disable</span></code> and <code class="docutils literal"><span class="pre">occ</span> <span class="pre">update</span></code>
 commands instead.</p>
 </div>
@@ -467,7 +456,7 @@ known:</p>
 <p>When you want to e.g. disable the maintenance mode run the following command:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ config:system:set maintenance --value=false
 --type=boolean
-ownCloud is in maintenance mode - no app have been loaded
+Nextcloud is in maintenance mode - no app have been loaded
 System config value maintenance set to boolean false
 </pre></div>
 </div>
@@ -479,7 +468,7 @@ In order to set (and also get) the value of one key, you can specify multiple
 <code class="docutils literal"><span class="pre">config</span></code> names separated by spaces:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ config:system:get trusted_domains
 localhost
-owncloud.local
+nextcloud.local
 sample.tld
 </pre></div>
 </div>
@@ -491,7 +480,7 @@ System config value trusted_domains =&gt; 2 set to string example.com
 
 sudo -u www-data php occ config:system:get trusted_domains
 localhost
-owncloud.local
+nextcloud.local
 example.com
 </pre></div>
 </div>
@@ -556,7 +545,7 @@ command to migrate user&#8217;s contacts:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ dav:migrate-calendars [user]
 </pre></div>
 </div>
-<p>See <a class="reference external" href="http://morrisjobke.de/2016/03/07/ownCloud-9.0-calendar-migration-analysis/">ownCloud 9.0 - calendar migration analysis</a>
+<p>See <a class="reference external" href="http://morrisjobke.de/2016/03/07/Nextcloud-9.0-calendar-migration-analysis/">Nextcloud 9.0 - calendar migration analysis</a>
 for help with troubleshooting and reporting problems.</p>
 <p><code class="docutils literal"><span class="pre">dav:sync-birthday-calendar</span></code> adds all birthdays to your calendar from
 addressbooks shared with you. This example syncs to your calendar from user
@@ -573,12 +562,12 @@ addressbook:</p>
 </div>
 <div class="section" id="database-conversion">
 <span id="database-conversion-label"></span><h2>Database Conversion<a class="headerlink" href="#database-conversion" title="Permalink to this headline">¶</a></h2>
-<p>The SQLite database is good for testing, and for ownCloud servers with small
+<p>The SQLite database is good for testing, and for Nextcloud servers with small
 single-user workloads that do not use sync clients, but production servers with
 multiple users should use MariaDB, MySQL, or PostgreSQL. You can use <code class="docutils literal"><span class="pre">occ</span></code> to
 convert from SQLite to one of these other databases.</p>
 <div class="highlight-python"><div class="highlight"><pre>db
- db:convert-type           Convert the ownCloud database to the newly
+ db:convert-type           Convert the Nextcloud database to the newly
                            configured one
  db:generate-change-script generates the change script from the current
                            connected db to db_structure.xml
@@ -644,7 +633,7 @@ Current key storage root:  default storage location (data/)
 see a list of modules only if you have enabled the Encryption app. Use
 <code class="docutils literal"><span class="pre">encryption:set-default-module</span> <span class="pre">[module</span> <span class="pre">name]</span></code> to set your desired module.</p>
 <p><code class="docutils literal"><span class="pre">encryption:encrypt-all</span></code> encrypts all data files for all users. You must first
-put your ownCloud server into <a class="reference internal" href="#maintenance-commands-label"><span>single-user
+put your Nextcloud server into <a class="reference internal" href="#maintenance-commands-label"><span>single-user
 mode</span></a> to prevent any user activity until encryption
 is completed.</p>
 <p><code class="docutils literal"><span class="pre">encryption:decrypt-all</span></code> decrypts all user data files, or optionally a single
@@ -653,18 +642,18 @@ user:</p>
 </pre></div>
 </div>
 <p>Users must have enabled recovery keys on their Personal pages. You must first
-put your ownCloud server into <a class="reference internal" href="#maintenance-commands-label"><span>single-user
+put your Nextcloud server into <a class="reference internal" href="#maintenance-commands-label"><span>single-user
 mode</span></a> to prevent any user activity until
 decryption is completed.</p>
 <p>Use <code class="docutils literal"><span class="pre">encryption:disable</span></code> to disable your encryption module. You must first put
-your ownCloud server into <a class="reference internal" href="#maintenance-commands-label"><span>single-user mode</span></a>
+your Nextcloud server into <a class="reference internal" href="#maintenance-commands-label"><span>single-user mode</span></a>
 to prevent any user activity.</p>
 <p><code class="docutils literal"><span class="pre">encryption:enable-master-key</span></code> creates a new master key, which is used for all
 user data instead of individual user keys. This is especially useful to enable
 single-sign on. Use this only on fresh installations with no existing data, or
 on systems where encryption has not already been enabled. It is not possible to
 disable it.</p>
-<p><code class="docutils literal"><span class="pre">encryption:migrate</span></code> migrates encryption keys after a major ownCloud version
+<p><code class="docutils literal"><span class="pre">encryption:migrate</span></code> migrates encryption keys after a major Nextcloud version
 upgrade. You may optionally specify individual users in a space-delimited list.</p>
 <p>See <a class="reference internal" href="../configuration_files/encryption_configuration.html"><em>Encryption Configuration</em></a> to learn more.</p>
 </div>
@@ -675,12 +664,12 @@ upgrade. You may optionally specify individual users in a space-delimited list.<
 <p class="last">This command is only available when the &#8220;Federation&#8221; app (<code class="docutils literal"><span class="pre">federation</span></code>) is
 enabled.</p>
 </div>
-<p>Synchronize the addressbooks of all federated ownCloud servers:</p>
+<p>Synchronize the addressbooks of all federated Nextcloud servers:</p>
 <div class="highlight-python"><div class="highlight"><pre>federation:sync-addressbooks  Synchronizes addressbooks of all
                               federated clouds
 </pre></div>
 </div>
-<p>In ownCloud 9.+, servers connected with federation shares can share user
+<p>In Nextcloud 9.+, servers connected with federation shares can share user
 address books, and auto-complete usernames in share dialogs. Use this command
 to synchronize federated servers:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ federation:sync-addressbooks
@@ -690,7 +679,7 @@ to synchronize federated servers:</p>
 </div>
 <div class="section" id="file-operations">
 <span id="file-operations-label"></span><h2>File Operations<a class="headerlink" href="#file-operations" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">occ</span></code> has three commands for managing files in ownCloud:</p>
+<p><code class="docutils literal"><span class="pre">occ</span></code> has three commands for managing files in Nextcloud:</p>
 <div class="highlight-python"><div class="highlight"><pre>files
  files:cleanup              cleanup filecache
  files:scan                 rescan filesystem
@@ -749,7 +738,7 @@ before removing a user:</p>
 <div class="section" id="files-external">
 <span id="files-external-label"></span><h2>Files External<a class="headerlink" href="#files-external" title="Permalink to this headline">¶</a></h2>
 <p>These commands replace the <code class="docutils literal"><span class="pre">data/mount.json</span></code> configuration file used in
-ownCloud releases before 9.0.</p>
+Nextcloud releases before 9.0.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">These commands are only available when the &#8220;External storage support&#8221; app
@@ -769,18 +758,18 @@ ownCloud releases before 9.0.</p>
  files_external:verify      Verify mount configuration
 </pre></div>
 </div>
-<p>These commands replicate the functionality in the ownCloud Web GUI, plus two new
+<p>These commands replicate the functionality in the Nextcloud Web GUI, plus two new
 features:  <code class="docutils literal"><span class="pre">files_external:export</span></code> and <code class="docutils literal"><span class="pre">files_external:import</span></code>.</p>
 <p>Use <code class="docutils literal"><span class="pre">files_external:export</span></code> to export all admin mounts to stdout, and
 <code class="docutils literal"><span class="pre">files_external:export</span> <span class="pre">[user_id]</span></code> to export the mounts of the specified
-ownCloud user.</p>
+Nextcloud user.</p>
 <p>Use <code class="docutils literal"><span class="pre">files_external:import</span> <span class="pre">[filename]</span></code> to import legacy JSON configurations,
-and to copy external mount configurations to another ownCloud server.</p>
+and to copy external mount configurations to another Nextcloud server.</p>
 <p>Added in 9.0.</p>
 </div>
 <div class="section" id="integrity-check">
 <span id="integrity-check-label"></span><h2>Integrity Check<a class="headerlink" href="#integrity-check" title="Permalink to this headline">¶</a></h2>
-<p>Apps which have an official tag MUST be code signed starting with ownCloud 9.0. Unsigned official apps won&#8217;t be installable anymore. Code signing is optional for all third-party applications:</p>
+<p>Apps which have an official tag MUST be code signed starting with Nextcloud 9.0. Unsigned official apps won&#8217;t be installable anymore. Code signing is optional for all third-party applications:</p>
 <div class="highlight-python"><div class="highlight"><pre>integrity
  integrity:check-app                 Check app integrity using a signature.
  integrity:check-core                Check core integrity using a signature.
@@ -796,14 +785,15 @@ and to copy external mount configurations to another ownCloud server.</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ integrity:check-app --path=/pathto/app appname
 </pre></div>
 </div>
-<p>When it returns nothing, your app is signed correctly. When it returns a message then there is an error. See <a class="reference external" href="https://doc.owncloud.org/server/9.0/developer_manual/app/code_signing.html#how-to-get-your-app-signed">Code Signing</a> in the Developer manual for more detailed information.</p>
-<p><code class="docutils literal"><span class="pre">integrity:check-core</span></code> and <code class="docutils literal"><span class="pre">integrity:sign-core</span></code> are for ownCloud core developers only.</p>
+<p>When it returns nothing, your app is signed correctly. When it returns a message then there is an error. See <a class="reference external" href="https://docs.nextcloud.org/server/9/developer_manual/app/code_signing.html#how-to-get-your-app-signed">Code Signing</a> in the Developer manual for more detailed information.</p>
+<p><code class="docutils literal"><span class="pre">integrity:sign-core</span></code> is for Nextcloud core developers only.</p>
+<p>See <a class="reference internal" href="../issues/code_signing.html"><em>Code Signing</em></a> to learn more.</p>
 <p>Added in 9.0.</p>
 </div>
 <div class="section" id="l10n-create-javascript-translation-files-for-apps">
 <span id="create-javascript-translation-files-label"></span><h2>l10n, Create Javascript Translation Files for Apps<a class="headerlink" href="#l10n-create-javascript-translation-files-for-apps" title="Permalink to this headline">¶</a></h2>
 <p>This command is for app developers to update their translation mechanism from
-ownCloud 7 to ownCloud 8 and later.</p>
+Nextcloud 7 to Nextcloud 8 and later.</p>
 </div>
 <div class="section" id="ldap-commands">
 <span id="ldap-commands-label"></span><h2>LDAP Commands<a class="headerlink" href="#ldap-commands" title="Permalink to this headline">¶</a></h2>
@@ -823,7 +813,7 @@ you can run the following LDAP commands with <code class="docutils literal"><spa
  ldap:show-config              shows the LDAP configuration
  ldap:show-remnants            shows which users are not available on
                                LDAP anymore, but have remnants in
-                               ownCloud.
+                               Nextcloud.
  ldap:test-config              tests an LDAP configuration
 </pre></div>
 </div>
@@ -847,7 +837,7 @@ example, <code class="docutils literal"><span class="pre">jeroboam</span></code>
 <code class="docutils literal"><span class="pre">givenName</span></code> and <code class="docutils literal"><span class="pre">sn</span></code> you can find users by first name + last name very
 quickly. For example, you&#8217;ll find Terri Hanson by searching for <code class="docutils literal"><span class="pre">te</span> <span class="pre">ha</span></code>.
 Trailing whitespaces are ignored.</p>
-<p>Check if an LDAP user exists. This works only if the ownCloud server is
+<p>Check if an LDAP user exists. This works only if the Nextcloud server is
 connected to an LDAP server:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ ldap:check-user robert
 </pre></div>
@@ -903,16 +893,16 @@ documented in <a class="reference internal" href="../configuration_user/user_aut
 </div>
 <div class="section" id="logging-commands">
 <span id="logging-commands-label"></span><h2>Logging Commands<a class="headerlink" href="#logging-commands" title="Permalink to this headline">¶</a></h2>
-<p>These commands view and configure your ownCloud logging preferences:</p>
+<p>These commands view and configure your Nextcloud logging preferences:</p>
 <div class="highlight-python"><div class="highlight"><pre>log
  log:manage     manage logging configuration
- log:owncloud   manipulate ownCloud logging backend
+ log:owncloud   manipulate Nextcloud logging backend
 </pre></div>
 </div>
 <p>Run <code class="docutils literal"><span class="pre">log:owncloud</span></code> to see your current logging status:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ log:owncloud
-Log backend ownCloud: enabled
-Log file: /opt/owncloud/data/owncloud.log
+Log backend Nextcloud: enabled
+Log file: /opt/nextcloud/data/owncloud.log
 Rotate at: disabled
 </pre></div>
 </div>
@@ -928,7 +918,7 @@ are <code class="docutils literal"><span class="pre">owncloud</span></code>, <co
 </div>
 <div class="section" id="maintenance-commands">
 <span id="maintenance-commands-label"></span><h2>Maintenance Commands<a class="headerlink" href="#maintenance-commands" title="Permalink to this headline">¶</a></h2>
-<p>Use these commands when you upgrade ownCloud, manage encryption, perform
+<p>Use these commands when you upgrade Nextcloud, manage encryption, perform
 backups and other tasks that require locking users out until you are finished:</p>
 <div class="highlight-python"><div class="highlight"><pre>maintenance
  maintenance:mimetype:update-db       Update database mimetypes and update
@@ -948,7 +938,7 @@ logged-in users must refresh their Web browsers to continue working:</p>
 sudo -u www-data php occ maintenance:mode --off
 </pre></div>
 </div>
-<p>Putting your ownCloud server into single-user mode allows admins to log in and
+<p>Putting your Nextcloud server into single-user mode allows admins to log in and
 work, but not ordinary users. This is useful for performing maintenance and
 troubleshooting on a running server:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ maintenance:singleuser --on
@@ -966,7 +956,7 @@ to:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ maintenance:repair
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">maintenance:mimetype:update-db</span></code> updates the ownCloud database and file cache
+<p><code class="docutils literal"><span class="pre">maintenance:mimetype:update-db</span></code> updates the Nextcloud database and file cache
 with changed mimetypes found in <code class="docutils literal"><span class="pre">config/mimetypemapping.json</span></code>. Run this
 command after modifying <code class="docutils literal"><span class="pre">config/mimetypemapping.json</span></code>. If you change a
 mimetype, run <code class="docutils literal"><span class="pre">maintenance:mimetype:update-db</span> <span class="pre">--repair-filecache</span></code> to apply the
@@ -974,7 +964,7 @@ change to existing files.</p>
 </div>
 <div class="section" id="security-import-ssl-certificates">
 <span id="security-commands-label"></span><h2>Security (Import SSL Certificates)<a class="headerlink" href="#security-import-ssl-certificates" title="Permalink to this headline">¶</a></h2>
-<p>Use these commands to manage server-wide SSL certificates. These are useful when you create federation shares with other ownCloud servers that use self-signed certificates:</p>
+<p>Use these commands to manage server-wide SSL certificates. These are useful when you create federation shares with other Nextcloud servers that use self-signed certificates:</p>
 <div class="highlight-python"><div class="highlight"><pre>security
  security:certificates         list trusted certificates
  security:certificates:import  import trusted certificate
@@ -994,8 +984,8 @@ change to existing files.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="shibboleth-modes-enterprise-only">
-<span id="shibboleth-label"></span><h2>Shibboleth Modes (Enterprise only)<a class="headerlink" href="#shibboleth-modes-enterprise-only" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="shibboleth-modes-enterprise-edition-only">
+<span id="shibboleth-label"></span><h2>Shibboleth Modes (Enterprise Edition only)<a class="headerlink" href="#shibboleth-modes-enterprise-edition-only" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This command is only available when the &#8220;Shibboleth user backend&#8221; app
@@ -1058,7 +1048,7 @@ uid
 </pre></div>
 </div>
 <p>The <code class="docutils literal"><span class="pre">display-name</span></code> corresponds to the <strong>Full Name</strong> on the Users page in your
-ownCloud Web UI, and the <code class="docutils literal"><span class="pre">uid</span></code> is their <strong>Username</strong>, which is their
+Nextcloud Web UI, and the <code class="docutils literal"><span class="pre">uid</span></code> is their <strong>Username</strong>, which is their
 login name. This example adds new user Layla Smith, and adds her to the
 <strong>users</strong> and <strong>db-admins</strong> groups. Any groups that do not exist are created:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ user:add --display-name=&quot;Layla Smith&quot;
@@ -1162,19 +1152,16 @@ Delete versions of   molly
 <div class="section" id="command-line-installation">
 <span id="command-line-installation-label"></span><h2>Command Line Installation<a class="headerlink" href="#command-line-installation" title="Permalink to this headline">¶</a></h2>
 <p>These commands are available only after you have downloaded and unpacked the
-ownCloud archive, and taken no further installation steps.</p>
-<p>You can install ownCloud entirely from the command line. After downloading the
-tarball and copying ownCloud into the appropriate directories, or
-after installing ownCloud packages (See
-<a class="reference internal" href="../installation/linux_installation.html"><em>Preferred Linux Installation Method</em></a> and
-<a class="reference internal" href="../installation/source_installation.html"><em>Manual Installation on Linux</em></a>) you can use <code class="docutils literal"><span class="pre">occ</span></code> commands in
+Nextcloud archive, and taken no further installation steps.</p>
+<p>You can install Nextcloud entirely from the command line. After downloading the
+tarball and copying Nextcloud into the appropriate directories (See <a class="reference internal" href="../installation/source_installation.html"><em>Manual Installation on Linux</em></a>) you can use <code class="docutils literal"><span class="pre">occ</span></code> commands in
 place of running the graphical Installation Wizard.</p>
-<p>Apply correct permissions to your ownCloud directories; see
+<p>Apply correct permissions to your Nextcloud directories; see
 <a class="reference internal" href="../installation/installation_wizard.html#strong-perms-label"><span>Setting Strong Directory Permissions</span></a>. Then choose your <code class="docutils literal"><span class="pre">occ</span></code> options. This lists your
 available options:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php /var/www/owncloud/occ
-ownCloud is not installed - only a limited number of commands are available
-ownCloud version 9.0.0
+<div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php /var/www/nextcloud/occ
+Nextcloud is not installed - only a limited number of commands are available
+Nextcloud version 9.0.0
 
 Usage:
  [options] command [arguments]
@@ -1199,12 +1186,12 @@ Available commands:
  l10n
  l10n:createjs         Create javascript translation files for a given app
  maintenance
- maintenance:install   install ownCloud
+ maintenance:install   install Nextcloud
 </pre></div>
 </div>
 <p>Display your <code class="docutils literal"><span class="pre">maintenance:install</span></code> options:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ help maintenance:install
-ownCloud is not installed - only a limited number of commands are available
+Nextcloud is not installed - only a limited number of commands are available
 Usage:
  maintenance:install [--database=&quot;...&quot;] [--database-name=&quot;...&quot;]
 [--database-host=&quot;...&quot;] [--database-user=&quot;...&quot;] [--database-pass[=&quot;...&quot;]]
@@ -1221,7 +1208,7 @@ Options:
  --admin-user             User name of the admin account (default: &quot;admin&quot;)
  --admin-pass             Password of the admin account
  --data-dir               Path to data directory (default:
-                          &quot;/var/www/owncloud/data&quot;)
+                          &quot;/var/www/nextcloud/data&quot;)
  --help (-h)              Display this help message
  --quiet (-q)             Do not output any message
  --verbose (-v|vv|vvv)    Increase the verbosity of messages: 1 for normal
@@ -1233,19 +1220,19 @@ Options:
 </pre></div>
 </div>
 <p>This example completes the installation:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd /var/www/owncloud/
+<div class="highlight-python"><div class="highlight"><pre>cd /var/www/nextcloud/
 sudo -u www-data php occ maintenance:install --database
-&quot;mysql&quot; --database-name &quot;owncloud&quot;  --database-user &quot;root&quot; --database-pass
+&quot;mysql&quot; --database-name &quot;nextcloud&quot;  --database-user &quot;root&quot; --database-pass
 &quot;password&quot; --admin-user &quot;admin&quot; --admin-pass &quot;password&quot;
-ownCloud is not installed - only a limited number of commands are available
-ownCloud was successfully installed
+Nextcloud is not installed - only a limited number of commands are available
+Nextcloud was successfully installed
 </pre></div>
 </div>
 <p>Supported databases are:</p>
-<div class="highlight-python"><div class="highlight"><pre>- sqlite (SQLite3 - Community Edition Only)
+<div class="highlight-python"><div class="highlight"><pre>- sqlite (SQLite3 - Nextcloud Community edition only)
 - mysql (MySQL/MariaDB)
 - pgsql (PostgreSQL)
-- oci (Oracle)
+- oci (Oracle - Nextcloud Enterprise edition only)
 </pre></div>
 </div>
 </div>
@@ -1274,16 +1261,16 @@ Options:
 --no-interaction (-n)  Do not ask any interactive question
 </pre></div>
 </div>
-<p>When you are performing an update or upgrade on your ownCloud server (see the
+<p>When you are performing an update or upgrade on your Nextcloud server (see the
 Maintenance section of this manual), it is better to use <code class="docutils literal"><span class="pre">occ</span></code> to perform the
 database upgrade step, rather than the Web GUI, in order to avoid timeouts. PHP
 scripts invoked from the Web interface are limited to 3600 seconds. In larger
 environments this may not be enough, leaving the system in an inconsistent
 state. After performing all the preliminary steps (see
-<a class="reference internal" href="../maintenance/upgrade.html"><em>How to Upgrade Your ownCloud Server</em></a>) use this command to upgrade your databases,
+<a class="reference internal" href="../maintenance/upgrade.html"><em>How to Upgrade Your Nextcloud Server</em></a>) use this command to upgrade your databases,
 like this example on CentOS Linux. Note how it details the steps:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ upgrade
-ownCloud or one of the apps require upgrade - only a limited number of
+Nextcloud or one of the apps require upgrade - only a limited number of
 commands are available
 Turned on maintenance mode
 Checked database schema update
@@ -1299,7 +1286,7 @@ Turned off maintenance mode
 </div>
 <p>Enabling verbosity displays timestamps:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ upgrade -v
-ownCloud or one of the apps require upgrade - only a limited number of commands are available
+Nextcloud or one of the apps require upgrade - only a limited number of commands are available
 2015-06-23T09:06:15+0000 Turned on maintenance mode
 2015-06-23T09:06:15+0000 Checked database schema update
 2015-06-23T09:06:15+0000 Checked database schema update for apps
@@ -1310,7 +1297,7 @@ ownCloud or one of the apps require upgrade - only a limited number of commands 
 </pre></div>
 </div>
 <p>If there is an error it throws an exception, and the error is detailed in your
-ownCloud logfile, so you can use the log output to figure out what went wrong,
+Nextcloud logfile, so you can use the log output to figure out what went wrong,
 or to use in a bug report:</p>
 <div class="highlight-python"><div class="highlight"><pre>Turned on maintenance mode
 Checked database schema update
@@ -1323,7 +1310,7 @@ Update failed
 Turned off maintenance mode
 </pre></div>
 </div>
-<p>Before completing the upgrade, ownCloud first runs a simulation by copying all
+<p>Before completing the upgrade, Nextcloud first runs a simulation by copying all
 database tables to new tables, and then performs the upgrade on them, to ensure
 that the upgrade will complete correctly. The copied tables are deleted after
 the upgrade. This takes twice as much time, which on large installations can be

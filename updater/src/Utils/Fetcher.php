@@ -26,7 +26,7 @@ use Owncloud\Updater\Utils\Feed;
 
 class Fetcher {
 
-	const DEFAULT_BASE_URL = 'https://updates.owncloud.com/server/';
+	const DEFAULT_BASE_URL = 'https://updates.nextcloud.org/server/';
 
 	/**
 	 * @var Locator $locator
@@ -155,7 +155,13 @@ class Fetcher {
 		$version['edition'] = $this->configReader->getEdition();
 		$version['build'] = $this->locator->getBuild();
 
-		$url = self::DEFAULT_BASE_URL . '?version=' . implode('x', $version);
+		// Read updater server URL from config
+		$updaterServerUrl = $this->configReader->get(['system', 'updater.server.url']);
+		if ((bool) $updaterServerUrl === false){
+			$updaterServerUrl = self::DEFAULT_BASE_URL;
+		}
+
+		$url = $updaterServerUrl . '?version=' . implode('x', $version);
 		return $url;
 	}
 

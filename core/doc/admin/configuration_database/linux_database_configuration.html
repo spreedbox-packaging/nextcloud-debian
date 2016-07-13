@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Database Configuration &mdash; ownCloud 9.0 Server Administration Manual 9.0 documentation</title>
+    <title>Database Configuration &mdash; Nextcloud 9 Server Administration Manual 9 documentation</title>
     
     <link rel="stylesheet" href="../_static/" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '9.0',
+        VERSION:     '9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="ownCloud 9.0 Server Administration Manual 9.0 documentation" href="../contents.html" />
+    <link rel="top" title="Nextcloud 9 Server Administration Manual 9 documentation" href="../contents.html" />
     <link rel="up" title="Database Configuration" href="index.html" />
     <link rel="next" title="Mimetypes Management" href="../configuration_mimetypes/index.html" />
     <link rel="prev" title="Converting Database Type" href="db_conversion.html" />
@@ -66,11 +66,10 @@
 <li><a href="../contents.html">Table of Contents</a></li>
 									</ul>
                   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 9.0 Server Administration Manual Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">ownCloud 9.0 Release Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in ownCloud 9.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Nextcloud 9 Server Administration Manual Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in Nextcloud 9</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../configuration_server/index.html">ownCloud Server Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration_server/index.html">Nextcloud Server Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_user/index.html">User Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_files/index.html">File Sharing and Management</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Database Configuration</a><ul class="current">
@@ -87,16 +86,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../maintenance/index.html">Maintenance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../operations/index.html">Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../issues/index.html">Issues and Troubleshooting</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_installation/index.html">Enterprise Subscription Installation (ES Only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_clients/index.html">Creating Branded ownCloud Clients (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_server_branding/index.html">Enterprise Server Branding (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_external_storage/index.html">External Storage (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_user_management/index.html">User Management (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_file_management/index.html">Enterprise File Management (ES Only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_logging/index.html">Enterprise Logging Apps (ES only)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../enterprise_firewall/index.html">Enterprise Firewall (ES only)</a></li>
 </ul>
 
 								</ul>
@@ -121,29 +110,28 @@
 						
   <div class="section" id="database-configuration">
 <h1>Database Configuration<a class="headerlink" href="#database-configuration" title="Permalink to this headline">¶</a></h1>
-<p>ownCloud requires a database in which administrative data is stored. The following databases are currently supported:</p>
+<p>Nextcloud requires a database in which administrative data is stored. The following databases are currently supported:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.mysql.com/">MySQL</a> / <a class="reference external" href="https://mariadb.org/">MariaDB</a></li>
 <li><a class="reference external" href="http://www.postgresql.org/">PostgreSQL</a></li>
-<li><a class="reference external" href="http://www.oracle.com/">Oracle</a></li>
 </ul>
 <p>The MySQL or MariaDB databases are the recommended database engines.</p>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>Choosing to use MySQL / MariaDB, PostgreSQL, or Oracle (ownCloud Enterprise Subscription only) as your database requires that you install and set up the server software first.
-(Oracle users, see <a class="reference internal" href="../enterprise_installation/oracle_db_configuration.html"><em>Oracle Database Setup</em></a>.)</p>
+<p>Choosing to use MySQL / MariaDB or PostgreSQL, as your database requires that
+you install and set up the server software first.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The steps for configuring a third party database are beyond the scope of this document.  Please refer to the documentation for your specific database choice for instructions.</p>
 </div>
 <div class="section" id="mysql-mariadb-with-binary-logging-enabled">
 <span id="db-binlog-label"></span><h3>MySQL / MariaDB with Binary Logging Enabled<a class="headerlink" href="#mysql-mariadb-with-binary-logging-enabled" title="Permalink to this headline">¶</a></h3>
-<p>ownCloud is currently using a <code class="docutils literal"><span class="pre">TRANSACTION_READ_COMMITTED</span></code> transaction isolation
+<p>Nextcloud is currently using a <code class="docutils literal"><span class="pre">TRANSACTION_READ_COMMITTED</span></code> transaction isolation
 to avoid data loss under high load scenarios (e.g. by using the sync client with
 many clients/users and many parallel operations). This requires a disabled or
 correctly configured binary logging when using MySQL or MariaDB. Your system is
 affected if you see the following in your log file during the installation or
-update of ownCloud:</p>
+update of Nextcloud:</p>
 <blockquote>
 <div>An unhandled exception has been thrown:
 exception &#8216;PDOException&#8217; with message &#8216;SQLSTATE[HY000]: General error: 1665
@@ -165,13 +153,13 @@ detailed information.</p>
 </div>
 <div class="section" id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
-<p>For setting up ownCloud to use any database, use the instructions in <a class="reference internal" href="../installation/installation_wizard.html"><em>Installation Wizard</em></a>. You should not have to edit the respective values in the <code class="file docutils literal"><span class="pre">config/config.php</span></code>.  However, in special cases (for example, if you want to connect your ownCloud instance to a database created by a previous installation of ownCloud), some modification might be required.</p>
+<p>For setting up Nextcloud to use any database, use the instructions in <a class="reference internal" href="../installation/installation_wizard.html"><em>Installation Wizard</em></a>. You should not have to edit the respective values in the <code class="file docutils literal"><span class="pre">config/config.php</span></code>.  However, in special cases (for example, if you want to connect your Nextcloud instance to a database created by a previous installation of Nextcloud), some modification might be required.</p>
 <div class="section" id="configuring-a-mysql-or-mariadb-database">
 <h3>Configuring a MySQL or MariaDB Database<a class="headerlink" href="#configuring-a-mysql-or-mariadb-database" title="Permalink to this headline">¶</a></h3>
 <p>If you decide to use a MySQL or MariaDB database, ensure the following:</p>
 <ul class="simple">
 <li>That you have installed and enabled the pdo_mysql extension in PHP</li>
-<li>That the <strong>mysql.default_socket</strong> points to the correct socket (if the database runs on the same server as ownCloud).</li>
+<li>That the <strong>mysql.default_socket</strong> points to the correct socket (if the database runs on the same server as Nextcloud).</li>
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -197,7 +185,7 @@ mysql.trace_mode=Off
 </pre></div>
 </div>
 <p>Now you need to create a database user and the database itself by using the
-MySQL command line interface. The database tables will be created by ownCloud
+MySQL command line interface. The database tables will be created by Nextcloud
 when you login for the first time.</p>
 <p>To start the MySQL command line mode use:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mysql</span> <span class="o">-</span><span class="n">uroot</span> <span class="o">-</span><span class="n">p</span>
@@ -205,15 +193,15 @@ when you login for the first time.</p>
 </div>
 <p>Then a <strong>mysql&gt;</strong> or <strong>MariaDB [root]&gt;</strong> prompt will appear. Now enter the following lines and confirm them with the enter key:</p>
 <div class="highlight-python"><div class="highlight"><pre>CREATE USER &#39;username&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;password&#39;;
-CREATE DATABASE IF NOT EXISTS owncloud;
-GRANT ALL PRIVILEGES ON owncloud.* TO &#39;username&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;password&#39;;
+CREATE DATABASE IF NOT EXISTS nextcloud;
+GRANT ALL PRIVILEGES ON nextcloud.* TO &#39;username&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;password&#39;;
 </pre></div>
 </div>
 <p>You can quit the prompt by entering:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">quit</span>
 </pre></div>
 </div>
-<p>An ownCloud instance configured with MySQL would contain the hostname on which
+<p>An Nextcloud instance configured with MySQL would contain the hostname on which
 the database is running, a valid username and password to access it, and the
 name of the database. The <code class="file docutils literal"><span class="pre">config/config.php</span></code> as created by the
 <a class="reference internal" href="../installation/installation_wizard.html"><em>Installation Wizard</em></a> would therefore contain entries like
@@ -221,7 +209,7 @@ this:</p>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?php
 
   &quot;dbtype&quot;        =&gt; &quot;mysql&quot;,
-  &quot;dbname&quot;        =&gt; &quot;owncloud&quot;,
+  &quot;dbname&quot;        =&gt; &quot;nextcloud&quot;,
   &quot;dbuser&quot;        =&gt; &quot;username&quot;,
   &quot;dbpassword&quot;    =&gt; &quot;password&quot;,
   &quot;dbhost&quot;        =&gt; &quot;localhost&quot;,
@@ -254,14 +242,14 @@ To start the postgres command line mode use:</p>
 </div>
 <p>Then a <strong>template1=#</strong> prompt will appear. Now enter the following lines and confirm them with the enter key:</p>
 <div class="highlight-python"><div class="highlight"><pre>CREATE USER username CREATEDB;
-CREATE DATABASE owncloud OWNER username;
+CREATE DATABASE nextcloud OWNER username;
 </pre></div>
 </div>
 <p>You can quit the prompt by entering:</p>
 <div class="highlight-python"><div class="highlight"><pre>\q
 </pre></div>
 </div>
-<p>An ownCloud instance configured with PostgreSQL would contain the path to the socket on
+<p>An Nextcloud instance configured with PostgreSQL would contain the path to the socket on
 which the database is running as the hostname, the system username the php process is using,
 and an empty password to access it, and the name of the database. The <code class="file docutils literal"><span class="pre">config/config.php</span></code> as
 created by the <a class="reference internal" href="../installation/installation_wizard.html"><em>Installation Wizard</em></a> would therefore contain entries like
@@ -269,7 +257,7 @@ this:</p>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?php
 
   &quot;dbtype&quot;        =&gt; &quot;pgsql&quot;,
-  &quot;dbname&quot;        =&gt; &quot;owncloud&quot;,
+  &quot;dbname&quot;        =&gt; &quot;nextcloud&quot;,
   &quot;dbuser&quot;        =&gt; &quot;username&quot;,
   &quot;dbpassword&quot;    =&gt; &quot;&quot;,
   &quot;dbhost&quot;        =&gt; &quot;/var/run/postgresql&quot;,
@@ -283,23 +271,23 @@ this:</p>
 <p>If you use another authentication method (not peer), you&#8217;ll need to use the following steps to get the database setup:
 Now you need to create a database user and the database itself by using the
 PostgreSQL command line interface. The database tables will be created by
-ownCloud when you login for the first time.</p>
+Nextcloud when you login for the first time.</p>
 <p>To start the postgres command line mode use:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">psql</span> <span class="o">-</span><span class="n">hlocalhost</span> <span class="o">-</span><span class="n">Upostgres</span>
 </pre></div>
 </div>
 <p>Then a <strong>postgres=#</strong> prompt will appear. Now enter the following lines and confirm them with the enter key:</p>
 <div class="highlight-python"><div class="highlight"><pre>CREATE USER username WITH PASSWORD &#39;password&#39;;
-CREATE DATABASE owncloud TEMPLATE template0 ENCODING &#39;UNICODE&#39;;
-ALTER DATABASE owncloud OWNER TO username;
-GRANT ALL PRIVILEGES ON DATABASE owncloud TO username;
+CREATE DATABASE nextcloud TEMPLATE template0 ENCODING &#39;UNICODE&#39;;
+ALTER DATABASE nextcloud OWNER TO username;
+GRANT ALL PRIVILEGES ON DATABASE nextcloud TO username;
 </pre></div>
 </div>
 <p>You can quit the prompt by entering:</p>
 <div class="highlight-python"><div class="highlight"><pre>\q
 </pre></div>
 </div>
-<p>An ownCloud instance configured with PostgreSQL would contain the hostname on
+<p>An Nextcloud instance configured with PostgreSQL would contain the hostname on
 which the database is running, a valid username and password to access it, and
 the name of the database. The <code class="file docutils literal"><span class="pre">config/config.php</span></code> as created by the
 <a class="reference internal" href="../installation/installation_wizard.html"><em>Installation Wizard</em></a> would therefore contain entries like
@@ -307,7 +295,7 @@ this:</p>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?php
 
   &quot;dbtype&quot;        =&gt; &quot;pgsql&quot;,
-  &quot;dbname&quot;        =&gt; &quot;owncloud&quot;,
+  &quot;dbname&quot;        =&gt; &quot;nextcloud&quot;,
   &quot;dbuser&quot;        =&gt; &quot;username&quot;,
   &quot;dbpassword&quot;    =&gt; &quot;password&quot;,
   &quot;dbhost&quot;        =&gt; &quot;localhost&quot;,
@@ -362,12 +350,12 @@ mysql&gt; quit
 <p><strong>PostgreSQL</strong>:</p>
 <p>Assuming the database server is installed on the same system you&#8217;re running
 the command from, use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">psql</span> <span class="o">-</span><span class="n">Uusername</span> <span class="o">-</span><span class="n">downcloud</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">psql</span> <span class="o">-</span><span class="n">Uusername</span> <span class="o">-</span><span class="n">dnextcloud</span>
 </pre></div>
 </div>
 <p>To acess a MySQL installation on a different machine, add the -h option with
 the respective host name:</p>
-<div class="highlight-python"><div class="highlight"><pre>psql -Uusername -downcloud -h HOSTNAME
+<div class="highlight-python"><div class="highlight"><pre>psql -Uusername -dnextcloud -h HOSTNAME
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre>postgres=# SELECT version();
@@ -389,9 +377,9 @@ PostgreSQL: SELECT * FROM pg_user;
 PostgreSQL: \l
 </pre></div>
 </div>
-<p><strong>Show ownCloud Tables in Database</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre>MySQL     : USE owncloud; SHOW TABLES;
-PostgreSQL: \c owncloud; \d
+<p><strong>Show Nextcloud Tables in Database</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre>MySQL     : USE nextcloud; SHOW TABLES;
+PostgreSQL: \c nextcloud; \d
 </pre></div>
 </div>
 <p><strong>Quit Database</strong>:</p>
