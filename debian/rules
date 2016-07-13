@@ -1,32 +1,32 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 # (C) 2015 jw@owncloud.com
-# (C) 2015 struktur AG <opensource@struktur.de>
+# (C) 2015,2016 struktur AG <opensource@struktur.de>
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
 SHELL=/bin/bash
 
-export WEBROOT=$(CURDIR)/debian/owncloud-server/usr/lib/owncloud/www
-export CONFIGROOT=$(CURDIR)/debian/owncloud-server/etc/owncloud
-export DATAROOT=$(CURDIR)/debian/owncloud-server/var/lib/owncloud/data
+export WEBROOT=$(CURDIR)/debian/nextcloud-server/usr/lib/nextcloud/www
+export CONFIGROOT=$(CURDIR)/debian/nextcloud-server/etc/nextcloud
+export DATAROOT=$(CURDIR)/debian/nextcloud-server/var/lib/nextcloud/data
 
 %:
 	dh $@
 
 override_dh_install:
 	dh_install
-	ln -s /var/lib/owncloud/data $(WEBROOT)/data
-	ln -s /etc/owncloud $(WEBROOT)/config
+	ln -s /var/lib/nextcloud/data $(WEBROOT)/data
+	ln -s /etc/nextcloud $(WEBROOT)/config
 	cp -r config/* $(CONFIGROOT)/
 	cp debian/autoconfig.php $(CONFIGROOT)/autoconfig.php
-	# Replace ownCloud shipped CAs with system provided CAs provided by ca-certifiactes package.
+	# Replace Nextcloud shipped CAs with system provided CAs provided by ca-certifiactes package.
 	rm -f $(WEBROOT)/resources/config/ca-bundle.crt
 	ln -s /etc/ssl/certs/ca-certificates.crt $(WEBROOT)/resources/config/ca-bundle.crt
 
 override_dh_fixperms:
-	dh_fixperms -X var/lib/owncloud/data -X etc/owncloud
+	dh_fixperms -X var/lib/nextcloud/data -X etc/nextcloud
 	chmod a+x $(WEBROOT)/occ
 	# chown at the end to ensure everything is chown'ed
 	# We must chown all apps folders, in each app, to be independent of installation order.

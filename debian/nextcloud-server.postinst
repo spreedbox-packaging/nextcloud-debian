@@ -1,13 +1,13 @@
 #!/bin/sh -e
-# postinst script for owncloud-server
+# postinst script for nextcloud-server
 
-# FROM http://anonscm.debian.org/cgit/pkg-owncloud/owncloud.git/plain/debian/postinst
+# Based on http://anonscm.debian.org/cgit/pkg-owncloud/owncloud.git/plain/debian/postinst
 # https://github.com/owncloud/core/issues/12037
 # https://github.com/owncloud/core/issues/12125
 
 ## CAUTION: keep in sync with debian.rules
-export WEBROOT=/usr/lib/owncloud/www
-export DATAROOT=/var/lib/owncloud/data
+export WEBROOT=/usr/lib/nextcloud/www
+export DATAROOT=/var/lib/nextcloud/data
 
 export WWW_USER=www-data
 
@@ -19,34 +19,28 @@ case "$1" in
     configure)
         # Update the database on upgrade
         # Don’t let it fail, since it exits with 3 if no upgrade is necessary
-        if [ -s /run/occ_maintenance_mode_during_owncloud_install ]; then
-            # For the Spreedbox we want to have automatic upgrades
-            if [ -x "/usr/bin/occ" ]; then
+        if [ -s /run/occ_maintenance_mode_during_nextcloud_install ]; then
+            # Automatic upgrades when enabled.
+            if [ -e "/etc/nextcloud/.auto-upgrade-enabled" ]; then
                 su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --off" || true
 
                 set +e
-                /usr/bin/occ upgrade
+                su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ upgrade"
                 rc=$?
                 set -e
                 if [ "$rc" != "0" ] && [ "$rc" != "3" ]; then
                     su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --on" || true
                     echo  "Leaving server in maintenance mode. Please run occ upgrade manually."
-                    echo  ""
-                    echo  "See https://doc.owncloud.org/server/8.2/admin_manual/maintenance/upgrade.html"
-                    echo  ""
                 fi
             else
                 # https://github.com/owncloud/core/pull/19508
                 # https://github.com/owncloud/core/pull/19661
                 echo  "Leaving server in maintenance mode. Please run occ upgrade manually."
-                echo  ""
-                echo  "See https://doc.owncloud.org/server/8.2/admin_manual/maintenance/upgrade.html"
-                echo  ""
                 # enter maintenance mode again, just in case it failed during preinst.
                 su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --on" || true
             fi
         fi
-        rm -f /run/occ_maintenance_mode_during_owncloud_install
+        rm -f /run/occ_maintenance_mode_during_nextcloud_install
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
@@ -59,4 +53,3 @@ case "$1" in
 esac
 
 exit 0
-

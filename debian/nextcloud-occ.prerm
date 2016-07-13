@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+set -e
+
+case "$1" in
+    remove)
+        update-alternatives -remove occ /usr/bin/occ.nextcloud
+        ;;
+    upgrade|deconfigure|failed-upgrade)
+        ;;
+    *)
+        echo "prerm called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0

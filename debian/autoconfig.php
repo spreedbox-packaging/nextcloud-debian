@@ -1,8 +1,8 @@
 <?php
 $AUTOCONFIG = array(
   "dbtype"        => "sqlite",
-  "dbname"        => "owncloud",
+  "dbname"        => "nextcloud",
   "dbtableprefix" => "",
-  "directory"     => "/var/lib/owncloud/data",
+  "directory"     => "/var/lib/nextcloud/data",
 );
 

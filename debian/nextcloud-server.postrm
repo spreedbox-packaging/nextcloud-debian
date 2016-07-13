@@ -2,9 +2,7 @@
 
 case "$1" in
     purge)
-        # Purge configuration
-        rm -rf /etc/owncloud 2>/dev/null || true
-        rmdir --ignore-fail-on-non-empty /etc/owncloud 2>/dev/null || true
+        rmdir --ignore-fail-on-non-empty /etc/nextcloud 2>/dev/null || true
         ;;
     upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
         ;;
@@ -14,4 +12,3 @@ case "$1" in
 esac
 
 #DEBHELPER#
-

@@ -6,4 +6,4 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 args="$@"
-su -s /bin/bash -c "/usr/lib/owncloud/www/occ $args" www-data
+su -s /bin/bash -c "/usr/lib/nextcloud/www/occ $args" www-data

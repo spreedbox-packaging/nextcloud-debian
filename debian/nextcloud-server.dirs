@@ -1,0 +1,3 @@
+etc/nextcloud
+usr/lib/nextcloud/www/assets
+var/lib/nextcloud/data

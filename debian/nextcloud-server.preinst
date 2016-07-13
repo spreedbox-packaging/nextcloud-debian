@@ -1,10 +1,9 @@
 #!/bin/sh -e
-# preinst script for owncloud-config-apache
 # https://github.com/owncloud/core/issues/12125
 
 ## CAUTION: keep in sync with debian.rules
-export WEBROOT=/usr/lib/owncloud/www
-export DATAROOT=/var/lib/owncloud/data
+export WEBROOT=/usr/lib/nextcloud/www
+export DATAROOT=/var/lib/nextcloud/data
 
 export WWW_USER=www-data
 
@@ -18,9 +17,9 @@ case "$1" in
         # Don’t let it fail, since it exits with 3 if no upgrade is necessary
         if [ -s $WEBROOT/config/config.php ] ; then
             # https://github.com/owncloud/core/issues/16723
-            echo "owncloud-server: occ maintenance:mode --on"
+            echo "nextcloud-server: occ maintenance:mode --on"
             su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --on" || true
-            echo yes > /run/occ_maintenance_mode_during_owncloud_install
+            echo yes > /run/occ_maintenance_mode_during_nextcloud_install
         fi
     ;;
 
@@ -34,4 +33,3 @@ case "$1" in
 esac
 
 exit 0
-
