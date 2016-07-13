@@ -31,10 +31,13 @@ namespace OC;
 use OC\Hooks\BasicEmitter;
 use OC\Hooks\Emitter;
 use OC\Repair\AssetCache;
-use OC\Repair\BrokenUpdaterRepair;
+use OC\Repair\AvatarPermissions;
 use OC\Repair\CleanTags;
 use OC\Repair\Collation;
+use OC\Repair\CopyRewriteBaseToConfig;
 use OC\Repair\DropOldJobs;
+use OC\Repair\EncryptionCompatibility;
+use OC\Repair\MoveChannelToSystemConfig;
 use OC\Repair\OldGroupMembershipShares;
 use OC\Repair\RemoveGetETagEntries;
 use OC\Repair\SqliteAutoincrement;
@@ -115,7 +118,8 @@ class Repair extends BasicEmitter {
 			new RemoveGetETagEntries(\OC::$server->getDatabaseConnection()),
 			new UpdateOutdatedOcsIds(\OC::$server->getConfig()),
 			new RepairInvalidShares(\OC::$server->getConfig(), \OC::$server->getDatabaseConnection()),
-			new BrokenUpdaterRepair(),
+			new AvatarPermissions(\OC::$server->getDatabaseConnection()),
+			new MoveChannelToSystemConfig(\OC::$server->getConfig()),
 		];
 	}
 
@@ -140,10 +144,12 @@ class Repair extends BasicEmitter {
 	public static function getBeforeUpgradeRepairSteps() {
 		$connection = \OC::$server->getDatabaseConnection();
 		$steps = [
+			new EncryptionCompatibility(),
 			new InnoDB(),
 			new Collation(\OC::$server->getConfig(), $connection),
 			new SqliteAutoincrement($connection),
 			new SearchLuceneTables(),
+			new CopyRewriteBaseToConfig(\OC::$server->getConfig()),
 		];
 
 		//There is no need to delete all previews on every single update

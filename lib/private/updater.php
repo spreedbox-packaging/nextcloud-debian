@@ -134,19 +134,16 @@ class Updater extends BasicEmitter {
 	/**
 	 * Check if a new version is available
 	 *
-	 * @param string $updaterUrl the url to check, i.e. 'http://apps.owncloud.com/updater.php'
 	 * @return array|bool
 	 */
-	public function check($updaterUrl = null) {
+	public function check() {
 
 		// Look up the cache - it is invalidated all 30 minutes
 		if (((int)$this->config->getAppValue('core', 'lastupdatedat') + 1800) > time()) {
 			return json_decode($this->config->getAppValue('core', 'lastupdateResult'), true);
 		}
 
-		if (is_null($updaterUrl)) {
-			$updaterUrl = 'https://updates.owncloud.com/server/';
-		}
+		$updaterUrl = $this->config->getSystemValue('updater.server.url', 'https://updates.nextcloud.org/server/');
 
 		$this->config->setAppValue('core', 'lastupdatedat', time());
 
@@ -230,6 +227,7 @@ class Updater extends BasicEmitter {
 
 		$this->emit('\OC\Updater', 'resetLogLevel', [ $logLevel, $this->logLevelNames[$logLevel] ]);
 		$this->config->setSystemValue('loglevel', $logLevel);
+		$this->config->setSystemValue('installed', true);
 
 		return $success;
 	}

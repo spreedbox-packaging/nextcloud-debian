@@ -103,8 +103,16 @@ class Share20OCS {
 			'displayname_file_owner' => $shareOwner !== null ? $shareOwner->getDisplayName() : $share->getShareOwner(),
 		];
 
-		$node = $share->getNode();
-		$result['path'] = $this->rootFolder->getUserFolder($share->getShareOwner())->getRelativePath($node->getPath());
+		$userFolder = $this->rootFolder->getUserFolder($this->currentUser->getUID());
+		$nodes = $userFolder->getById($share->getNodeId());
+
+		if (empty($nodes)) {
+			throw new NotFoundException();
+		}
+
+		$node = $nodes[0];
+		$result['path'] = $userFolder->getRelativePath($node->getPath());
+
 		if ($node instanceOf \OCP\Files\Folder) {
 			$result['item_type'] = 'folder';
 		} else {
@@ -584,6 +592,7 @@ class Share20OCS {
 
 			if ($newPermissions !== null &&
 				$newPermissions !== \OCP\Constants::PERMISSION_READ &&
+				$newPermissions !== (\OCP\Constants::PERMISSION_CREATE | \OCP\Constants::PERMISSION_UPDATE) &&
 				$newPermissions !== (\OCP\Constants::PERMISSION_READ | \OCP\Constants::PERMISSION_CREATE | \OCP\Constants::PERMISSION_UPDATE)) {
 				return new \OC_OCS_Result(null, 400, 'can\'t change permission for public link share');
 			}

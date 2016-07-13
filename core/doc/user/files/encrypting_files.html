@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Encrypting Your ownCloud Files &mdash; ownCloud 9.0 User Manual 9.0 documentation</title>
+    <title>Encrypting Your Nextcloud Files &mdash; Nextcloud 9 User Manual 9 documentation</title>
     
     <link rel="stylesheet" href="../_static/" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '9.0',
+        VERSION:     '9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="ownCloud 9.0 User Manual 9.0 documentation" href="../contents.html" />
+    <link rel="top" title="Nextcloud 9 User Manual 9 documentation" href="../contents.html" />
     <link rel="up" title="Files &amp; Synchronization" href="index.html" />
     <link rel="next" title="Using Federation Shares" href="federated_cloud_sharing.html" />
     <link rel="prev" title="Desktop and Mobile Synchronization" href="desktop_mobile_sync.html" />
@@ -66,23 +66,22 @@
 <li><a href="../contents.html">Table of Contents</a></li>
 									</ul>
                   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 9.0 User Manual Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What&#8217;s New for Users in ownCloud 9.0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../webinterface.html">The ownCloud Web Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Nextcloud 9 User Manual Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What&#8217;s New for Users in Nextcloud 9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webinterface.html">The Nextcloud Web Interface</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Files &amp; Synchronization</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="access_webgui.html">Accessing your Files Using the ownCloud Web Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="access_webdav.html">Accessing ownCloud Files Using WebDAV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access_webgui.html">Accessing your Files Using the Nextcloud Web Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="access_webdav.html">Accessing Nextcloud Files Using WebDAV</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gallery_app.html">Gallery App</a></li>
 <li class="toctree-l2"><a class="reference internal" href="deleted_file_management.html">Managing Deleted Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="desktop_mobile_sync.html">Desktop and Mobile Synchronization</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Encrypting Your ownCloud Files</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Encrypting Your Nextcloud Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#using-encryption">Using Encryption</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sharing-encrypted-files">Sharing Encrypted Files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-not-encrypted">Files Not Encrypted</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="federated_cloud_sharing.html">Using Federation Shares</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_drop.html">Making Anonymous Uploads (ES Only)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="large_file_upload.html">Large File Uploads</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quota.html">Storage Quota</a></li>
 <li class="toctree-l2"><a class="reference internal" href="version_control.html">Version Control</a></li>
@@ -92,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../documents.html">Collaborative Document Editing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userpreferences.html">Setting Your Preferences</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../external_storage/index.html">External Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bookmarks.html">Using the Bookmarks App</a></li>
 </ul>
 
 								</ul>
@@ -114,50 +114,48 @@
   </li>
 </ul>
 						
-  <div class="section" id="encrypting-your-owncloud-files">
-<h1>Encrypting Your ownCloud Files<a class="headerlink" href="#encrypting-your-owncloud-files" title="Permalink to this headline">¶</a></h1>
-<p>ownCloud includes an Encryption app, and when it is enabled by your ownCloud
-administrator all of your ownCloud data files are automatically encrypted.
+  <div class="section" id="encrypting-your-nextcloud-files">
+<h1>Encrypting Your Nextcloud Files<a class="headerlink" href="#encrypting-your-nextcloud-files" title="Permalink to this headline">¶</a></h1>
+<p>Nextcloud includes an Encryption app, and when it is enabled by your Nextcloud
+administrator all of your Nextcloud data files are automatically encrypted.
 Encryption is server-wide, so when it is enabled you cannot choose to keep your
 files unencrypted. You don&#8217;t have to do anything special, as it uses your
-ownCloud login as the password for your unique private encryption key. Just log
+Nextcloud login as the password for your unique private encryption key. Just log
 in and out and manage and share your files as you normally do, and you can
 still change your password whenever you want.</p>
 <p>Its main purpose is to encrypt files on remote storage services that are
-connected to your ownCloud server, such as Dropbox and Google Drive. This is an
+connected to your Nextcloud server, such as Dropbox and Google Drive. This is an
 easy and seamless way to protect your files on remote storage. You can share
-your remote files through ownCloud in the usual way, however you cannot share
+your remote files through Nextcloud in the usual way, however you cannot share
 your encrypted files directly from Dropbox, Google Drive, or whatever remote
-service you are using, because the encryption keys are stored on your ownCloud
+service you are using, because the encryption keys are stored on your Nextcloud
 server, and are never exposed to outside service providers.</p>
-<p>If your ownCloud server is not connected to any remote storage services, then
+<p>If your Nextcloud server is not connected to any remote storage services, then
 it is better to use some other form of encryption such as file-level or whole
-disk encryption. Because the keys are kept on your ownCloud server, it is
-possible for your ownCloud admin to snoop in your files, and if the server is
-compromised the intruder may get access to your files. (Read
-<a class="reference external" href="https://owncloud.org/blog/how-owncloud-uses-encryption-to-protect-your-data/">How ownCloud uses encryption to protect your data</a>
-to learn more.)</p>
+disk encryption. Because the keys are kept on your Nextcloud server, it is
+possible for your Nextcloud admin to snoop in your files, and if the server is
+compromised the intruder may get access to your files.</p>
 <div class="section" id="using-encryption">
 <h2>Using Encryption<a class="headerlink" href="#using-encryption" title="Permalink to this headline">¶</a></h2>
-<p>ownCloud encryption is pretty much set it and forget it, but you have a few
+<p>Nextcloud encryption is pretty much set it and forget it, but you have a few
 options you can use.</p>
-<p>When your ownCloud admin enables encryption for the first time, you must log
+<p>When your Nextcloud admin enables encryption for the first time, you must log
 out and then log back in to create your encryption keys and encrypt your files.
-When encryption has been enabled on your ownCloud server you will see a yellow
+When encryption has been enabled on your Nextcloud server you will see a yellow
 banner on your Files page warning you to log out and then log back in.</p>
 <div class="figure">
 <img alt="../_images/encryption1.png" src="../_images/encryption1.png" />
 </div>
 <p>When you log back in it takes a few minutes to work, depending on how many
-files you have, and then you are returned to your default ownCloud page.</p>
+files you have, and then you are returned to your default Nextcloud page.</p>
 <div class="figure">
 <img alt="../_images/encryption2.png" src="../_images/encryption2.png" />
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">You must never lose your ownCloud password, because you will lose
+<p class="last">You must never lose your Nextcloud password, because you will lose
 access to your files. Though there is an optional recovery option that your
-ownCloud administrator may enable; see the Recovery Key Password section
+Nextcloud administrator may enable; see the Recovery Key Password section
 (below) to learn about this.</p>
 </div>
 </div>
@@ -177,11 +175,11 @@ the share. This updates the encryption, and then the share owner can remove the
 individual shares.</p>
 <div class="section" id="recovery-key-password">
 <h3>Recovery Key Password<a class="headerlink" href="#recovery-key-password" title="Permalink to this headline">¶</a></h3>
-<p>If your ownCloud administrator has enabled the recovery key feature, you can
+<p>If your Nextcloud administrator has enabled the recovery key feature, you can
 choose to use this feature for your account. If you enable &#8220;Password recovery&#8221;
 the administrator can read your data with a special password. This feature
 enables the administrator to recover your files in the event you lose your
-ownCloud password. If the recovery key is not enabled, then there is no way to
+Nextcloud password. If the recovery key is not enabled, then there is no way to
 restore your files if you lose your login password.</p>
 <div class="figure">
 <img alt="../_images/encryption3.png" src="../_images/encryption3.png" />
@@ -204,7 +202,7 @@ third-party storage providers are guaranteed to be encrypted.</p>
 <div class="section" id="change-private-key-password">
 <h3>Change Private Key Password<a class="headerlink" href="#change-private-key-password" title="Permalink to this headline">¶</a></h3>
 <p>This option is only available if your log-in password, but not your encryption
-password, was changed by your administrator. This can occur if your ownCloud
+password, was changed by your administrator. This can occur if your Nextcloud
 provider uses a external user back-end (for example, LDAP) and changed your
 login password using that back-end configuration. In this case, you can set
 your encryption password to your new login password by providing your old and

@@ -53,6 +53,7 @@ use OCP\Files\InvalidCharacterInPathException;
 use OCP\Files\InvalidPathException;
 use OCP\Files\NotFoundException;
 use OCP\Files\ReservedWordException;
+use OCP\Files\NotPermittedException;
 use OCP\Files\Storage\ILockingStorage;
 use OCP\IUser;
 use OCP\Lock\ILockingProvider;
@@ -425,6 +426,39 @@ class View {
 
 	/**
 	 * @param string $path
+	 * @param int $from 
+	 * @param int $to
+	 * @return bool|mixed
+	 * @throws \OCP\Files\InvalidPathException
+	 * @throws \OCP\Files\NotPermittedException
+	 */
+	public function readfilePart($path, $from, $to) {
+		$this->assertPathLength($path);
+		@ob_end_clean();
+		$handle = $this->fopen($path, 'rb');
+		if ($handle) {
+			if (fseek($handle, $from) === 0) {
+			    $chunkSize = 8192; // 8 kB chunks
+			    $end = $to + 1;
+			    while (!feof($handle) && ftell($handle) < $end) {
+				$len = $end-ftell($handle);
+				if ($len > $chunkSize) { 
+				    $len = $chunkSize; 
+				}
+				echo fread($handle, $len);
+				flush();
+			    }
+			    $size = ftell($handle) - $from;
+			    return $size;
+			}
+
+			throw new \OCP\Files\NotPermittedException('fseek error');
+		}
+		return false;
+	}
+
+	/**
+	 * @param string $path
 	 * @return mixed
 	 */
 	public function isCreatable($path) {
@@ -726,7 +760,7 @@ class View {
 						$result = false;
 					}
 					// moving a file/folder within the same mount point
-				} elseif ($storage1 == $storage2) {
+				} elseif ($storage1 === $storage2) {
 					if ($storage1) {
 						$result = $storage1->rename($internalPath1, $internalPath2);
 					} else {

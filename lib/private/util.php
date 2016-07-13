@@ -384,7 +384,8 @@ class OC_Util {
 	}
 
 	/**
-	 * @description get the update channel of the current installed of ownCloud.
+	 * Get the currently configured release channel
+	 *
 	 * @return string
 	 */
 	public static function getChannel() {
@@ -421,7 +422,7 @@ class OC_Util {
 			// Allow overriding update channel
 			
 			if (\OC::$server->getSystemConfig()->getValue('installed', false)) {
-				$channel = \OC::$server->getAppConfig()->getValue('core', 'OC_Channel');
+				$channel = \OC::$server->getConfig()->getSystemValue('updater.release.channel', null);
 			} else {
 				/** @var $OC_Channel string */
 				$channel = $OC_Channel;
@@ -641,7 +642,7 @@ class OC_Util {
 		if(OC_Util::runningOnWindows()) {
 			$errors[] = [
 				'error' => $l->t('Microsoft Windows Platform is not supported'),
-				'hint' => $l->t('Running ownCloud Server on the Microsoft Windows platform is not supported. We suggest you ' .
+				'hint' => $l->t('Running Nextcloud Server on the Microsoft Windows platform is not supported. We suggest you ' .
 					'use a Linux server in a virtual machine if you have no option for migrating the server itself. ' .
 					'Find Linux packages as well as easy to deploy virtual machine images on <a href="%s">%s</a>. ' .
 					'For migrating existing installations to Linux you can find some tips and a migration script ' .
@@ -697,7 +698,7 @@ class OC_Util {
 					. '%sgiving the webserver write access to the root directory%s.',
 					array('<a href="' . $urlGenerator->linkToDocs('admin-dir_permissions') . '" target="_blank">', '</a>'));
 				$errors[] = array(
-					'error' => 'Data directory (' . $CONFIG_DATADIRECTORY . ') not writable by ownCloud',
+					'error' => 'Data directory (' . $CONFIG_DATADIRECTORY . ') not writable by Nextcloud',
 					'hint' => $permissionsHint
 				);
 			} else {
@@ -731,7 +732,7 @@ class OC_Util {
 			),
 			'functions' => [
 				'xml_parser_create' => 'libxml',
-				'mb_detect_encoding' => 'mb multibyte',
+				'mb_strcut' => 'mb multibyte',
 				'ctype_digit' => 'ctype',
 				'json_encode' => 'JSON',
 				'gd_info' => 'GD',
@@ -807,7 +808,7 @@ class OC_Util {
 			}
 			$errors[] = [
 				'error' => $l->t('PHP setting "%s" is not set to "%s".', [$setting[0], var_export($setting[1], true)]),
-				'hint' =>  $l->t('Adjusting this setting in php.ini will make ownCloud run again')
+				'hint' =>  $l->t('Adjusting this setting in php.ini will make Nextcloud run again')
 			];
 			$webServerRestart = true;
 		}
@@ -968,7 +969,8 @@ class OC_Util {
 		}
 
 		$parameters['canResetPassword'] = true;
-		if (!\OC::$server->getSystemConfig()->getValue('lost_password_link')) {
+		$parameters['resetPasswordLink'] = \OC::$server->getSystemConfig()->getValue('lost_password_link', '');
+		if (!$parameters['resetPasswordLink']) {
 			if (isset($_REQUEST['user'])) {
 				$user = \OC::$server->getUserManager()->get($_REQUEST['user']);
 				if ($user instanceof IUser) {
@@ -1159,19 +1161,8 @@ class OC_Util {
 		return $encoded;
 	}
 
-	/**
-	 * Check if the .htaccess file is working
-	 * @param \OCP\IConfig $config
-	 * @return bool
-	 * @throws Exception
-	 * @throws \OC\HintException If the test file can't get written.
-	 */
-	public function isHtaccessWorking(\OCP\IConfig $config) {
 
-		if (\OC::$CLI || !$config->getSystemValue('check_for_working_htaccess', true)) {
-			return true;
-		}
-
+	public function createHtaccessTestFile(\OCP\IConfig $config) {
 		// php dev server does not support htaccess
 		if (php_sapi_name() === 'cli-server') {
 			return false;
@@ -1179,7 +1170,7 @@ class OC_Util {
 
 		// testdata
 		$fileName = '/htaccesstest.txt';
-		$testContent = 'testcontent';
+		$testContent = 'This is used for testing whether htaccess is properly enabled to disallow access from the outside. This file can be safely removed.';
 
 		// creating a test file
 		$testFile = $config->getSystemValue('datadirectory', OC::$SERVERROOT . '/data') . '/' . $fileName;
@@ -1195,6 +1186,28 @@ class OC_Util {
 		}
 		fwrite($fp, $testContent);
 		fclose($fp);
+	}
+
+	/**
+	 * Check if the .htaccess file is working
+	 * @param \OCP\IConfig $config
+	 * @return bool
+	 * @throws Exception
+	 * @throws \OC\HintException If the test file can't get written.
+	 */
+	public function isHtaccessWorking(\OCP\IConfig $config) {
+
+		if (\OC::$CLI || !$config->getSystemValue('check_for_working_htaccess', true)) {
+			return true;
+		}
+
+		$testContent = $this->createHtaccessTestFile($config);
+		if ($testContent === false) {
+			return false;
+		}
+
+		$fileName = '/htaccesstest.txt';
+		$testFile = $config->getSystemValue('datadirectory', OC::$SERVERROOT . '/data') . '/' . $fileName;
 
 		// accessing the file via http
 		$url = \OC::$server->getURLGenerator()->getAbsoluteURL(OC::$WEBROOT . '/data' . $fileName);

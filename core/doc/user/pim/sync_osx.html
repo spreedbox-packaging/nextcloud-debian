@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Synchronizing with OS X &mdash; ownCloud 9.0 User Manual 9.0 documentation</title>
+    <title>Synchronizing with OS X &mdash; Nextcloud 9 User Manual 9 documentation</title>
     
     <link rel="stylesheet" href="../_static/" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '9.0',
+        VERSION:     '9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="ownCloud 9.0 User Manual 9.0 documentation" href="../contents.html" />
+    <link rel="top" title="Nextcloud 9 User Manual 9 documentation" href="../contents.html" />
     <link rel="up" title="Contacts &amp; Calendar" href="index.html" />
     <link rel="next" title="Synchronizing with KDE SC" href="sync_kde.html" />
     <link rel="prev" title="iOS - Synchronize iPhone/iPad" href="sync_ios.html" />
@@ -66,9 +66,9 @@
 <li><a href="../contents.html">Table of Contents</a></li>
 									</ul>
                   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">ownCloud 9.0 User Manual Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What&#8217;s New for Users in ownCloud 9.0</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../webinterface.html">The ownCloud Web Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Nextcloud 9 User Manual Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What&#8217;s New for Users in Nextcloud 9</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../webinterface.html">The Nextcloud Web Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../files/index.html">Files &amp; Synchronization</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Contacts &amp; Calendar</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="contacts.html">Using the Contacts App</a></li>
@@ -83,6 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../documents.html">Collaborative Document Editing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userpreferences.html">Setting Your Preferences</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../external_storage/index.html">External Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bookmarks.html">Using the Bookmarks App</a></li>
 </ul>
 
 								</ul>
@@ -107,12 +108,12 @@
 						
   <div class="section" id="synchronizing-with-os-x">
 <h1>Synchronizing with OS X<a class="headerlink" href="#synchronizing-with-os-x" title="Permalink to this headline">¶</a></h1>
-<p>To use ownCloud with iCal you will need to use the following URL:</p>
+<p>To use Nextcloud with iCal you will need to use the following URL:</p>
 <div class="highlight-python"><div class="highlight"><pre>https://example.com/remote.php/dav/principals/users/USERNAME/
 </pre></div>
 </div>
 <p>The setup is basically the same as with iOS using the path <code class="docutils literal"><span class="pre">https://example.com/remote.php/dav/principals/users/USERNAME/</span></code>
-to sync with ownCloud. For OS X 10.7 Lion and 10.8 Mountain Lion everything works
+to sync with Nextcloud. For OS X 10.7 Lion and 10.8 Mountain Lion everything works
 fine, but OS X 10.6 (Snow Leopard) and older needs some fiddling to work. A user
 contributed the following:</p>
 <p>#. Make sure, addressbook is not running. If it is, select the windows and press
@@ -121,7 +122,7 @@ Command + Q to terminate it.
 If you already have some kind of addressbook setup, it is likely you will see
 some folders named like this <strong>BEA92826-FBF3-4E53-B5C6-ED7C2B454430</strong>.
 Note down what folders there are now and leave the window open.
-#. Open addressbook and try to add a new CardDav addressbook. At this point, it
+#. Open addressbook and try to add a new CardDAV addressbook. At this point, it
 does not matter what information you enter. It will come up with the same error
 message you mentioned before when you click &#8220;Create&#8221;. Ignore it and click &#8220;Create&#8221;
 again. A non-functional addressbook will be added.
@@ -136,19 +137,19 @@ your favorite text editor.
 </div>
 <ol class="arabic" start="8">
 <li><p class="first">Make it look like this. Please note that the :443 after <strong>example.com</strong> is important:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;key&gt;servername&lt;/key &lt;string&gt;https://example.com:443/owncloud/remote.php/dav/principals/users/USERNAME&lt;/string&gt; &lt;key&gt;username&lt;/key &lt;string&gt;username&lt;/string&gt;
+<div class="highlight-python"><div class="highlight"><pre>&lt;key&gt;servername&lt;/key &lt;string&gt;https://example.com:443/nextcloud/remote.php/dav/principals/users/USERNAME&lt;/string&gt; &lt;key&gt;username&lt;/key &lt;string&gt;username&lt;/string&gt;
 </pre></div>
 </div>
 </li>
 <li><p class="first">Save the file and open addressbook again. It will not work yet.</p>
 </li>
-<li><p class="first">Open the preferences for your ownCloud CardDAV-Account and enter your password.</p>
+<li><p class="first">Open the preferences for your Nextcloud CardDAV-Account and enter your password.</p>
 </li>
 <li><p class="first">You may have to restart addressbook once more. After this, it should work.</p>
 </li>
 </ol>
 <p>If it&#8217;s still not working, have a look at the <a class="reference internal" href="troubleshooting.html"><em>Troubleshooting</em></a> and
-<a class="reference external" href="https://doc.owncloud.org/server/9.0/admin_manual/issues/index.html#troubleshooting-contacts-calendar">Troubleshooting Contacts &amp; Calendar</a> guides.</p>
+<a class="reference external" href="https://docs.nextcloud.org/server/9/admin_manual/issues/index.html#troubleshooting-contacts-calendar">Troubleshooting Contacts &amp; Calendar</a> guides.</p>
 <p>There is also an easy <a class="reference external" href="https://forum.owncloud.org/viewtopic.php?f=3&amp;t=132">HOWTO</a> in the forum.</p>
 </div>
 

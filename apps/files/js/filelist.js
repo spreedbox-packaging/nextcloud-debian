@@ -475,8 +475,6 @@
 			this.breadcrumb.setMaxWidth(containerWidth - actionsWidth - 10);
 
 			this.$table.find('>thead').width($('#app-content').width() - OC.Util.getScrollBarWidth());
-
-			this.updateSearch();
 		},
 
 		/**
@@ -631,7 +629,7 @@
 		_onClickDownloadSelected: function(event) {
 			var files;
 			var dir = this.getCurrentDirectory();
-			if (this.isAllSelected()) {
+			if (this.isAllSelected() && this.getSelectedFiles().length > 1) {
 				files = OC.basename(dir);
 				dir = OC.dirname(dir) || '/';
 			}
@@ -1335,7 +1333,7 @@
 		 * @param changeUrl true to also update the URL, false otherwise (default)
 		 */
 		_setCurrentDir: function(targetDir, changeUrl) {
-			targetDir = targetDir.replace(/\\/g, '/');
+			targetDir = targetDir.replace(/\\/g, '/').replace(/\/\.\.\//g, '/');
 			var previousDir = this.getCurrentDirectory(),
 				baseDir = OC.basename(targetDir);
 
@@ -1471,7 +1469,7 @@
 				return false;
 			}
 
-			if (status === 404) {
+			if (status === 404 || status === 405) {
 				// go back home
 				this.changeDirectory('/');
 				return false;
