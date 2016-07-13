@@ -4,7 +4,7 @@ set -e
 
 case "$1" in
     remove)
-        update-alternatives -remove occ /usr/bin/occ.nextcloud
+        update-alternatives --remove occ /usr/bin/occ.nextcloud
         ;;
     upgrade|deconfigure|failed-upgrade)
         ;;
