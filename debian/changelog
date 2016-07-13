@@ -1,3 +1,10 @@
+nextcloud (9.0.52-1~strukturag+2) trusty; urgency=medium
+
+  * Break correct owncloud-server version
+  * Fix parameter in prerm
+
+ -- Simon Eisenmann <simon@struktur.de>  Wed, 13 Jul 2016 17:11:08 +0200
+
 nextcloud (9.0.52-1~strukturag+1) trusty; urgency=medium
 
   * Initial Nextcloud package forked from ownCloud package 9.0.2-1~strukturag+4
