@@ -63,7 +63,7 @@ Provides: nextcloud-server-php
 Conflicts: nextcloud-server-php
 Description: PHP5 dependencies for Nextcloud
  .
- Provides PHP dependencies for Nextcloud with PHP5.
+ This is a dependency package for Nextcloud with PHP5.
 
 Package: nextcloud-server-php7.0
 Architecture: all
@@ -84,7 +84,7 @@ Provides: nextcloud-server-php
 Conflicts: nextcloud-server-php
 Description: PHP7.0 dependencies for Nextcloud
  .
- Provides PHP dependencies for Nextcloud witH PHP7.0.
+ This is a dependency package for Nextcloud witH PHP7.0.
 
 Package: nextcloud-occ
 Architecture: all
