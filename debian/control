@@ -37,6 +37,7 @@ Depends:
  ${misc:Depends},
  ca-certificates,
  cron,
+ nextcloud-server-php,
  nextcloud-server-php7.0 (= ${binary:Version}) | nextcloud-server-php5 (= ${binary:Version})
 Description: The Nextcloud server package
  .
