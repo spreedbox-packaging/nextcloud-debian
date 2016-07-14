@@ -4,7 +4,7 @@ case "$1" in
     purge)
         rmdir --ignore-fail-on-non-empty /etc/nextcloud 2>/dev/null || true
         ;;
-    upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+    remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
         ;;
     *)
         echo "postrm called with unknown argument \`$1'" >&2
