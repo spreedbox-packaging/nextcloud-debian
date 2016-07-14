@@ -1,3 +1,9 @@
+nextcloud (9.0.52-1~strukturag+3) trusty; urgency=medium
+
+  * Move PHP dependencies to meta package
+
+ -- Simon Eisenmann <simon@struktur.de>  Thu, 14 Jul 2016 10:04:03 +0200
+
 nextcloud (9.0.52-1~strukturag+2) trusty; urgency=medium
 
   * Break correct owncloud-server version
