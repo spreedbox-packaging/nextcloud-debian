@@ -37,12 +37,12 @@ Depends:
  ${misc:Depends},
  ca-certificates,
  cron,
- nextcloud-php
+ nextcloud-server-php7.0 (= ${binary:Version}) | nextcloud-server-php5 (= ${binary:Version})
 Description: The Nextcloud server package
  .
- Server internals. For a complete system install package Nextcloud.
+ A complete Nextcloud server system install package.
 
-Package: nextcloud-php5
+Package: nextcloud-server-php5
 Architecture: all
 Depends:
  php5-common,
@@ -59,13 +59,13 @@ Depends:
 # Don't recommend php5-apcu for Ubuntu-14.04 https://github.com/owncloud/core/issues/14188
 # Don't use apcu before 4.0.6 https://github.com/owncloud/core/issues/14175
 Suggests: php5-apcu (>= 4.0.6) | php-apc
-Provides: nextcloud-php
-Conflicts: nextcloud-php
+Provides: nextcloud-server-php
+Conflicts: nextcloud-server-php
 Description: PHP5 dependencies for Nextcloud
  .
  Provides PHP dependencies for Nextcloud with PHP5.
 
-Package: nextcloud-php7.0
+Package: nextcloud-server-php7.0
 Architecture: all
 Depends:
  php7.0-common,
@@ -80,8 +80,8 @@ Depends:
  php7.0-pgsql,
  php7.0-sqlite
 Suggests: php7.0-apcu
-Provides: nextcloud-php
-Conflicts: nextcloud-php
+Provides: nextcloud-server-php
+Conflicts: nextcloud-server-php
 Description: PHP7.0 dependencies for Nextcloud
  .
  Provides PHP dependencies for Nextcloud witH PHP7.0.
