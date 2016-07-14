@@ -1,3 +1,10 @@
+nextcloud (9.0.52-1~strukturag+5) trusty; urgency=medium
+
+  * Also depend on PHP meta package
+  * Fix remove postrm
+
+ -- Simon Eisenmann <simon@struktur.de>  Thu, 14 Jul 2016 11:46:07 +0200
+
 nextcloud (9.0.52-1~strukturag+4) trusty; urgency=medium
 
   * Remove obsolete php-xml-parser dependency
