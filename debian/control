@@ -45,7 +45,6 @@ Description: The Nextcloud server package
 Package: nextcloud-php5
 Architecture: all
 Depends:
- php-xml-parser,
  php5-common,
  php5-cli,
  php5-curl,
@@ -69,7 +68,6 @@ Description: PHP5 dependencies for Nextcloud
 Package: nextcloud-php7.0
 Architecture: all
 Depends:
- php-xml-parser,
  php7.0-common,
  php7.0-cli,
  php7.0-curl,
