@@ -54,12 +54,13 @@ Depends:
  php5-json,
  php5-ldap,
  php5-mcrypt,
- php5-mysqlnd | php5-mysql,
- php5-pgsql,
  php5-sqlite
 # Don't recommend php5-apcu for Ubuntu-14.04 https://github.com/owncloud/core/issues/14188
 # Don't use apcu before 4.0.6 https://github.com/owncloud/core/issues/14175
-Suggests: php5-apcu (>= 4.0.6) | php-apc
+Suggests:
+ php5-apcu (>= 4.0.6) | php-apc,
+ php5-mysqlnd | php5-mysql,
+ php5-pgsql
 Provides: nextcloud-server-php
 Conflicts: nextcloud-server-php
 Description: PHP5 dependencies for Nextcloud
@@ -77,10 +78,11 @@ Depends:
  php7.0-json,
  php7.0-ldap,
  php7.0-mcrypt,
- php7.0-mysqlnd | php7.0-mysql,
- php7.0-pgsql,
  php7.0-sqlite
-Suggests: php7.0-apcu
+Suggests:
+ php7.0-apcu,
+ php7.0-mysqlnd | php7.0-mysql,
+ php7.0-pgsql
 Provides: nextcloud-server-php
 Conflicts: nextcloud-server-php
 Description: PHP7.0 dependencies for Nextcloud
