@@ -94,9 +94,6 @@ Architecture: all
 Depends:
  ${misc:Depends},
  nextcloud-server (= ${binary:Version})
-# Don't allow installation with owncloud-server installed which also provides /usr/bin/occ.
-Breaks:
- owncloud-server (<< 9.0.2-2)
 Description: The Nextcloud commandline client
  .
  Provides system wide occ commandline client for Nextcloud.
