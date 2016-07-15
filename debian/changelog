@@ -1,3 +1,10 @@
+nextcloud (9.0.52-1~strukturag+6) trusty; urgency=medium
+
+  * Make PHP mysql, pgsql and apcu suggests
+  * Allow occ to install even when ownCloud is there
+
+ -- Simon Eisenmann <simon@struktur.de>  Fri, 15 Jul 2016 09:56:50 +0200
+
 nextcloud (9.0.52-1~strukturag+5) trusty; urgency=medium
 
   * Also depend on PHP meta package
