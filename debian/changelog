@@ -1,3 +1,9 @@
+nextcloud (9.0.52-1~strukturag+7) trusty; urgency=medium
+
+  * Move mta and mariadb dep to suggest
+
+ -- Simon Eisenmann <simon@struktur.de>  Mon, 18 Jul 2016 11:25:12 +0200
+
 nextcloud (9.0.52-1~strukturag+6) trusty; urgency=medium
 
   * Make PHP mysql, pgsql and apcu suggests
