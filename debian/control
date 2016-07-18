@@ -16,11 +16,11 @@ Depends:
  ${misc:Depends},
  nextcloud-server (= ${binary:Version})
 Recommends:
- curl,
- exim4 | mail-transport-agent,
- mysql-server | mariadb-server
+ curl
 Suggests:
+ exim4 | mail-transport-agent,
  libreoffice-writer,
+ mysql-server | mariadb-server,
  smbclient
 Provides: nextcloud
 Description: The Nextcloud Server - Private file sync and share server
