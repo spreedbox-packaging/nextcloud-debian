@@ -21,7 +21,8 @@ case "$1" in
         # Don’t let it fail, since it exits with 3 if no upgrade is necessary
         if [ -s /run/occ_maintenance_mode_during_nextcloud_install ]; then
             # Automatic upgrades when enabled.
-            if [ -e "/etc/nextcloud/.auto-upgrade-enabled" ]; then
+            AUTO_UPGRADE_ENABLED="$(awk -F= '/^AUTO_UPGRADE_ENABLED=/ { print $2}' /etc/default/nextcloud-server | sed -e 's|"||g' -e "s|'||g")"
+            if [ "$AUTO_UPGRADE_ENABLED" = "1" ]; then
                 su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --off" || true
 
                 set +e
