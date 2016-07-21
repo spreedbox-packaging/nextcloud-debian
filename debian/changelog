@@ -1,3 +1,9 @@
+nextcloud (9.0.53-1~strukturag+3) trusty; urgency=medium
+
+  * Fix postinst
+
+ -- Simon Eisenmann <simon@struktur.de>  Thu, 21 Jul 2016 16:09:59 +0200
+
 nextcloud (9.0.53-1~strukturag+2) trusty; urgency=medium
 
   * Set owership of our folders in postinst
