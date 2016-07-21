@@ -7,9 +7,11 @@
 
 ## CAUTION: keep in sync with debian.rules
 export WEBROOT=/usr/lib/nextcloud/www
+export CONFIGROOT=/etc/nextcloud
 export DATAROOT=/var/lib/nextcloud/data
 
 export WWW_USER=www-data
+export WWW_GROUP=www-data
 
 set -e
 
@@ -17,6 +19,11 @@ set -e
 
 case "$1" in
     configure)
+        # Assert some ownership to fix issues wich packages which ship our folders but with root owner.
+        chown $WWW_USER:$WWW_GROUP $(CONFIGROOT)
+        chown $WWW_USER:$WWW_GROUP $(WEBROOT)/apps
+        chown $WWW_USER:$WWW_GROUP $(WEBROOT)/themes
+
         # Update the database on upgrade
         # Don’t let it fail, since it exits with 3 if no upgrade is necessary
         if [ -s /run/occ_maintenance_mode_during_nextcloud_install ]; then

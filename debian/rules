@@ -30,7 +30,6 @@ override_dh_fixperms:
 	chmod a+x $(WEBROOT)/occ
 	# chown at the end to ensure everything is chown'ed
 	# We must chown all apps folders, in each app, to be independent of installation order.
-	if [ -d "$(WEBROOT)/assets" ]; then chown www-data:www-data $(WEBROOT)/assets; fi
 	chown www-data:www-data    $(WEBROOT)/apps
 	chown www-data:www-data    $(WEBROOT)/assets
 	chown -R www-data:www-data $(WEBROOT)/themes
