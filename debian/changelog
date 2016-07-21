@@ -1,3 +1,9 @@
+nextcloud (9.0.53-1~strukturag+2) trusty; urgency=medium
+
+  * Set owership of our folders in postinst
+
+ -- Simon Eisenmann <simon@struktur.de>  Thu, 21 Jul 2016 15:36:33 +0200
+
 nextcloud (9.0.53-1~strukturag+1) trusty; urgency=medium
 
   * Imported Upstream version 9.0.53
