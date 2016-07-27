@@ -78,7 +78,7 @@ Depends:
  php7.0-json,
  php7.0-ldap,
  php7.0-mcrypt,
- php7.0-sqlite
+ php7.0-sqlite | php7.0-sqlite3,
 Suggests:
  php7.0-apcu,
  php7.0-mysqlnd | php7.0-mysql,
