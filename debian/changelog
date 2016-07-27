@@ -1,3 +1,9 @@
+nextcloud (9.0.53-2~strukturag+4) trusty; urgency=medium
+
+  * Fixup PHP7.0 marker
+
+ -- Simon Eisenmann <simon@struktur.de>  Wed, 27 Jul 2016 18:08:41 +0200
+
 nextcloud (9.0.53-2~strukturag+3) trusty; urgency=medium
 
   * Update cron conditions
