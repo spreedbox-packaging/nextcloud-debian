@@ -1,3 +1,9 @@
+nextcloud (9.0.53-2~strukturag+2) trusty; urgency=medium
+
+  * Fix PHP7 dependencies
+
+ -- Simon Eisenmann <simon@struktur.de>  Wed, 27 Jul 2016 17:37:23 +0200
+
 nextcloud (9.0.53-2~strukturag+1) trusty; urgency=medium
 
   * Update PR#549 backport
