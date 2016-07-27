@@ -1,3 +1,10 @@
+nextcloud (9.0.53-2~strukturag+1) trusty; urgency=medium
+
+  * Update PR#549 backport
+  * Improve PHP5/PHP7.0 compatibility
+
+ -- Simon Eisenmann <simon@struktur.de>  Wed, 27 Jul 2016 17:29:48 +0200
+
 nextcloud (9.0.53-1~strukturag+3) trusty; urgency=medium
 
   * Fix postinst
