@@ -11,7 +11,6 @@ index.html	/usr/lib/nextcloud/www/
 index.php	/usr/lib/nextcloud/www/
 l10n		/usr/lib/nextcloud/www/
 lib		/usr/lib/nextcloud/www/
-occ		/usr/lib/nextcloud/www/
 ocs		/usr/lib/nextcloud/www/
 ocs-provider	/usr/lib/nextcloud/www/
 public.php	/usr/lib/nextcloud/www/

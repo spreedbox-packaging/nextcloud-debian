@@ -19,15 +19,19 @@ override_dh_install:
 	dh_install
 	ln -s /var/lib/nextcloud/data $(WEBROOT)/data
 	ln -s /etc/nextcloud $(WEBROOT)/config
-	cp -r config/* $(CONFIGROOT)/
-	cp debian/autoconfig.php $(CONFIGROOT)/autoconfig.php
+	cp -ra config/* $(CONFIGROOT)/
+	cp -a debian/autoconfig.php $(CONFIGROOT)/autoconfig.php
 	# Replace Nextcloud shipped CAs with system provided CAs provided by ca-certifiactes package.
 	rm -f $(WEBROOT)/resources/config/ca-bundle.crt
 	ln -s /etc/ssl/certs/ca-certificates.crt $(WEBROOT)/resources/config/ca-bundle.crt
+	# PHP specific occ console.
+	mkdir -p $(CURDIR)/debian/nextcloud-server-php5/usr/lib/nextcloud/www
+	cp -a debian/occ.php5 $(CURDIR)/debian/nextcloud-server-php5/usr/lib/nextcloud/www/occ
+	mkdir -p $(CURDIR)/debian/nextcloud-server-php7.0/usr/lib/nextcloud/www
+	cp -a debian/occ.php7.0 $(CURDIR)/debian/nextcloud-server-php7.0/usr/lib/nextcloud/www/occ
 
 override_dh_fixperms:
 	dh_fixperms -X var/lib/nextcloud/data -X etc/nextcloud
-	chmod a+x $(WEBROOT)/occ
 	# chown at the end to ensure everything is chown'ed
 	# We must chown all apps folders, in each app, to be independent of installation order.
 	chown www-data:www-data    $(WEBROOT)/apps

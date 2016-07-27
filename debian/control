@@ -92,8 +92,9 @@ Description: PHP7.0 dependencies for Nextcloud
 Package: nextcloud-occ
 Architecture: all
 Depends:
- ${misc:Depends},
- nextcloud-server (= ${binary:Version})
+ bash,
+ nextcloud-server (= ${binary:Version}),
+ ${misc:Depends}
 Description: The Nextcloud commandline client
  .
  Provides system wide occ commandline client for Nextcloud.

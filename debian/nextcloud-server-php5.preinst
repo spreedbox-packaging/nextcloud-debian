@@ -7,6 +7,8 @@ export DATAROOT=/var/lib/nextcloud/data
 
 export WWW_USER=www-data
 
+export PHP=/usr/bin/php5
+
 set -e
 
 #DEBHELPER#
@@ -18,7 +20,7 @@ case "$1" in
         if [ -s $WEBROOT/config/config.php ] ; then
             # https://github.com/owncloud/core/issues/16723
             echo "nextcloud-server: occ maintenance:mode --on"
-            su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --on" || true
+            su $WWW_USER -s /bin/sh -c "cd $WEBROOT; $PHP ./occ maintenance:mode --on" || true
             echo yes > /run/occ_maintenance_mode_during_nextcloud_install
         fi
     ;;

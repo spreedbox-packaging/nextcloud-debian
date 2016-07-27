@@ -1,5 +1,5 @@
 #!/bin/sh -e
-# postinst script for nextcloud-server
+# postinst script for nextcloud-server-php7.0
 
 # Based on http://anonscm.debian.org/cgit/pkg-owncloud/owncloud.git/plain/debian/postinst
 # https://github.com/owncloud/core/issues/12037
@@ -12,6 +12,8 @@ export DATAROOT=/var/lib/nextcloud/data
 
 export WWW_USER=www-data
 export WWW_GROUP=www-data
+
+export PHP=/usr/bin/php7.0
 
 set -e
 
@@ -30,14 +32,14 @@ case "$1" in
             # Automatic upgrades when enabled.
             AUTO_UPGRADE_ENABLED="$(awk -F= '/^AUTO_UPGRADE_ENABLED=/ { print $2}' /etc/default/nextcloud-server | sed -e 's|"||g' -e "s|'||g")"
             if [ "$AUTO_UPGRADE_ENABLED" = "1" ]; then
-                su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --off" || true
+                su $WWW_USER -s /bin/sh -c "cd $WEBROOT; $PHP ./occ maintenance:mode --off" || true
 
                 set +e
-                su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ upgrade"
+                su $WWW_USER -s /bin/sh -c "cd $WEBROOT; $PHP ./occ upgrade"
                 rc=$?
                 set -e
                 if [ "$rc" != "0" ] && [ "$rc" != "3" ]; then
-                    su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --on" || true
+                    su $WWW_USER -s /bin/sh -c "cd $WEBROOT; $PHP ./occ maintenance:mode --on" || true
                     echo  "Leaving server in maintenance mode. Please run occ upgrade manually."
                 fi
             else
@@ -45,7 +47,7 @@ case "$1" in
                 # https://github.com/owncloud/core/pull/19661
                 echo  "Leaving server in maintenance mode. Please run occ upgrade manually."
                 # enter maintenance mode again, just in case it failed during preinst.
-                su $WWW_USER -s /bin/sh -c "cd $WEBROOT; php ./occ maintenance:mode --on" || true
+                su $WWW_USER -s /bin/sh -c "cd $WEBROOT; $PHP ./occ maintenance:mode --on" || true
             fi
         fi
         rm -f /run/occ_maintenance_mode_during_nextcloud_install
