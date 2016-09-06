@@ -58,6 +58,13 @@ $CONFIG = array(
  * Your list of trusted domains that users can log into. Specifying trusted
  * domains prevents host header poisoning. Do not remove this, as it performs
  * necessary security checks.
+ * You can specify:
+ *
+ * - the exact hostname of your host or virtual host, e.g. demo.example.org.
+ * - the exact hostname with permitted port, e.g. demo.example.org:443.
+ *   This disallows all other ports on this host
+ * - use * as a wildcard, e.g. ubos-raspberry-pi*.local will allow
+ *   ubos-raspberry-pi.local and ubos-raspberry-pi-2.local
  */
 'trusted_domains' =>
   array (
@@ -192,6 +199,20 @@ $CONFIG = array(
  * Enabling this sends a "heartbeat" to the server to keep it from timing out.
  */
 'session_keepalive' => true,
+
+/**
+ * Enforce token authentication for clients, which blocks requests using the user
+ * password for enhanced security. Users need to generate tokens in personal settings
+ * which can be used as passwords on their clients.
+ */
+'token_auth_enforced' => false,
+
+/**
+ * Whether the bruteforce protection shipped with Nextcloud should be enabled or not.
+ *
+ * Disabling this is discouraged for security reasons.
+ */
+'auth.bruteforce.protection.enabled' => true,
 
 /**
  * The directory where the skeleton files are located. These files will be
@@ -414,7 +435,7 @@ $CONFIG = array(
  * Both minimum and maximum times can be set together to explicitly define
  * file and folder deletion. For migration purposes, this setting is installed
  * initially set to "auto", which is equivalent to the default setting in
- * ownCloud 8.1 and before.
+ * Nextcloud.
  *
  * Available values:
  *
@@ -454,7 +475,7 @@ $CONFIG = array(
  * Both minimum and maximum times can be set together to explicitly define
  * version deletion. For migration purposes, this setting is installed
  * initially set to "auto", which is equivalent to the default setting in
- * ownCloud 8.1 and before. 
+ * Nextcloud.
  *
  * Available values:
  *
@@ -501,11 +522,6 @@ $CONFIG = array(
 'updater.server.url' => 'https://updates.nextcloud.org/server/',
 
 /**
- * Release channel to use for updates
- */
-'updater.release.channel' => 'stable',
-
-/**
  * Is Nextcloud connected to the Internet or running in a closed network?
  */
 'has_internet_connection' => true,
@@ -547,7 +563,7 @@ $CONFIG = array(
  */
 
 /**
- * By default the Nextcloud logs are sent to the ``owncloud.log`` file in the
+ * By default the Nextcloud logs are sent to the ``nextcloud.log`` file in the
  * default Nextcloud data directory.
  * If syslogging is desired, set this parameter to ``syslog``.
  * Setting this parameter to ``errorlog`` will use the PHP error_log function
@@ -557,9 +573,9 @@ $CONFIG = array(
 
 /**
  * Log file path for the Nextcloud logging type.
- * Defaults to ``[datadirectory]/owncloud.log``
+ * Defaults to ``[datadirectory]/nextcloud.log``
  */
-'logfile' => '/var/log/owncloud.log',
+'logfile' => '/var/log/nextcloud.log',
 
 /**
  * Loglevel to start logging at. Valid values are: 0 = Debug, 1 = Info, 2 =
@@ -627,6 +643,13 @@ $CONFIG = array(
  */
 'log_rotate_size' => false,
 
+
+/**
+ * Alternate Code Locations
+ *
+ * Some of the Nextcloud code may be stored in alternate locations.
+ */
+
 /**
  * This section is for configuring the download links for Nextcloud clients, as
  * seen in the first-run wizard and on Personal pages.
@@ -636,7 +659,7 @@ $CONFIG = array(
 'customclient_android' =>
 	'https://play.google.com/store/apps/details?id=com.nextcloud.client',
 'customclient_ios' =>
-	'https://itunes.apple.com/us/app/owncloud/id543672169?mt=8',
+	'https://itunes.apple.com/us/app/nextcloud/id1125420102?mt=8',
 
 /**
  * Apps
@@ -808,7 +831,7 @@ $CONFIG = array(
  * defines the interval in minutes for the background job that checks user
  * existence and marks them as ready to be cleaned up. The number is always
  * minutes. Setting it to 0 disables the feature.
- * See command line (occ) methods ldap:show-remnants and user:delete
+ * See command line (occ) methods ``ldap:show-remnants`` and ``user:delete``
  */
 'ldapUserCleanupInterval' => 51,
 
@@ -933,6 +956,30 @@ $CONFIG = array(
 	//array('other.host.local', 11211),
 ),
 
+/**
+ * Connection options for memcached, see http://apprize.info/php/scaling/15.html
+ */
+'memcached_options' => array(
+	// Set timeouts to 50ms
+	\Memcached::OPT_CONNECT_TIMEOUT => 50,
+	\Memcached::OPT_RETRY_TIMEOUT =>   50,
+	\Memcached::OPT_SEND_TIMEOUT =>    50,
+	\Memcached::OPT_RECV_TIMEOUT =>    50,
+	\Memcached::OPT_POLL_TIMEOUT =>    50,
+
+	// Enable compression
+	\Memcached::OPT_COMPRESSION =>          true,
+
+	// Turn on consistent hashing
+	\Memcached::OPT_LIBKETAMA_COMPATIBLE => true,
+
+	// Enable Binary Protocol
+	\Memcached::OPT_BINARY_PROTOCOL =>      true,
+
+	// Binary serializer vill be enabled if the igbinary PECL module is available
+	//\Memcached::OPT_SERIALIZER => \Memcached::SERIALIZER_IGBINARY,
+),
+
 
 /**
  * Location of the cache folder, defaults to ``data/$user/cache`` where
@@ -941,6 +988,14 @@ $CONFIG = array(
  * and ``$user`` is the user.
  */
 'cache_path' => '',
+
+/**
+ * TTL of chunks located in the cache folder before they're removed by
+ * garbage collection (in seconds). Increase this value if users have
+ * issues uploading very large files via the Nextcloud Client as upload isn't
+ * completed within one day.
+ */
+'cache_chunk_gc_ttl' => 86400, // 60*60*24 = 1 day
 
 /**
  * Using Object Store with Nextcloud
@@ -1081,12 +1136,12 @@ $CONFIG = array(
 'cipher' => 'AES-256-CFB',
 
 /**
- * The minimum ownCloud desktop client version that will be allowed to sync with
+ * The minimum Nextcloud desktop client version that will be allowed to sync with
  * this server instance. All connections made from earlier clients will be denied
- * by the server. Defaults to the minimum officially supported ownCloud desktop
- * client version at the time of release of this server version.
+ * by the server. Defaults to the minimum officially supported Nextcloud desktop
+ * clientversion at the time of release of this server version.
  *
- * When changing this, note that older unsupported versions of the ownCloud desktop
+ * When changing this, note that older unsupported versions of the Nextcloud desktop
  * client may not function as expected, and could lead to permanent data loss for
  * clients or other unexpected results.
  */
@@ -1119,22 +1174,6 @@ $CONFIG = array(
  * external storage setups that have limited rename capabilities.
  */
 'part_file_in_storage' => true,
-
-/**
- * All css and js files will be served by the Web server statically in one js
- * file and one css file if this is set to ``true``. This improves performance.
- */
-'asset-pipeline.enabled' => false,
-
-/**
- * The parent of the directory where css and js assets will be stored if
- * pipelining is enabled; this defaults to the Nextcloud directory. The assets
- * will be stored in a subdirectory of this directory named 'assets'. The
- * server *must* be configured to serve that directory as $WEBROOT/assets.
- * You will only likely need to change this if the main Nextcloud directory
- * is not writeable by the Web server in your configuration.
- */
-'assetdirectory' => '/var/www/nextcloud',
 
 /**
  * Where ``mount.json`` file should be stored, defaults to ``data/mount.json``
@@ -1197,6 +1236,15 @@ $CONFIG = array(
 'filelocking.enabled' => true,
 
 /**
+ * Set the time-to-live for locks in secconds.
+ *
+ * Any lock older than this will be automatically cleaned up.
+ *
+ * If not set this defaults to either 1 hour or the php max_execution_time, whichever is higher.
+ */
+'filelocking.ttl' => 3600,
+
+/**
  * Memory caching backend for file locking
  *
  * Because most memcache backends can clean values without warning using redis
@@ -1205,12 +1253,30 @@ $CONFIG = array(
 'memcache.locking' => '\\OC\\Memcache\\Redis',
 
 /**
+ * Disable the web based updater
+ */
+'upgrade.disable-web' => false,
+
+/**
  * Set this Nextcloud instance to debugging mode
  *
  * Only enable this for local development and not in production environments
  * This will disable the minifier and outputs some additional debug information
  */
 'debug' => false,
+
+/**
+ * Sets the data-fingerprint of the current data served
+ *
+ * This is a property used by the clients to find out if a backup has been
+ * restored on the server. Once a backup is restored run
+ * ./occ maintenance:data-fingerprint
+ * To set this to a new value.
+ *
+ * Updating/Deleting this value can make connected clients stall until
+ * the user has resolved conflicts.
+ */
+'data-fingerprint' => '',
 
 /**
  * This entry is just here to show a warning in case somebody copied the sample
