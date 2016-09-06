@@ -1,6 +1,4 @@
-asset_pipeline_before_installation.patch
 disable_integrity_check.patch
 disable_apps_updater.patch
 reenable_disabled_apps.patch
 csp_allow_same_origin.patch
-fix_maintenance_mode.patch

@@ -1,6 +1,6 @@
 --- a/settings/js/apps.js
 +++ b/settings/js/apps.js
-@@ -126,6 +126,7 @@ OC.Settings.Apps = OC.Settings.Apps || {
+@@ -144,6 +144,7 @@ OC.Settings.Apps = OC.Settings.Apps || {
  			complete: function() {
  				var availableUpdates = 0;
  				$('#apps-list').removeClass('icon-loading');

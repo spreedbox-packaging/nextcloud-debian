@@ -1,6 +1,6 @@
---- a/lib/private/integritycheck/checker.php
-+++ b/lib/private/integritycheck/checker.php
-@@ -93,6 +93,7 @@ class Checker {
+--- a/lib/private/IntegrityCheck/Checker.php
++++ b/lib/private/IntegrityCheck/Checker.php
+@@ -96,6 +96,7 @@ class Checker {
  	 * @return bool
  	 */
  	public function isCodeCheckEnforced() {
