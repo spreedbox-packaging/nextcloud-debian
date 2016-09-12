@@ -3,7 +3,7 @@ Section: devel
 Priority: optional
 Maintainer: struktur AG <opensource@struktur.de>
 Uploaders:
- Joachim Bauch <bauch@struktur.de>
+ Joachim Bauch <bauch@struktur.de>,
  Simon Eisenmann <simon@struktur.de>
 Build-Depends:
  debhelper (>= 7.0.50~),
