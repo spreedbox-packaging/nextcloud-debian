@@ -1,3 +1,9 @@
+nextcloud (10.0.0-1~strukturag+1) trusty; urgency=medium
+
+  * Fix name of cron.d file for php7.0 package (FS#3813).
+
+ -- Joachim Bauch <bauch@struktur.de>  Mon, 12 Sep 2016 17:27:59 +0200
+
 nextcloud (10.0.0-1~strukturag+0) trusty; urgency=medium
 
   * Imported Upstream version 10.0.0
