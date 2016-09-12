@@ -43,3 +43,7 @@ override_dh_fixperms:
 	# https://github.com/owncloud/core/issues/18222
 	chmod -R ug+rwx            $(CONFIGROOT)
 	chown -R www-data:www-data $(DATAROOT)
+
+override_dh_installcron:
+	dh_installcron
+	dh_installcron --name=nextcloud-server-php7-0
