@@ -1,0 +1,1 @@
+rm_conffile /etc/cron.d/nextcloud-server-php7.0 10.0.0-1~strukturag+1
