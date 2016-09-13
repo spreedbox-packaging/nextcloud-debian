@@ -1,3 +1,13 @@
+nextcloud (10.0.0-1~strukturag+2) trusty; urgency=medium
+
+  [ Joachim Bauch ]
+  * Remove old cron.d file (replaced in FS#3813).
+
+  [ Simon Eisenmann ]
+  * Add redirect support for setup
+
+ -- Simon Eisenmann <simon@struktur.de>  Tue, 13 Sep 2016 14:23:35 +0200
+
 nextcloud (10.0.0-1~strukturag+1) trusty; urgency=medium
 
   * Fix name of cron.d file for php7.0 package (FS#3813).
