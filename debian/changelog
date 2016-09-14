@@ -1,3 +1,10 @@
+nextcloud (10.0.0-1~strukturag+3) trusty; urgency=medium
+
+  * Not ship updatenotification app
+  * Fix MemAvailable Undefined Indexerror
+
+ -- Simon Eisenmann <simon@struktur.de>  Wed, 14 Sep 2016 17:00:54 +0200
+
 nextcloud (10.0.0-1~strukturag+2) trusty; urgency=medium
 
   [ Joachim Bauch ]
