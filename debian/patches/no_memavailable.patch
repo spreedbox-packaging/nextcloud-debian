@@ -1,0 +1,32 @@
+From 8b3e63e1e46cab43f62303122572f68450738e92 Mon Sep 17 00:00:00 2001
+From: Joachim Bauch <bauch@struktur.de>
+Date: Tue, 13 Sep 2016 17:10:26 +0200
+Subject: [PATCH] Handle older kernels when returning free memory.
+
+The property "MemAvailable" was only introduced in newer kernels after
+2014, so for older versions "MemFree" must be used. This fixes #43.
+---
+ apps/serverinfo/lib/SystemStatistics.php | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/apps/serverinfo/lib/SystemStatistics.php b/apps/serverinfo/lib/SystemStatistics.php
+index e879d3c..80e4643 100644
+--- a/apps/serverinfo/lib/SystemStatistics.php
++++ b/apps/serverinfo/lib/SystemStatistics.php
+@@ -81,8 +81,15 @@ protected function getMemoryUsage() {
+ 			$data[$k] = $v;
+ 		}
+ 
++		if (array_key_exists('MemAvailable', $data)) {
++			// MemAvailable is only present in newer kernels (after 2014).
++			$available = $data['MemAvailable'];
++		} else {
++			$available = $data['MemFree'];
++		}
++
+ 		return [
+-			'mem_free' => (int)$data['MemAvailable'] + (int)$data['SwapFree'],
++			'mem_free' => (int)$available + (int)$data['SwapFree'],
+ 			'mem_total' => (int)$data['MemTotal'] + (int)$data['SwapTotal']
+ 		];
+ 	}

@@ -3,3 +3,4 @@ disable_apps_updater.patch
 reenable_disabled_apps.patch
 csp_allow_same_origin.patch
 redirect_url_for_setup.patch
+no_memavailable.patch
