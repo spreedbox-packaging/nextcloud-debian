@@ -1,39 +1,11 @@
-From 1a240a23e59a2ee56fa00e590953239649225201 Mon Sep 17 00:00:00 2001
-From: Simon Eisenmann <simon@struktur.de>
-Date: Tue, 13 Sep 2016 12:15:30 +0200
-Subject: [PATCH] Pass redirect_url through setup form
-
-When accessing a 'not set up' Nextcloud with a redirect_url parameter
-the parameter will is added to the setup POST request, resulting in the
-requested redirect after setup is complete.
-
-This is required in scenarios where Nextcloud is used as authorization
-provider like on the Spreedbox to allow redirection to the required page
-when normally a login form would be shown but the setup form is shown
-instead.
----
- core/js/setup.js | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/core/js/setup.js b/core/js/setup.js
-index 1aad766..9190310 100644
---- a/core/js/setup.js
-+++ b/core/js/setup.js
-@@ -79,6 +79,17 @@ $(document).ready(function() {
- 			form.append(input);
- 		}
- 
-+		// Add redirect_url
-+		var redirectURL = getURLParameter('redirect_url');
-+		if (redirectURL) {
-+			var redirectURLInput = $('<input type="hidden">');
-+			redirectURLInput.attr({
-+				name: 'redirect_url',
-+				value: redirectURL
-+			});
-+			form.append(redirectURLInput);
-+		}
-+
- 		// Submit the form
- 		form.appendTo(document.body);
- 		form.submit();
+--- a/core/templates/installation.php
++++ b/core/templates/installation.php
+@@ -8,7 +8,7 @@ script('core', [
+ <input type='hidden' id='hasSQLite' value='<?php p($_['hasSQLite']) ?>'>
+ <input type='hidden' id='hasPostgreSQL' value='<?php p($_['hasPostgreSQL']) ?>'>
+ <input type='hidden' id='hasOracle' value='<?php p($_['hasOracle']) ?>'>
+-<form action="index.php" method="post">
++<form action="index.php?redirect_url=/spreedbox-setup/" method="post">
+ <input type="hidden" name="install" value="true">
+ 	<?php if(count($_['errors']) > 0): ?>
+ 	<fieldset class="warning">
