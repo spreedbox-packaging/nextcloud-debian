@@ -1,0 +1,27 @@
+index 9190310..6a949a5 100644
+--- a/core/js/setup.js
++++ b/core/js/setup.js
+@@ -81,14 +81,16 @@ $(document).ready(function() {
+ 
+ 		// Add redirect_url
+ 		var redirectURL = getURLParameter('redirect_url');
+-		if (redirectURL) {
+-			var redirectURLInput = $('<input type="hidden">');
+-			redirectURLInput.attr({
+-				name: 'redirect_url',
+-				value: redirectURL
+-			});
+-			form.append(redirectURLInput);
++		if (!redirectURL || redirectURL === 'null') {
++			// WTF. It's a "null" string.
++			redirectURL = '/spreedbox-setup/';
+ 		}
++		var redirectURLInput = $('<input type="hidden">');
++		redirectURLInput.attr({
++			name: 'redirect_url',
++			value: redirectURL
++		});
++		form.append(redirectURLInput);
+ 
+ 		// Submit the form
+ 		form.appendTo(document.body);
