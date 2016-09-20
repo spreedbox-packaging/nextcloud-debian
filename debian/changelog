@@ -1,3 +1,12 @@
+nextcloud (10.0.0-1~strukturag+6) trusty; urgency=medium
+
+  [ Leon Klingele ]
+  * Disable the 'Password Policy' checks for password reset via commandline
+
+  [ Simon Eisenmann ]
+
+ -- Simon Eisenmann <simon@struktur.de>  Tue, 20 Sep 2016 16:18:52 +0200
+
 nextcloud (10.0.0-1~strukturag+5) trusty; urgency=medium
 
   [ Leon Klingele ]
