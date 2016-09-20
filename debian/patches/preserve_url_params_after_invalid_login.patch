@@ -1,0 +1,12 @@
+--- a/core/Controller/LoginController.php
++++ b/core/Controller/LoginController.php
+@@ -230,7 +230,8 @@ class LoginController extends Controller {
+ 			]);
+ 			// Read current user and append if possible - we need to return the unmodified user otherwise we will leak the login name
+ 			$args = !is_null($user) ? ['user' => $originalUser] : [];
+-			return new RedirectResponse($this->urlGenerator->linkToRoute('core.login.showLoginForm', $args));
++			$argsMerged = array_merge($_GET, $args);
++			return new RedirectResponse($this->urlGenerator->linkToRoute('core.login.showLoginForm', $argsMerged));
+ 		}
+ 		// TODO: remove password checks from above and let the user session handle failures
+ 		// requires https://github.com/owncloud/core/pull/24616

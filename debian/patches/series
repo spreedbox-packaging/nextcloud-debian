@@ -7,3 +7,4 @@ redirect_url_for_setup.patch
 redirect_url_for_setup_default.patch
 no_memavailable.patch
 no_path_info_read.patch
+preserve_url_params_after_invalid_login.patch
