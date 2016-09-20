@@ -1,5 +1,6 @@
 disable_integrity_check.patch
 disable_apps_updater.patch
+disable_password_policy_for_reset_via_commandline.patch
 reenable_disabled_apps.patch
 csp_allow_same_origin.patch
 redirect_url_for_setup.patch
