@@ -3,11 +3,10 @@ OC.L10N.register(
     {
     "Update notifications" : "Aktualizovat upozornění",
     "{version} is available. Get more information on how to update." : "Je dostupná {version}. Přečtěte si více informací jak aktualizovat.",
-    "Updated channel" : "Aktualizovat kanál",
+    "Channel updated" : "Kanál aktualizován",
     "Nextcloud core" : "Nextcloud Core",
     "Update for %1$s to version %2$s is available." : "Je dostupná aktualizace pro %1$s na verzi %2$s.",
     "A new version is available: %s" : "Je dostupná nová verze: %s",
-    "Open updater" : "Otevřít program aktualizací",
     "Your version is up to date." : "Používáte nejnovější verzi.",
     "Checked on %s" : "Zkontrolováno %s",
     "Update channel:" : "Aktualizovat kanál:",
