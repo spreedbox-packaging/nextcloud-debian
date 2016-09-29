@@ -1,3 +1,12 @@
+nextcloud (10.0.1-1~strukturag+0) trusty; urgency=medium
+
+  * Imported Upstream version 10.0.1
+  * Remove obsolete patch as now in upstream
+  * Refresh patches for 10.0.1
+  * Remove new updater as packaging is used
+
+ -- Simon Eisenmann <simon@struktur.de>  Thu, 29 Sep 2016 11:11:44 +0200
+
 nextcloud (10.0.0-1~strukturag+6) trusty; urgency=medium
 
   [ Leon Klingele ]
