@@ -1,6 +1,6 @@
 --- a/lib/private/Updater.php
 +++ b/lib/private/Updater.php
-@@ -277,6 +277,15 @@ class Updater extends BasicEmitter {
+@@ -303,6 +303,15 @@ class Updater extends BasicEmitter {
  				$this->emit('\OC\Updater', 'finishedCheckCodeIntegrity');
  			}
  
@@ -15,4 +15,4 @@
 +
  			// only set the final version if everything went well
  			$this->config->setSystemValue('version', implode('.', \OCP\Util::getVersion()));
- 		}
+ 			$this->config->setAppValue('core', 'vendor', $this->getVendor());
