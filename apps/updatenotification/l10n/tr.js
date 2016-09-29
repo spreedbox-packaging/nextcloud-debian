@@ -3,11 +3,9 @@ OC.L10N.register(
     {
     "Update notifications" : "Bildirimleri güncelle",
     "{version} is available. Get more information on how to update." : "Sürüm {version} hazır. Nasıl güncelleyeceğinizle ilgili daha fazla bilgi alın.",
-    "Updated channel" : "Kanal güncellendi",
     "Nextcloud core" : "Nextcloud çekirdeği",
     "Update for %1$s to version %2$s is available." : "%1$s sürümünden %2$s sürümüne güncelleme mevcut.",
     "A new version is available: %s" : "Yeni bir sürüm mevcut: %s",
-    "Open updater" : "Güncelleyiciyi aç",
     "Your version is up to date." : "Sürümünüz güncel.",
     "Checked on %s" : "Son denetlenme: %s",
     "Update channel:" : "Güncelleme kanalı:",

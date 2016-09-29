@@ -68,7 +68,6 @@
                   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Nextcloud 10 Server Administration Manual Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Nextcloud 10 Release Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in Nextcloud 10</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Installation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="system_requirements.html">System Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="deployment_recommendations.html">Nextcloud Deployment Recommendations</a></li>
@@ -160,7 +159,7 @@ Nextcloud. See <a class="reference internal" href="#selinux-tips-label"><span>SE
 <p>The Nextcloud .tar archive contains all of the required PHP modules. This
 section lists all required and optional PHP modules.  Consult the <a class="reference external" href="http://php.net/manual/en/extensions.php">PHP manual</a> for more information on modules.
 Your Linux distribution should have packages for all required modules. You can
-check the precense of a module by typing <code class="docutils literal"><span class="pre">php</span> <span class="pre">-m</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">-i</span> <span class="pre">&lt;module_name&gt;</span></code>.
+check the presence of a module by typing <code class="docutils literal"><span class="pre">php</span> <span class="pre">-m</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">-i</span> <span class="pre">&lt;module_name&gt;</span></code>.
 If you get a result, the module is present.</p>
 <p>Required:</p>
 <ul class="simple">
@@ -373,7 +372,7 @@ uses Basic authentication internally for DAV services. If you have turned on
 authentication on a parent folder (via e.g. an <code class="docutils literal"><span class="pre">AuthType</span> <span class="pre">Basic</span></code>
 directive), you can turn off the authentication specifically for the
 Nextcloud entry. Following the above example configuration file, add the
-following line in the <code class="docutils literal"><span class="pre">&lt;Directory</span></code> section:</p>
+following line in the <code class="docutils literal"><span class="pre">&lt;Directory&gt;</span></code> section:</p>
 <div class="highlight-python"><div class="highlight"><pre>Satisfy Any
 </pre></div>
 </div>

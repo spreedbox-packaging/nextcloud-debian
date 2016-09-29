@@ -68,7 +68,6 @@
                   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Nextcloud 10 Server Administration Manual Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Nextcloud 10 Release Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../whats_new_admin.html">What&#8217;s New for Admins in Nextcloud 10</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_server/index.html">Nextcloud Server Configuration</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Management</a><ul class="current">
@@ -126,6 +125,7 @@ info, and to enable or disable an app remotely. HTTP
 requests can be used via a Basic Auth header to perform any of the functions
 listed above. The Provisioning API app is enabled by default.</p>
 <p>The base URL for all calls to the share API is <strong>nextcloud_base_url/ocs/v1.php/cloud</strong>.</p>
+<p>All calls to OCS endpoints require the <code class="docutils literal"><span class="pre">OCS-APIRequest</span></code> header to be set to <code class="docutils literal"><span class="pre">true</span></code>.</p>
 <div class="section" id="instruction-set-for-users">
 <h2>Instruction Set For Users<a class="headerlink" href="#instruction-set-for-users" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="users-adduser">

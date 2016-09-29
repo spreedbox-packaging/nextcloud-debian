@@ -72,6 +72,7 @@
     "_%n folder_::_%n folders_" : ["%n dossier","%n dossiers"],
     "_%n file_::_%n files_" : ["%n fichier","%n fichiers"],
     "{dirs} and {files}" : "{dirs} et {files}",
+    "_including %n hidden_::_including %n hidden_" : ["inclus %n caché","inclus %n cachés"],
     "You don’t have permission to upload or create files here" : "Vous n'avez pas la permission d'ajouter des fichiers ici",
     "_Uploading %n file_::_Uploading %n files_" : ["Téléversement de %n fichier","Téléversement de %n fichiers"],
     "New" : "Nouveau",
@@ -130,6 +131,8 @@
     "No favorites" : "Aucun favori",
     "Files and folders you mark as favorite will show up here" : "Les fichiers et dossiers ajoutés à vos favoris apparaîtront ici",
     "Text file" : "Fichier texte",
-    "New text file.txt" : "Nouveau fichier texte.txt"
+    "New text file.txt" : "Nouveau fichier texte.txt",
+    "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" : "Utilisez cette adresse pour <a href=\"%s\" target=\"_blank\" rel=\"noreferrer\">accéder à vos fichiers par WebDAV</a>",
+    "Cancel upload" : "Annuler le téléversement"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

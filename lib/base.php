@@ -123,6 +123,8 @@ class OC {
 			self::$configDir = OC::$SERVERROOT . '/' . PHPUNIT_CONFIG_DIR . '/';
 		} elseif(defined('PHPUNIT_RUN') and PHPUNIT_RUN and is_dir(OC::$SERVERROOT . '/tests/config/')) {
 			self::$configDir = OC::$SERVERROOT . '/tests/config/';
+		} elseif($dir = getenv('NEXTCLOUD_CONFIG_DIR')) {
+			self::$configDir = rtrim($dir, '/') . '/';
 		} else {
 			self::$configDir = OC::$SERVERROOT . '/config/';
 		}
@@ -216,7 +218,7 @@ class OC {
 		// set the right include path
 		set_include_path(
 			OC::$SERVERROOT . '/lib/private' . PATH_SEPARATOR .
-			OC::$SERVERROOT . '/config' . PATH_SEPARATOR .
+			self::$configDir . PATH_SEPARATOR .
 			OC::$SERVERROOT . '/3rdparty' . PATH_SEPARATOR .
 			implode(PATH_SEPARATOR, $paths) . PATH_SEPARATOR .
 			get_include_path() . PATH_SEPARATOR .
@@ -262,7 +264,7 @@ class OC {
 			return;
 		}
 		// Redirect to installer if not installed
-		if (!\OC::$server->getSystemConfig()->getValue('installed', false) && OC::$SUBURI != '/index.php') {
+		if (!\OC::$server->getSystemConfig()->getValue('installed', false) && OC::$SUBURI !== '/index.php' && OC::$SUBURI !== '/status.php') {
 			if (OC::$CLI) {
 				throw new Exception('Not installed');
 			} else {
@@ -504,8 +506,22 @@ class OC {
 	 * also we can't directly interfere with PHP's session mechanism.
 	 */
 	private static function performSameSiteCookieProtection() {
+		$request = \OC::$server->getRequest();
+
+		// Some user agents are notorious and don't really properly follow HTTP
+		// specifications. For those, have an automated opt-out. Since the protection
+		// for remote.php is applied in base.php as starting point we need to opt out
+		// here.
+		$incompatibleUserAgents = [
+			// OS X Finder
+			'/^WebDAVFS/',
+		];
+		if($request->isUserAgent($incompatibleUserAgents)) {
+			return;
+		}
+
+
 		if(count($_COOKIE) > 0) {
-			$request = \OC::$server->getRequest();
 			$requestUri = $request->getScriptName();
 			$processingScript = explode('/', $requestUri);
 			$processingScript = $processingScript[count($processingScript)-1];
