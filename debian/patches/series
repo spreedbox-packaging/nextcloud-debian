@@ -6,4 +6,3 @@ csp_allow_same_origin.patch
 redirect_url_for_setup.patch
 redirect_url_for_setup_default.patch
 no_memavailable.patch
-no_path_info_read.patch
