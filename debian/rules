@@ -33,6 +33,8 @@ override_dh_install:
 	touch $(CURDIR)/debian/nextcloud-server-php7.0/usr/lib/nextcloud/nextcloud-server-php7.0
 	# Remove updatenotification app.
 	rm -rf $(CURDIR)/debian/nextcloud-server/usr/lib/nextcloud/www/apps/updatenotification
+	# Remove updater.
+	rm -rf $(CURDIR)/debian/nextcloud-server/usr/lib/nextcloud/www/updater
 
 override_dh_fixperms:
 	dh_fixperms -X var/lib/nextcloud/data -X etc/nextcloud
