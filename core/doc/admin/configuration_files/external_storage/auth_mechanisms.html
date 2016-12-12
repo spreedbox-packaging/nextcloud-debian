@@ -127,6 +127,9 @@ passwords, OAuth, or token-based, to name a few examples. Each authentication
 scheme may be implemented by multiple authentication mechanisms. Different
 mechanisms require different configuration parameters, depending on their
 behaviour.</p>
+<div class="figure">
+<img alt="Authentication types" src="../../_images/authentication-types.png" />
+</div>
 <div class="section" id="special-mechanisms">
 <h2>Special Mechanisms<a class="headerlink" href="#special-mechanisms" title="Permalink to this headline">¶</a></h2>
 <p>The <strong>None</strong> authentication mechanism requires no configuration parameters, and
@@ -139,13 +142,25 @@ mechanisms. The authentication parameters are provided directly by the backend.<
 <div class="section" id="password-based-mechanisms">
 <h2>Password-based Mechanisms<a class="headerlink" href="#password-based-mechanisms" title="Permalink to this headline">¶</a></h2>
 <p>The <strong>Username and password</strong> mechanism requires a manually-defined username and
-password. These get passed directly to the backend.</p>
+password. These get passed directly to the backend and are specified during the
+setup of the mount point.</p>
 <p>The <strong>Log-in credentials, save in session</strong> mechanism uses the Nextcloud login
 credentials of the user to connect to the storage. These are not stored anywhere
 on the server, but rather in the user session, giving increased security. The
 drawbacks are that sharing is disabled when this mechanism is in use, as
 Nextcloud has no access to the storage credentials, and background file scanning
 does not work.</p>
+<p>The <strong>Log-in credentials, save in database</strong> mechanism uses the Nextcloud login
+credentials of the user to connect to the storage. These are stored in the
+database encrypted with the shared secret. This allows to share files from
+within this mount point.</p>
+<p>The <strong>User entered, store in database</strong> mechanism work in the same way as the
+&#8220;Username and password&#8221; mechanism but the credentials need to be specified by
+each user individually. Before the first access to that mount point the user
+will be prompted to enter the credentials.</p>
+<p>The <strong>Global credentials</strong> mechanism uses the general input field for &#8220;Global
+credentials&#8221; in the external storage settings section as source for the
+credentials instead of individual credentials for a mount point.</p>
 </div>
 <div class="section" id="public-key-mechanisms">
 <h2>Public-key Mechanisms<a class="headerlink" href="#public-key-mechanisms" title="Permalink to this headline">¶</a></h2>

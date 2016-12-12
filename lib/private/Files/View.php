@@ -1128,13 +1128,13 @@ class View {
 					throw $e;
 				}
 
-				if (in_array('delete', $hooks) and $result) {
+				if ($result && in_array('delete', $hooks) and $result) {
 					$this->removeUpdate($storage, $internalPath);
 				}
-				if (in_array('write', $hooks) and $operation !== 'fopen') {
+				if ($result && in_array('write', $hooks) and $operation !== 'fopen') {
 					$this->writeUpdate($storage, $internalPath);
 				}
-				if (in_array('touch', $hooks)) {
+				if ($result && in_array('touch', $hooks)) {
 					$this->writeUpdate($storage, $internalPath, $extraParam);
 				}
 
@@ -2120,14 +2120,19 @@ class View {
 	 * @return bool
 	 */
 	private function createParentDirectories($filePath) {
-		$parentDirectory = dirname($filePath);
-		while(!$this->file_exists($parentDirectory)) {
-			$result = $this->createParentDirectories($parentDirectory);
-			if($result === false) {
+		$directoryParts = explode('/', $filePath);
+		$directoryParts = array_filter($directoryParts);
+		foreach($directoryParts as $key => $part) {
+			$currentPathElements = array_slice($directoryParts, 0, $key);
+			$currentPath = '/' . implode('/', $currentPathElements);
+			if($this->is_file($currentPath)) {
 				return false;
 			}
+			if(!$this->file_exists($currentPath)) {
+				$this->mkdir($currentPath);
+			}
 		}
-		$this->mkdir($filePath);
+
 		return true;
 	}
 }
