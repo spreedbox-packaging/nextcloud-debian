@@ -1,6 +1,6 @@
 --- a/lib/private/Updater.php
 +++ b/lib/private/Updater.php
-@@ -303,6 +303,15 @@ class Updater extends BasicEmitter {
+@@ -307,6 +307,15 @@
  				$this->emit('\OC\Updater', 'finishedCheckCodeIntegrity');
  			}
  
