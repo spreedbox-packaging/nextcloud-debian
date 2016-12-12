@@ -4,7 +4,6 @@ OC.L10N.register(
     "Update notifications" : "Tilkynningar um uppfærslu",
     "{version} is available. Get more information on how to update." : "{version} er í boði. Fáðu frekari upplýsingar um hvernig á að uppfæra.",
     "Channel updated" : "Rás uppfærð",
-    "Nextcloud core" : "Nextcloud kjarni",
     "Update for %1$s to version %2$s is available." : "Upfærsla %1$s í útgáfu %2$s er tiltæk.",
     "A new version is available: %s" : "Ný útgáfa er tiltæk: %s",
     "Your version is up to date." : "Útgáfan þín er af nýjustu gerð.",

@@ -98,10 +98,6 @@ class LargeFileHelper {
 		if (!is_null($fileSize)) {
 			return $fileSize;
 		}
-		$fileSize = $this->getFileSizeViaCOM($filename);
-		if (!is_null($fileSize)) {
-			return $fileSize;
-		}
 		$fileSize = $this->getFileSizeViaExec($filename);
 		if (!is_null($fileSize)) {
 			return $fileSize;
@@ -133,23 +129,6 @@ class LargeFileHelper {
 					return 0 + $matches[1];
 				}
 			}
-		}
-		return null;
-	}
-
-	/**
-	* @brief Tries to get the size of a file via the Windows DOM extension.
-	*
-	* @param string $filename Path to the file.
-	*
-	* @return null|int|float Number of bytes as number (float or int) or
-	*                        null on failure.
-	*/
-	public function getFileSizeViaCOM($filename) {
-		if (class_exists('COM')) {
-			$fsObj = new \COM("Scripting.FileSystemObject");
-			$file = $fsObj->GetFile($filename);
-			return 0 + $file->Size;
 		}
 		return null;
 	}

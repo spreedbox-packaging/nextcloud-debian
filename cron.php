@@ -32,7 +32,7 @@
 
 try {
 
-	require_once 'lib/base.php';
+	require_once __DIR__ . '/lib/base.php';
 
 	if (\OCP\Util::needUpgrade()) {
 		\OCP\Util::writeLog('cron', 'Update required, skipping cron', \OCP\Util::DEBUG);
@@ -119,6 +119,8 @@ try {
 
 			$logger->debug('Run ' . get_class($job) . ' job with ID ' . $job->getId(), ['app' => 'cron']);
 			$job->execute($jobList, $logger);
+			// clean up after unclean jobs
+			\OC_Util::tearDownFS();
 			$logger->debug('Finished ' . get_class($job) . ' job with ID ' . $job->getId(), ['app' => 'cron']);
 
 			$jobList->setLastJob($job);

@@ -7,6 +7,7 @@ OC.L10N.register(
     "Remote share password" : "Passord for ekstern ressurs",
     "Cancel" : "Avbryt",
     "Add remote share" : "Legg til ekstern ressurs",
+    "Copy" : "Kopier",
     "Copied!" : "Kopiert!",
     "Not supported!" : "Ikke støttet!",
     "Press ⌘-C to copy." : "Trykk ⌘-C for å kopiere",
@@ -26,10 +27,8 @@ OC.L10N.register(
     "Sharing %s failed, because this item is already shared with %s" : "Deling av %s feilet, fordi dette elementet allerede er delt med %s",
     "Not allowed to create a federated share with the same user" : "Ikke tillatt å opprette en Sammenknyttet sky-deling med den samme brukeren",
     "File is already shared with %s" : "Filen er allerede delt med %s",
-    "Sharing %s failed, could not find %s, maybe the server is currently unreachable." : "Deling %s feilet, fant ikke %s, kanskje tjeneren er utilgjengelig for øyeblikket.",
     "Could not find share" : "Kunne ikke finne ressurs",
-    "You received \"/%3$s\" as a remote share from %1$s (on behalf of %2$s)" : "Du mottor \"/%3$s\" som en fjerndeling fra %1$s (på vegne av %2$s)",
-    "You received \"/%3$s\" as a remote share from %1$s" : "Du mottok \"/%3$s\" som en fjerndeling fra %1$s",
+    "You received {share} as a remote share from {user}" : "Du mottok {share} som en fjerndeling fra {user}",
     "Accept" : "Aksepter",
     "Decline" : "Avslå",
     "Share with me through my #Nextcloud Federated Cloud ID, see %s" : "Del med meg gjennom min #Nextcloud ID for sammenknyttet sky, se %s",
@@ -43,6 +42,9 @@ OC.L10N.register(
     "Share it:" : "Del den:",
     "Add to your website" : "Legg på websiden din",
     "Share with me via Nextcloud" : "Del med meg via Nextcloud",
-    "HTML Code:" : "HTML-kode:"
+    "HTML Code:" : "HTML-kode:",
+    "Sharing %s failed, could not find %s, maybe the server is currently unreachable." : "Deling %s feilet, fant ikke %s, kanskje tjeneren er utilgjengelig for øyeblikket.",
+    "You received \"/%3$s\" as a remote share from %1$s (on behalf of %2$s)" : "Du mottor \"/%3$s\" som en fjerndeling fra %1$s (på vegne av %2$s)",
+    "You received \"/%3$s\" as a remote share from %1$s" : "Du mottok \"/%3$s\" som en fjerndeling fra %1$s"
 },
 "nplurals=2; plural=(n != 1);");

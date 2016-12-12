@@ -83,10 +83,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#testing-the-configuration">Testing the configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nextcloud-avatar-integration">Nextcloud Avatar integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#troubleshooting-tips-and-tricks">Troubleshooting, Tips and Tricks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ssl-certificate-verification-ldaps-tls">SSL Certificate Verification (LDAPS, TLS)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#microsoft-active-directory">Microsoft Active Directory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#memberof-read-memberof-permissions">memberOf / Read MemberOf permissions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#duplicating-server-configurations">Duplicating Server Configurations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#nextcloud-ldap-internals">Nextcloud LDAP Internals</a></li>
 </ul>
 </li>
@@ -642,9 +638,8 @@ affects only the presentation, and the original image is not changed.</p>
 </div>
 <div class="section" id="troubleshooting-tips-and-tricks">
 <h2>Troubleshooting, Tips and Tricks<a class="headerlink" href="#troubleshooting-tips-and-tricks" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="ssl-certificate-verification-ldaps-tls">
-<h2>SSL Certificate Verification (LDAPS, TLS)<a class="headerlink" href="#ssl-certificate-verification-ldaps-tls" title="Permalink to this headline">¶</a></h2>
+<h3>SSL Certificate Verification (LDAPS, TLS)<a class="headerlink" href="#ssl-certificate-verification-ldaps-tls" title="Permalink to this headline">¶</a></h3>
 <p>A common mistake with SSL certificates is that they may not be known to PHP.
 If you have trouble with certificate validation make sure that</p>
 <ul class="simple">
@@ -658,19 +653,19 @@ If you have trouble with certificate validation make sure that</p>
 </ul>
 </div>
 <div class="section" id="microsoft-active-directory">
-<h2>Microsoft Active Directory<a class="headerlink" href="#microsoft-active-directory" title="Permalink to this headline">¶</a></h2>
+<h3>Microsoft Active Directory<a class="headerlink" href="#microsoft-active-directory" title="Permalink to this headline">¶</a></h3>
 <p>Compared to earlier Nextcloud versions, no further tweaks need to be done to
 make Nextcloud work with Active Directory. Nextcloud will automatically find the
 correct configuration in the set-up process.</p>
 </div>
 <div class="section" id="memberof-read-memberof-permissions">
-<h2>memberOf / Read MemberOf permissions<a class="headerlink" href="#memberof-read-memberof-permissions" title="Permalink to this headline">¶</a></h2>
+<h3>memberOf / Read MemberOf permissions<a class="headerlink" href="#memberof-read-memberof-permissions" title="Permalink to this headline">¶</a></h3>
 <p>If you want to use <code class="docutils literal"><span class="pre">memberOf</span></code> within your filter you might need to give your
 querying user the permissions to use it. For Microsoft Active Directory this
 is described <a class="reference external" href="https://serverfault.com/questions/167371/what-permissions-are-required-for-enumerating-users-groups-in-active-directory/167401#167401">here</a>.</p>
 </div>
 <div class="section" id="duplicating-server-configurations">
-<h2>Duplicating Server Configurations<a class="headerlink" href="#duplicating-server-configurations" title="Permalink to this headline">¶</a></h2>
+<h3>Duplicating Server Configurations<a class="headerlink" href="#duplicating-server-configurations" title="Permalink to this headline">¶</a></h3>
 <p>In case you have a working configuration and want to create a similar one or
 &#8220;snapshot&#8221; configurations before modifying them you can do the following:</p>
 <ol class="arabic simple">
@@ -683,6 +678,23 @@ in the <em>Connection Settings</em>, so the new configuration is not used on Sav
 <li>Click on <strong>Save</strong></li>
 </ol>
 <p>Now you can modify and enable the configuration.</p>
+</div>
+<div class="section" id="sizelimit-exceeded-message-in-logs">
+<h3>&#8220;Sizelimit exceeded&#8221; message in logs<a class="headerlink" href="#sizelimit-exceeded-message-in-logs" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>ldap_search(): Partial search results returned: Sizelimit exceeded at
+apps/user_ldap/lib/LDAP.php#256</div></blockquote>
+<p>This error message means one of the following:</p>
+<ol class="arabic simple">
+<li>Pagination of the results is used for communicating with the LDAP server
+(pagination is by default enabled in OpenLDAP and AD), but there are more
+results to return than what the pagination limit is set to. If there are no
+users missing in you setup then you can ignore this error message for now.</li>
+<li>No pagination is used and this indicates that there are more results on the
+LDAP server than what is returned. You should then enabled pagination on
+your LDAP server to import all available users.</li>
+</ol>
+</div>
 </div>
 <div class="section" id="nextcloud-ldap-internals">
 <h2>Nextcloud LDAP Internals<a class="headerlink" href="#nextcloud-ldap-internals" title="Permalink to this headline">¶</a></h2>

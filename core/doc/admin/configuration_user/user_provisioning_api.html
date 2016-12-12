@@ -291,6 +291,80 @@ sending a Basic HTTP Authorization header.</p>
 </div>
 </div>
 </div>
+<div class="section" id="users-disableuser">
+<h3><strong>users / disableuser</strong><a class="headerlink" href="#users-disableuser" title="Permalink to this headline">¶</a></h3>
+<p>Disables a user on the Nextcloud server so that the user cannot login anymore.
+Authentication is done by sending a Basic HTTP Authorization header.</p>
+<p><strong>Syntax: ocs/v1.php/cloud/users/{userid}/disable</strong></p>
+<ul class="simple">
+<li>HTTP method: PUT</li>
+</ul>
+<p>Statuscodes:</p>
+<ul class="simple">
+<li>100 - successful</li>
+<li>101 - failure</li>
+</ul>
+<div class="section" id="id6">
+<h4>Example<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>PUT <code class="docutils literal"><span class="pre">http://admin:secret&#64;example.com/ocs/v1.php/cloud/users/Frank/disable</span></code></li>
+<li>Disables the user <code class="docutils literal"><span class="pre">Frank</span></code></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id7">
+<h4>XML Output<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;ocs&gt;
+  &lt;meta&gt;
+    &lt;status&gt;ok&lt;/status&gt;
+    &lt;statuscode&gt;100&lt;/statuscode&gt;
+    &lt;message/&gt;
+  &lt;/meta&gt;
+  &lt;data/&gt;
+&lt;/ocs&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="users-enableuser">
+<h3><strong>users / enableuser</strong><a class="headerlink" href="#users-enableuser" title="Permalink to this headline">¶</a></h3>
+<p>Enables a user on the Nextcloud server so that the user can login again.
+Authentication is done by sending a Basic HTTP Authorization header.</p>
+<p><strong>Syntax: ocs/v1.php/cloud/users/{userid}/enable</strong></p>
+<ul class="simple">
+<li>HTTP method: PUT</li>
+</ul>
+<p>Statuscodes:</p>
+<ul class="simple">
+<li>100 - successful</li>
+<li>101 - failure</li>
+</ul>
+<div class="section" id="id8">
+<h4>Example<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>PUT <code class="docutils literal"><span class="pre">http://admin:secret&#64;example.com/ocs/v1.php/cloud/users/Frank/enable</span></code></li>
+<li>Enables the user <code class="docutils literal"><span class="pre">Frank</span></code></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id9">
+<h4>XML Output<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;ocs&gt;
+  &lt;meta&gt;
+    &lt;status&gt;ok&lt;/status&gt;
+    &lt;statuscode&gt;100&lt;/statuscode&gt;
+    &lt;message/&gt;
+  &lt;/meta&gt;
+  &lt;data/&gt;
+&lt;/ocs&gt;
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="users-deleteuser">
 <h3><strong>users / deleteuser</strong><a class="headerlink" href="#users-deleteuser" title="Permalink to this headline">¶</a></h3>
 <p>Deletes a user from the Nextcloud server. Authentication is done by sending a
@@ -304,8 +378,8 @@ Basic HTTP Authorization header.</p>
 <li>100 - successful</li>
 <li>101 - failure</li>
 </ul>
-<div class="section" id="id6">
-<h4>Example<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id10">
+<h4>Example<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>DELETE <code class="docutils literal"><span class="pre">http://admin:secret&#64;example.com/ocs/v1.php/cloud/users/Frank</span></code></li>
@@ -313,8 +387,8 @@ Basic HTTP Authorization header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id7">
-<h4>XML Output<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id11">
+<h4>XML Output<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -339,8 +413,8 @@ done by sending a Basic HTTP Authorization header.</p>
 <ul class="simple">
 <li>100 - successful</li>
 </ul>
-<div class="section" id="id8">
-<h4>Example<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id12">
+<h4>Example<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>GET  <code class="docutils literal"><span class="pre">http://admin:secret&#64;example.com/ocs/v1.php/cloud/users/Frank/groups</span></code></li>
@@ -348,8 +422,8 @@ done by sending a Basic HTTP Authorization header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id9">
-<h4>XML Output<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id13">
+<h4>XML Output<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -385,8 +459,8 @@ sending a Basic HTTP Authorization header.</p>
 <li>104 - insufficient privileges</li>
 <li>105 - failed to add user to group</li>
 </ul>
-<div class="section" id="id10">
-<h4>Example<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id14">
+<h4>Example<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>POST <code class="docutils literal"><span class="pre">http://admin:secret&#64;example.com/ocs/v1.php/cloud/users/Frank/groups</span>
@@ -395,8 +469,8 @@ sending a Basic HTTP Authorization header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id11">
-<h4>XML Output<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id15">
+<h4>XML Output<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -427,8 +501,8 @@ sending a Basic HTTP Authorization header.</p>
 <li>104 - insufficient privileges</li>
 <li>105 - failed to remove user from group</li>
 </ul>
-<div class="section" id="id12">
-<h4>Example<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id16">
+<h4>Example<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>DELETE
@@ -438,8 +512,8 @@ sending a Basic HTTP Authorization header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id13">
-<h4>XML Output<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id17">
+<h4>XML Output<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -469,8 +543,8 @@ subadmin</li>
 <li>102 - group does not exist</li>
 <li>103 - unknown failure</li>
 </ul>
-<div class="section" id="id14">
-<h4>Example<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id18">
+<h4>Example<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>POST
@@ -480,8 +554,8 @@ subadmin</li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id15">
-<h4>XML Output<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id19">
+<h4>XML Output<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -511,8 +585,8 @@ subadmin rights</li>
 <li>102 - user is not a subadmin of the group / group does not exist</li>
 <li>103 - unknown failure</li>
 </ul>
-<div class="section" id="id16">
-<h4>Example<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id20">
+<h4>Example<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>DELETE
@@ -522,8 +596,8 @@ subadmin rights</li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id17">
-<h4>XML Output<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id21">
+<h4>XML Output<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -550,8 +624,8 @@ sending a Basic HTTP Authorization header.</p>
 <li>101 - user does not exist</li>
 <li>102 - unknown failure</li>
 </ul>
-<div class="section" id="id18">
-<h4>Example<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id22">
+<h4>Example<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>GET
@@ -560,8 +634,8 @@ sending a Basic HTTP Authorization header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id19">
-<h4>XML Output<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id23">
+<h4>XML Output<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -595,8 +669,8 @@ sending a Basic HTTP Authorization header.</p>
 <ul class="simple">
 <li>100 - successful</li>
 </ul>
-<div class="section" id="id20">
-<h4>Example<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id24">
+<h4>Example<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>GET <code class="docutils literal"><span class="pre">http://admin:secret&#64;example.com/ocs/v1.php/cloud/groups?search=adm</span></code></li>
@@ -604,8 +678,8 @@ sending a Basic HTTP Authorization header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id21">
-<h4>XML Output<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id25">
+<h4>XML Output<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -638,8 +712,8 @@ sending a Basic HTTP Authorization header.</p>
 <li>102 - group already exists</li>
 <li>103 - failed to add the group</li>
 </ul>
-<div class="section" id="id22">
-<h4>Example<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id26">
+<h4>Example<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>POST <code class="docutils literal"><span class="pre">http://admin:secret&#64;example.com/ocs/v1.php/cloud/groups</span> <span class="pre">-d</span>
@@ -648,8 +722,8 @@ sending a Basic HTTP Authorization header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id23">
-<h4>XML Output<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id27">
+<h4>XML Output<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -674,8 +748,8 @@ HTTP Authorization header.</p>
 <ul class="simple">
 <li>100 - successful</li>
 </ul>
-<div class="section" id="id24">
-<h4>Example<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id28">
+<h4>Example<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>POST <code class="docutils literal"><span class="pre">http://admin:secret&#64;example.com/ocs/v1.php/cloud/groups/admin</span></code></li>
@@ -683,8 +757,8 @@ HTTP Authorization header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id25">
-<h4>XML Output<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id29">
+<h4>XML Output<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -715,8 +789,8 @@ sending a Basic HTTP Authorization header.</p>
 <li>101 - group does not exist</li>
 <li>102 - unknown failure</li>
 </ul>
-<div class="section" id="id26">
-<h4>Example<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id30">
+<h4>Example<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>GET
@@ -725,8 +799,8 @@ sending a Basic HTTP Authorization header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id27">
-<h4>XML Output<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id31">
+<h4>XML Output<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -756,8 +830,8 @@ sending a Basic HTTP Authorization header.</p>
 <li>101 - group does not exist</li>
 <li>102 - failed to delete group</li>
 </ul>
-<div class="section" id="id28">
-<h4>Example<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id32">
+<h4>Example<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>DELETE <code class="docutils literal"><span class="pre">http://admin:secret&#64;example.com/ocs/v1.php/cloud/groups/mygroup</span></code></li>
@@ -765,8 +839,8 @@ sending a Basic HTTP Authorization header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id29">
-<h4>XML Output<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id33">
+<h4>XML Output<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -797,8 +871,8 @@ header.</p>
 <li>100 - successful</li>
 <li>101 - invalid input data</li>
 </ul>
-<div class="section" id="id30">
-<h4>Example<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id34">
+<h4>Example<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>GET <code class="docutils literal"><span class="pre">http://admin:secret&#64;example.com/ocs/v1.php/cloud/apps?filter=enabled</span></code></li>
@@ -806,8 +880,8 @@ header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id31">
-<h4>XML Output<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id35">
+<h4>XML Output<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -837,8 +911,8 @@ sending a Basic HTTP Authorization header.</p>
 <ul class="simple">
 <li>100 - successful</li>
 </ul>
-<div class="section" id="id32">
-<h4>Example<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id36">
+<h4>Example<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>GET <code class="docutils literal"><span class="pre">http://admin:secret&#64;example.com/ocs/v1.php/cloud/apps/files</span></code></li>
@@ -846,8 +920,8 @@ sending a Basic HTTP Authorization header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id33">
-<h4>XML Output<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id37">
+<h4>XML Output<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -892,8 +966,8 @@ header.</p>
 <ul class="simple">
 <li>100 - successful</li>
 </ul>
-<div class="section" id="id34">
-<h4>Example<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id38">
+<h4>Example<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>POST <code class="docutils literal"><span class="pre">http://admin:secret&#64;example.com/ocs/v1.php/cloud/apps/files_texteditor</span></code></li>
@@ -901,8 +975,8 @@ header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id35">
-<h4>XML Output<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id39">
+<h4>XML Output<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
@@ -926,8 +1000,8 @@ done by sending a Basic HTTP Authorization header.</p>
 <ul class="simple">
 <li>100 - successful</li>
 </ul>
-<div class="section" id="id36">
-<h4>Example<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id40">
+<h4>Example<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
 <li>DELETE <code class="docutils literal"><span class="pre">http://admin:secret&#64;example.com/ocs/v1.php/cloud/apps/files_texteditor</span></code></li>
@@ -935,8 +1009,8 @@ done by sending a Basic HTTP Authorization header.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id37">
-<h4>XML Output<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id41">
+<h4>XML Output<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;ocs&gt;
   &lt;meta&gt;
