@@ -24,6 +24,7 @@ namespace OCA\Activity\Controller;
 
 
 use OC\Files\View;
+use OC\OCS\Result;
 use OCA\Activity\Data;
 use OCA\Activity\Exception\InvalidFilterException;
 use OCA\Activity\GroupHelper;
@@ -149,7 +150,7 @@ class OCSEndPoint {
 		$this->sort = (string) $this->request->getParam('sort', '');
 		$this->sort = in_array($this->sort, ['asc', 'desc']) ? $this->sort : 'desc';
 
-		if ($this->objectType !== '' && $this->objectId === 0 || $this->objectType === '' && $this->objectId !== 0) {
+		if (($this->objectType !== '' && $this->objectId === 0) || ($this->objectType === '' && $this->objectId !== 0)) {
 			// Only allowed together
 			$this->objectType = '';
 			$this->objectId = 0;
@@ -166,7 +167,7 @@ class OCSEndPoint {
 
 	/**
 	 * @param array $parameters
-	 * @return \OC_OCS_Result
+	 * @return Result
 	 */
 	public function getDefault(array $parameters) {
 		return $this->get(array_merge($parameters, [
@@ -176,7 +177,7 @@ class OCSEndPoint {
 
 	/**
 	 * @param array $parameters
-	 * @return \OC_OCS_Result
+	 * @return Result
 	 */
 	public function getFilter(array $parameters) {
 		return $this->get($parameters);
@@ -184,15 +185,15 @@ class OCSEndPoint {
 
 	/**
 	 * @param array $parameters
-	 * @return \OC_OCS_Result
+	 * @return Result
 	 */
 	protected function get(array $parameters) {
 		try {
 			$this->readParameters($parameters);
 		} catch (InvalidFilterException $e) {
-			return new \OC_OCS_Result(null, Http::STATUS_NOT_FOUND);
+			return new Result(null, Http::STATUS_NOT_FOUND);
 		} catch (\OutOfBoundsException $e) {
-			return new \OC_OCS_Result(null, Http::STATUS_FORBIDDEN);
+			return new Result(null, Http::STATUS_FORBIDDEN);
 		}
 
 		try {
@@ -211,15 +212,15 @@ class OCSEndPoint {
 			);
 		} catch (\OutOfBoundsException $e) {
 			// Invalid since argument
-			return new \OC_OCS_Result(null, Http::STATUS_FORBIDDEN);
+			return new Result(null, Http::STATUS_FORBIDDEN);
 		} catch (\BadMethodCallException $e) {
 			// No activity settings enabled
-			return new \OC_OCS_Result(null, Http::STATUS_NO_CONTENT);
+			return new Result(null, Http::STATUS_NO_CONTENT);
 		}
 
 		$headers = $this->generateHeaders($response['headers'], $response['has_more']);
 		if (empty($response['data'])) {
-			return new \OC_OCS_Result([], Http::STATUS_NOT_MODIFIED, null, $headers);
+			return new Result([], Http::STATUS_NOT_MODIFIED, null, $headers);
 		}
 
 		$preparedActivities = [];
@@ -229,8 +230,8 @@ class OCSEndPoint {
 
 			if ($this->loadPreviews) {
 				$activity['previews'] = [];
-				if ($activity['object_type'] === 'files' && !empty($activity['files'])) {
-					foreach ($activity['files'] as $objectId => $objectName) {
+				if ($activity['object_type'] === 'files' && !empty($activity['objects'])) {
+					foreach ($activity['objects'] as $objectId => $objectName) {
 						if (((int) $objectId) === 0 || $objectName === '') {
 							// No file, no preview
 							continue;
@@ -246,7 +247,7 @@ class OCSEndPoint {
 			$preparedActivities[] = $activity;
 		}
 
-		return new \OC_OCS_Result($preparedActivities, 100, null, $headers);
+		return new Result($preparedActivities, 100, null, $headers);
 	}
 
 	/**
@@ -311,7 +312,7 @@ class OCSEndPoint {
 				$preview['source'] = $pathPreview['source'];
 			} else if ($this->preview->isAvailable($fileInfo)) {
 				$preview['isMimeTypeIcon'] = false;
-				$preview['source'] = $this->urlGenerator->linkToRoute('core_ajax_preview', [
+				$preview['source'] = $this->urlGenerator->linkToRouteAbsolute('core.Preview.getPreview', [
 					'file' => $info['path'],
 					'c' => $this->view->getETag($info['path']),
 					'x' => 150,
@@ -351,7 +352,7 @@ class OCSEndPoint {
 			$mimeTypeIcon = substr($mimeTypeIcon, 0, -4) . '.svg';
 		}
 
-		return $mimeTypeIcon;
+		return $this->urlGenerator->getAbsoluteURL($mimeTypeIcon);
 	}
 
 	/**
@@ -371,6 +372,6 @@ class OCSEndPoint {
 		if ($view !== '') {
 			$params['view'] = $view;
 		}
-		return $this->urlGenerator->linkToRoute('files.view.index', $params);
+		return $this->urlGenerator->linkToRouteAbsolute('files.view.index', $params);
 	}
 }

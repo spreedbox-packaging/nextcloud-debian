@@ -56,13 +56,12 @@ use OCP\Security\ISecureRandom;
 class Request implements \ArrayAccess, \Countable, IRequest {
 
 	const USER_AGENT_IE = '/(MSIE)|(Trident)/';
-	const USER_AGENT_IE_8 = '/MSIE 8.0/';
 	// Microsoft Edge User Agent from https://msdn.microsoft.com/en-us/library/hh869301(v=vs.85).aspx
 	const USER_AGENT_MS_EDGE = '/^Mozilla\/5\.0 \([^)]+\) AppleWebKit\/[0-9.]+ \(KHTML, like Gecko\) Chrome\/[0-9.]+ (Mobile Safari|Safari)\/[0-9.]+ Edge\/[0-9.]+$/';
 	// Firefox User Agent from https://developer.mozilla.org/en-US/docs/Web/HTTP/Gecko_user_agent_string_reference
 	const USER_AGENT_FIREFOX = '/^Mozilla\/5\.0 \([^)]+\) Gecko\/[0-9.]+ Firefox\/[0-9.]+$/';
 	// Chrome User Agent from https://developer.chrome.com/multidevice/user-agent
-	const USER_AGENT_CHROME = '/^Mozilla\/5\.0 \([^)]+\) AppleWebKit\/[0-9.]+ \(KHTML, like Gecko\) Chrome\/[0-9.]+ (Mobile Safari|Safari)\/[0-9.]+$/';
+	const USER_AGENT_CHROME = '/^Mozilla\/5\.0 \([^)]+\) AppleWebKit\/[0-9.]+ \(KHTML, like Gecko\)( Ubuntu Chromium\/[0-9.]+|) Chrome\/[0-9.]+ (Mobile Safari|Safari)\/[0-9.]+$/';
 	// Safari User Agent from http://www.useragentstring.com/pages/Safari/
 	const USER_AGENT_SAFARI = '/^Mozilla\/5\.0 \([^)]+\) AppleWebKit\/[0-9.]+ \(KHTML, like Gecko\) Version\/[0-9.]+ Safari\/[0-9.A-Z]+$/';
 	// Android Chrome user agent: https://developers.google.com/chrome/mobile/docs/user-agent
@@ -499,6 +498,31 @@ class Request implements \ArrayAccess, \Countable, IRequest {
 	}
 
 	/**
+	 * Wrapper around session_get_cookie_params
+	 *
+	 * @return array
+	 */
+	protected function getCookieParams() {
+		return session_get_cookie_params();
+	}
+
+	/**
+	 * Appends the __Host- prefix to the cookie if applicable
+	 *
+	 * @param string $name
+	 * @return string
+	 */
+	protected function getProtectedCookieName($name) {
+		$cookieParams = $this->getCookieParams();
+		$prefix = '';
+		if($cookieParams['secure'] === true && $cookieParams['path'] === '/') {
+			$prefix = '__Host-';
+		}
+
+		return $prefix.$name;
+	}
+
+	/**
 	 * Checks if the strict cookie has been sent with the request if the request
 	 * is including any cookies.
 	 *
@@ -509,7 +533,9 @@ class Request implements \ArrayAccess, \Countable, IRequest {
 		if(!$this->cookieCheckRequired()) {
 			return true;
 		}
-		if($this->getCookie('nc_sameSiteCookiestrict') === 'true'
+
+		$cookieName = $this->getProtectedCookieName('nc_sameSiteCookiestrict');
+		if($this->getCookie($cookieName) === 'true'
 			&& $this->passesLaxCookieCheck()) {
 			return true;
 		}
@@ -527,7 +553,9 @@ class Request implements \ArrayAccess, \Countable, IRequest {
 		if(!$this->cookieCheckRequired()) {
 			return true;
 		}
-		if($this->getCookie('nc_sameSiteCookielax') === 'true') {
+
+		$cookieName = $this->getProtectedCookieName('nc_sameSiteCookielax');
+		if($this->getCookie($cookieName) === 'true') {
 			return true;
 		}
 		return false;

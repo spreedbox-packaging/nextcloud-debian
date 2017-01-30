@@ -30,9 +30,9 @@
 .icon-loading-small-dark:after {
 	z-index: 2;
 	content: "";
-	height: 32px;
-	width: 32px;
-	margin: -17px 0 0 -17px;
+	height: 30px;
+	width: 30px;
+	margin: -16px 0 0 -16px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -61,9 +61,9 @@
 
 .icon-loading-small:after,
 .icon-loading-small-dark:after {
-	height: 16px;
-	width: 16px;
-	margin: -9px 0 0 -9px;
+	height: 14px;
+	width: 14px;
+	margin: -8px 0 0 -8px;
 }
 
 /* Css replaced elements don't have ::after nor ::before */
@@ -144,6 +144,10 @@ img.icon-loading-small-dark, object.icon-loading-small-dark, video.icon-loading-
 	background-image: url('../img/actions/checkmark-color.svg?v=1');
 }
 
+.icon-clippy {
+	background-image: url('../img/actions/clippy.svg?v=2');
+}
+
 .icon-close {
 	background-image: url('../img/actions/close.svg?v=1');
 }
@@ -153,7 +157,10 @@ img.icon-loading-small-dark, object.icon-loading-small-dark, video.icon-loading-
 }
 
 .icon-confirm {
-	background-image: url('../img/actions/confirm.svg?v=1');
+	background-image: url('../img/actions/confirm.svg?v=2');
+}
+.icon-confirm-white {
+	background-image: url('../img/actions/confirm-white.svg?v=2');
 }
 
 .icon-delete,
@@ -295,6 +302,10 @@ img.icon-loading-small-dark, object.icon-loading-small-dark, video.icon-loading-
 	background-image: url('../img/actions/sound-off.svg?v=1');
 }
 
+.icon-favorite  {
+	background-image: url('../img/actions/star-dark.svg?v=1');
+}
+
 .icon-star,
 .icon-starred:hover,
 .icon-starred:focus {
@@ -384,6 +395,9 @@ img.icon-loading-small-dark, object.icon-loading-small-dark, video.icon-loading-
 .icon-files {
 	background-image: url('../img/places/files.svg?v=1');
 }
+.icon-files-dark {
+	background-image: url('../img/places/files-dark.svg?v=1');
+}
 .icon-file,
 .icon-filetype-text {
 	background-image: url('../img/filetypes/text.svg?v=1');
@@ -411,8 +425,4 @@ img.icon-loading-small-dark, object.icon-loading-small-dark, video.icon-loading-
 
 .icon-picture {
 	background-image: url('../img/places/picture.svg?v=1');
-}
-
-.icon-clippy {
-	background-image: url('../img/actions/clippy.svg?v=1');
 }

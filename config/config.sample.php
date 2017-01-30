@@ -9,7 +9,7 @@
  * consider important for your instance to your working ``config.php``, and
  * apply configuration options that are pertinent for your instance.
  *
- * This file is used to generate the configuration documentation. 
+ * This file is used to generate the configuration documentation.
  * Please consider following requirements of the current parser:
  *  * all comments need to start with `/**` and end with ` *\/` - each on their
  *    own line
@@ -128,6 +128,7 @@ $CONFIG = array(
  * Prefix for the Nextcloud tables in the database.
  */
 'dbtableprefix' => '',
+
 
 /**
  * Indicates whether the Nextcloud instance was installed successfully; ``true``
@@ -407,6 +408,17 @@ $CONFIG = array(
 'htaccess.RewriteBase' => '/',
 
 /**
+ * For server setups, that don't have `mod_env` enabled or restricted (e.g. suEXEC)
+ * this parameter has to be set to true and will assume mod_rewrite.
+ *
+ * Please check, if `mod_rewrite` is active and functional before setting this
+ * parameter and you updated your .htaccess with `occ maintenance:update:htaccess`.
+ * Otherwise your nextcloud installation might not be reachable anymore.
+ * For example, try accessing resources by leaving out `index.php` in the URL.
+ */
+'htaccess.IgnoreFrontController' => false,
+
+/**
  * The URL of your proxy server, for example ``proxy.example.com:8081``.
  */
 'proxy' => '',
@@ -580,7 +592,7 @@ $CONFIG = array(
  * Setting this parameter to ``errorlog`` will use the PHP error_log function
  * for logging.
  */
-'log_type' => 'owncloud',
+'log_type' => 'file',
 
 /**
  * Log file path for the Nextcloud logging type.
@@ -666,7 +678,7 @@ $CONFIG = array(
  * seen in the first-run wizard and on Personal pages.
  */
 'customclient_desktop' =>
-	'https://nextcloud.com/install/',
+	'https://nextcloud.com/install/#install-clients',
 'customclient_android' =>
 	'https://play.google.com/store/apps/details?id=com.nextcloud.client',
 'customclient_ios' =>
@@ -682,20 +694,6 @@ $CONFIG = array(
  * When enabled, admins may install apps from the Nextcloud app store.
  */
 'appstoreenabled' => true,
-
-/**
- * The URL of the appstore to use.
- */
-'appstoreurl' => 'https://api.owncloud.com/v1',
-
-/**
- * Whether to show experimental apps in the appstore interface
- *
- * Experimental apps are not checked for security issues and are new or known
- * to be unstable and under heavy development. Installing these can cause data
- * loss or security breaches.
- */
-'appstore.experimental.enabled' => false,
 
 /**
  * Use the ``apps_paths`` parameter to set the location of the Apps directory,
@@ -876,9 +874,9 @@ $CONFIG = array(
 /**
  * Enable maintenance mode to disable Nextcloud
  *
- * If you want to prevent users from logging in to Nextcloud before you start 
- * doing some maintenance work, you need to set the value of the maintenance 
- * parameter to true. Please keep in mind that users who are already logged-in 
+ * If you want to prevent users from logging in to Nextcloud before you start
+ * doing some maintenance work, you need to set the value of the maintenance
+ * parameter to true. Please keep in mind that users who are already logged-in
  * are kicked out of Nextcloud instantly.
  */
 'maintenance' => false,
@@ -1029,9 +1027,9 @@ $CONFIG = array(
  *
  * One way to test is applying for a trystack account at http://trystack.org/
  */
-'objectstore' => array(
+'objectstore' => [
 	'class' => 'OC\\Files\\ObjectStore\\Swift',
-	'arguments' => array(
+	'arguments' => [
 		// trystack will user your facebook id as the user name
 		'username' => 'facebook100000123456789',
 		// in the trystack dashboard go to user -> settings -> API Password to
@@ -1039,6 +1037,8 @@ $CONFIG = array(
 		'password' => 'Secr3tPaSSWoRdt7',
 		// must already exist in the objectstore, name can be different
 		'container' => 'nextcloud',
+		// prefix to prepend to the fileid, default is 'oid:urn:'
+		'objectPrefix' => 'oid:urn:',
 		// create the container if it does not exist. default is false
 		'autocreate' => true,
 		// required, dev-/trystack defaults to 'RegionOne'
@@ -1052,8 +1052,8 @@ $CONFIG = array(
 		'serviceName' => 'swift',
 		// The Interface / url Type, optional
 		'urlType' => 'internal'
-	),
-),
+	],
+],
 
 
 /**
@@ -1089,6 +1089,34 @@ $CONFIG = array(
  * can be 'WAL' or 'DELETE' see for more details https://www.sqlite.org/wal.html
  */
 'sqlite.journal_mode' => 'DELETE',
+
+/**
+ * If this setting is set to true MySQL can handle 4 byte characters instead of
+ * 3 byte characters
+ *
+ * MySQL requires a special setup for longer indexes (> 767 bytes) which are
+ * needed:
+ *
+ * [mysqld]
+ * innodb_large_prefix=true
+ * innodb_file_format=barracuda
+ * innodb_file_per_table=true
+ *
+ * Tables will be created with
+ *  * character set: utf8mb4
+ *  * collation:     utf8mb4_bin
+ *  * row_format:    compressed
+ *
+ * See:
+ * https://dev.mysql.com/doc/refman/5.7/en/charset-unicode-utf8mb4.html
+ * https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_large_prefix
+ * https://mariadb.com/kb/en/mariadb/xtradbinnodb-server-system-variables/#innodb_large_prefix
+ * http://www.tocker.ca/2013/10/31/benchmarking-innodb-page-compression-performance.html
+ * http://mechanics.flite.com/blog/2014/07/29/using-innodb-large-prefix-to-avoid-error-1071/
+ *
+ * WARNING: EXPERIMENTAL
+ */
+'mysql.utf8mb4' => false,
 
 /**
  * Database types that are supported for installation.
@@ -1156,7 +1184,7 @@ $CONFIG = array(
  * client may not function as expected, and could lead to permanent data loss for
  * clients or other unexpected results.
  */
-'minimum.supported.desktop.version' => '1.7.0',
+'minimum.supported.desktop.version' => '2.0.0',
 
 /**
  * EXPERIMENTAL: option whether to include external storage in quota
@@ -1166,7 +1194,7 @@ $CONFIG = array(
 
 /**
  * Specifies how often the local filesystem (the Nextcloud data/ directory, and
- * NFS mounts in data/) is checked for changes made outside Nextcloud. This 
+ * NFS mounts in data/) is checked for changes made outside Nextcloud. This
  * does not apply to external storages.
  *
  * 0 -> Never check the filesystem for outside changes, provides a performance
@@ -1206,7 +1234,7 @@ $CONFIG = array(
 
 /**
  * List of trusted proxy servers
- * 
+ *
  * If you configure these also consider setting `forwarded_for_headers` which
  * otherwise defaults to `HTTP_X_FORWARDED_FOR` (the `X-Forwarded-For` header).
  */

@@ -4,7 +4,7 @@ How to Upgrade Your Nextcloud Server
 
 There are three ways to upgrade your Nextcloud server:
 
-* With the :doc:`Updater App <update>` (Server Edition only).
+* With the :doc:`Updater App <update>`.
 * :doc:`Manually upgrading <manual_upgrade>` with the Nextcloud ``.tar`` archive
   from our `Download page <https://nextcloud.com/install/>`_.
 * Manually upgrading is also an option for users on shared hosting; download

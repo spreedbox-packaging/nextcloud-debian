@@ -13,7 +13,7 @@
 		<admin>admin-external-storage</admin>
 	</documentation>
 	<rememberlogin>false</rememberlogin>
-	<version>1.0.2</version>
+	<version>1.1.2</version>
 	<types>
 		<filesystem/>
 	</types>
@@ -22,11 +22,25 @@
 	<namespace>Files_External</namespace>
 
 	<dependencies>
-		<owncloud min-version="9.1" max-version="9.1" />
+		<nextcloud min-version="11" max-version="11" />
 	</dependencies>
 
 	<settings>
 		<admin>OCA\Files_External\Settings\Admin</admin>
 		<admin-section>OCA\Files_External\Settings\Section</admin-section>
 	</settings>
+
+	<commands>
+		<command>OCA\Files_External\Command\ListCommand</command>
+		<command>OCA\Files_External\Command\Config</command>
+		<command>OCA\Files_External\Command\Option</command>
+		<command>OCA\Files_External\Command\Applicable</command>
+		<command>OCA\Files_External\Command\Import</command>
+		<command>OCA\Files_External\Command\Export</command>
+		<command>OCA\Files_External\Command\Delete</command>
+		<command>OCA\Files_External\Command\Create</command>
+		<command>OCA\Files_External\Command\Backends</command>
+		<command>OCA\Files_External\Command\Verify</command>
+		<command>OCA\Files_External\Command\Notify</command>
+	</commands>
 </info>

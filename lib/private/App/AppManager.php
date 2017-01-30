@@ -31,6 +31,7 @@
 
 namespace OC\App;
 
+use OCP\App\AppPathNotFoundException;
 use OCP\App\IAppManager;
 use OCP\App\ManagerEvent;
 use OCP\IAppConfig;
@@ -220,6 +221,21 @@ class AppManager implements IAppManager {
 	}
 
 	/**
+	 * Whether a list of types contains a protected app type
+	 *
+	 * @param string[] $types
+	 * @return bool
+	 */
+	public function hasProtectedAppType($types) {
+		if (empty($types)) {
+			return false;
+		}
+
+		$protectedTypes = array_intersect($this->protectedAppTypes, $types);
+		return !empty($protectedTypes);
+	}
+
+	/**
 	 * Enable an app only for specific groups
 	 *
 	 * @param string $appId
@@ -263,6 +279,21 @@ class AppManager implements IAppManager {
 			ManagerEvent::EVENT_APP_DISABLE, $appId
 		));
 		$this->clearAppsCache();
+	}
+
+	/**
+	 * Get the directory for the given app.
+	 *
+	 * @param string $appId
+	 * @return string
+	 * @throws AppPathNotFoundException if app folder can't be found
+	 */
+	public function getAppPath($appId) {
+		$appPath = \OC_App::getAppPath($appId);
+		if($appPath === false) {
+			throw new AppPathNotFoundException('Could not find path for ' . $appId);
+		}
+		return $appPath;
 	}
 
 	/**

@@ -23,13 +23,17 @@
 
 namespace OCA\Activity;
 
+use OCA\Activity\Extension\LegacyParser;
+use OCP\Activity\IEvent;
 use OCP\Activity\IManager;
+use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Defaults;
 use OCP\IDateTimeFormatter;
 use OCP\IDBConnection;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserManager;
+use OCP\L10N\IFactory;
 use OCP\Mail\IMailer;
 use OCP\Template;
 use OCP\Util;
@@ -71,8 +75,14 @@ class MailQueueHandler {
 	/** @var IUserManager */
 	protected $userManager;
 
+	/** @var IFactory */
+	protected $lFactory;
+
 	/** @var IManager */
 	protected $activityManager;
+
+	/** @var LegacyParser */
+	protected $legacyParser;
 
 	/**
 	 * Constructor
@@ -83,7 +93,9 @@ class MailQueueHandler {
 	 * @param IMailer $mailer
 	 * @param IURLGenerator $urlGenerator
 	 * @param IUserManager $userManager
+	 * @param IFactory $lFactory
 	 * @param IManager $activityManager
+	 * @param LegacyParser $legacyParser
 	 */
 	public function __construct(IDateTimeFormatter $dateFormatter,
 								IDBConnection $connection,
@@ -91,14 +103,18 @@ class MailQueueHandler {
 								IMailer $mailer,
 								IURLGenerator $urlGenerator,
 								IUserManager $userManager,
-								IManager $activityManager) {
+								IFactory $lFactory,
+								IManager $activityManager,
+								LegacyParser $legacyParser) {
 		$this->dateFormatter = $dateFormatter;
 		$this->connection = $connection;
 		$this->dataHelper = $dataHelper;
 		$this->mailer = $mailer;
 		$this->urlGenerator = $urlGenerator;
 		$this->userManager = $userManager;
+		$this->lFactory = $lFactory;
 		$this->activityManager = $activityManager;
+		$this->legacyParser = $legacyParser;
 	}
 
 	/**
@@ -177,7 +193,7 @@ class MailQueueHandler {
 	 */
 	protected function getLanguage($lang) {
 		if (!isset($this->languages[$lang])) {
-			$this->languages[$lang] = Util::getL10N('activity', $lang);
+			$this->languages[$lang] = $this->lFactory->get('activity', $lang);
 		}
 
 		return $this->languages[$lang];
@@ -222,7 +238,6 @@ class MailQueueHandler {
 		list($mailData, $skippedCount) = $this->getItemsForUser($userName, $maxTime);
 
 		$l = $this->getLanguage($lang);
-		$parser = new PlainTextParser($l);
 		$this->dataHelper->setUser($userName);
 		$this->dataHelper->setL10n($l);
 		$this->activityManager->setCurrentUserId($userName);
@@ -232,8 +247,8 @@ class MailQueueHandler {
 			$event = $this->activityManager->generateEvent();
 			$event->setApp($activity['amq_appid'])
 				->setType($activity['amq_type'])
-				->setTimestamp($activity['amq_timestamp'])
-				->setSubject($activity['amq_subject'], []);
+				->setTimestamp((int) $activity['amq_timestamp'])
+				->setSubject($activity['amq_subject'], json_decode($activity['amq_subjectparams'], true));
 
 			$relativeDateTime = $this->dateFormatter->formatDateTimeRelativeDay(
 				$activity['amq_timestamp'],
@@ -241,12 +256,14 @@ class MailQueueHandler {
 				new \DateTimeZone($timezone), $l
 			);
 
+			try {
+				$event = $this->parseEvent($lang, $event);
+			} catch (\InvalidArgumentException $e) {
+				continue;
+			}
+
 			$activityList[] = array(
-				$parser->parseMessage(
-					$this->dataHelper->translation(
-						$activity['amq_appid'], $activity['amq_subject'], $this->dataHelper->getParameters($event, 'subject', $activity['amq_subjectparams'])
-					)
-				),
+				$event->getParsedSubject(),
 				$relativeDateTime,
 			);
 		}
@@ -276,20 +293,45 @@ class MailQueueHandler {
 	}
 
 	/**
+	 * @param string $lang
+	 * @param IEvent $event
+	 * @return IEvent
+	 * @throws \InvalidArgumentException when the event could not be parsed
+	 */
+	protected function parseEvent($lang, IEvent $event) {
+		foreach ($this->activityManager->getProviders() as $provider) {
+			try {
+				$this->activityManager->setFormattingObject($event->getObjectType(), $event->getObjectId());
+				$event = $provider->parse($lang, $event);
+				$this->activityManager->setFormattingObject('', 0);
+			} catch (\InvalidArgumentException $e) {
+			}
+		}
+
+		if (!$event->getParsedSubject()) {
+			$this->activityManager->setFormattingObject($event->getObjectType(), $event->getObjectId());
+			$event = $this->legacyParser->parse($lang, $event);
+			$this->activityManager->setFormattingObject('', 0);
+		}
+
+		return $event;
+	}
+
+	/**
 	 * Delete all entries we dealt with
 	 *
 	 * @param array $affectedUsers
 	 * @param int $maxTime
 	 */
-	public function deleteSentItems($affectedUsers, $maxTime) {
-		$placeholders = implode(',', array_fill(0, sizeof($affectedUsers), '?'));
-		$queryParams = $affectedUsers;
-		array_unshift($queryParams, (int) $maxTime);
+	public function deleteSentItems(array $affectedUsers, $maxTime) {
+		if (empty($affectedUsers)) {
+			return;
+		}
 
-		$query = $this->connection->prepare(
-			'DELETE FROM `*PREFIX*activity_mq` '
-			. ' WHERE `amq_timestamp` <= ? '
-			. ' AND `amq_affecteduser` IN (' . $placeholders . ')');
-		$query->execute($queryParams);
+		$query = $this->connection->getQueryBuilder();
+		$query->delete('activity_mq')
+			->where($query->expr()->lte('amq_timestamp', $query->createNamedParameter($maxTime, IQueryBuilder::PARAM_INT)))
+			->andWhere($query->expr()->in('amq_affecteduser', $query->createNamedParameter($affectedUsers, IQueryBuilder::PARAM_STR_ARRAY), IQueryBuilder::PARAM_STR));
+		$query->execute();
 	}
 }

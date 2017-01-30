@@ -46,6 +46,8 @@ use \Sabre\HTTP\ResponseInterface;
 use OCP\Files\StorageNotAvailableException;
 use OCP\IConfig;
 use OCP\IRequest;
+use Sabre\DAV\Exception\BadRequest;
+use OCA\DAV\Connector\Sabre\Directory;
 
 class FilesPlugin extends ServerPlugin {
 
@@ -113,7 +115,6 @@ class FilesPlugin extends ServerPlugin {
 
 	/**
 	 * @param Tree $tree
-	 * @param View $view
 	 * @param IConfig $config
 	 * @param IRequest $request
 	 * @param IPreview $previewManager
@@ -121,14 +122,12 @@ class FilesPlugin extends ServerPlugin {
 	 * @param bool $downloadAttachment
 	 */
 	public function __construct(Tree $tree,
-								View $view,
 								IConfig $config,
 								IRequest $request,
 								IPreview $previewManager,
 								$isPublic = false,
 								$downloadAttachment = true) {
 		$this->tree = $tree;
-		$this->fileView = $view;
 		$this->config = $config;
 		$this->request = $request;
 		$this->isPublic = $isPublic;
@@ -248,8 +247,10 @@ class FilesPlugin extends ServerPlugin {
 		$node = $this->tree->getNodeForPath($request->getPath());
 		if (!($node instanceof IFile)) return;
 
-		// adds a 'Content-Disposition: attachment' header
-		if ($this->downloadAttachment) {
+		// adds a 'Content-Disposition: attachment' header in case no disposition
+		// header has been set before
+		if ($this->downloadAttachment &&
+			$response->getHeader('Content-Disposition') === null) {
 			$filename = $node->getName();
 			if ($this->request->isUserAgent(
 				[
@@ -329,8 +330,7 @@ class FilesPlugin extends ServerPlugin {
 			});
 		}
 
-		if ($node instanceof \OCA\DAV\Connector\Sabre\Node
-			|| $node instanceof \OCA\DAV\Files\FilesHome) {
+		if ($node instanceof \OCA\DAV\Connector\Sabre\Node) {
 			$propFind->handle(self::DATA_FINGERPRINT_PROPERTYNAME, function() use ($node) {
 				return $this->config->getSystemValue('data-fingerprint', '');
 			});
@@ -432,5 +432,4 @@ class FilesPlugin extends ServerPlugin {
 			}
 		}
 	}
-
 }

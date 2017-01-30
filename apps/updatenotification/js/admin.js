@@ -70,6 +70,8 @@ $(document).ready(function(){
 	$notificationTargetGroups.change(function(ev) {
 		var groups = ev.val || [];
 		groups = JSON.stringify(groups);
-		OC.AppConfig.setValue('updatenotification', 'notify_groups', groups);
+		OCP.AppConfig.setValue('updatenotification', 'notify_groups', groups);
 	});
+
+	$('#oca_updatenotification_section .icon-info').tooltip({placement: 'right'});
 });

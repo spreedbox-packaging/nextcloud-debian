@@ -62,6 +62,15 @@ interface IAppManager {
 	public function enableApp($appId);
 
 	/**
+	 * Whether a list of types contains a protected app type
+	 *
+	 * @param string[] $types
+	 * @return bool
+	 * @since 12.0.0
+	 */
+	public function hasProtectedAppType($types);
+
+	/**
 	 * Enable an app only for specific groups
 	 *
 	 * @param string $appId
@@ -77,6 +86,16 @@ interface IAppManager {
 	 * @since 8.0.0
 	 */
 	public function disableApp($appId);
+
+	/**
+	 * Get the directory for the given app.
+	 *
+	 * @param string $appId
+	 * @return string
+	 * @since 11.0.0
+	 * @throws AppPathNotFoundException
+	 */
+	public function getAppPath($appId);
 
 	/**
 	 * List all apps enabled for a user
