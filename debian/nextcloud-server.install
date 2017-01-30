@@ -3,7 +3,6 @@ AUTHORS		/usr/lib/nextcloud/
 apps		/usr/lib/nextcloud/www/
 3rdparty	/usr/lib/nextcloud/www/
 console.php	/usr/lib/nextcloud/www/
-COPYING-AGPL	/usr/lib/nextcloud/
 core		/usr/lib/nextcloud/www/
 cron.php	/usr/lib/nextcloud/www/
 db_structure.xml /usr/lib/nextcloud/www/
@@ -22,4 +21,3 @@ status.php	/usr/lib/nextcloud/www/
 themes		/usr/lib/nextcloud/www/
 updater		/usr/lib/nextcloud/www/
 version.php	/usr/lib/nextcloud/www/
-resources	/usr/lib/nextcloud/www/
