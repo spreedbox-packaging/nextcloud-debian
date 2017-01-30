@@ -217,12 +217,7 @@ class OC {
 
 		// set the right include path
 		set_include_path(
-			OC::$SERVERROOT . '/lib/private' . PATH_SEPARATOR .
-			self::$configDir . PATH_SEPARATOR .
-			OC::$SERVERROOT . '/3rdparty' . PATH_SEPARATOR .
-			implode(PATH_SEPARATOR, $paths) . PATH_SEPARATOR .
-			get_include_path() . PATH_SEPARATOR .
-			OC::$SERVERROOT
+			implode(PATH_SEPARATOR, $paths)
 		);
 	}
 
@@ -268,7 +263,7 @@ class OC {
 			if (OC::$CLI) {
 				throw new Exception('Not installed');
 			} else {
-				$url = 'http://' . $_SERVER['SERVER_NAME'] . OC::$WEBROOT . '/index.php';
+				$url = OC::$WEBROOT . '/index.php';
 				header('Location: ' . $url);
 			}
 			exit();
@@ -361,7 +356,7 @@ class OC {
 
 			// render error page
 			$template = new OC_Template('', 'update.use-cli', 'guest');
-			$template->assign('productName', 'owncloud'); // for now
+			$template->assign('productName', 'nextcloud'); // for now
 			$template->assign('version', OC_Util::getVersionString());
 			$template->assign('tooBig', $tooBig);
 
@@ -382,6 +377,7 @@ class OC {
 		\OCP\Util::addScript('update');
 		\OCP\Util::addStyle('update');
 
+		/** @var \OC\App\AppManager $appManager */
 		$appManager = \OC::$server->getAppManager();
 
 		$tmpl = new OC_Template('', 'update.admin', 'guest');
@@ -390,8 +386,22 @@ class OC {
 
 		// get third party apps
 		$ocVersion = \OCP\Util::getVersion();
+		$incompatibleApps = $appManager->getIncompatibleApps($ocVersion);
+		$incompatibleShippedApps = [];
+		foreach ($incompatibleApps as $appInfo) {
+			if ($appManager->isShipped($appInfo['id'])) {
+				$incompatibleShippedApps[] = $appInfo['name'] . ' (' . $appInfo['id'] . ')';
+			}
+		}
+
+		if (!empty($incompatibleShippedApps)) {
+			$l = \OC::$server->getL10N('core');
+			$hint = $l->t('The files of the app %$1s were not replaced correctly. Make sure it is a version compatible with the server.', [implode(', ', $incompatibleShippedApps)]);
+			throw new \OC\HintException('The files of the app ' . implode(', ', $incompatibleShippedApps) . ' were not replaced correctly. Make sure it is a version compatible with the server.', $hint);
+		}
+
 		$tmpl->assign('appsToUpgrade', $appManager->getAppsNeedingUpgrade($ocVersion));
-		$tmpl->assign('incompatibleAppsList', $appManager->getIncompatibleApps($ocVersion));
+		$tmpl->assign('incompatibleAppsList', $incompatibleApps);
 		$tmpl->assign('productName', 'Nextcloud'); // for now
 		$tmpl->assign('oldTheme', $oldTheme);
 		$tmpl->printPage();
@@ -483,10 +493,18 @@ class OC {
 			'lax',
 			'strict',
 		];
+
+		// Append __Host to the cookie if it meets the requirements
+		$cookiePrefix = '';
+		if($cookieParams['secure'] === true && $cookieParams['path'] === '/') {
+			$cookiePrefix = '__Host-';
+		}
+
 		foreach($policies as $policy) {
 			header(
 				sprintf(
-					'Set-Cookie: nc_sameSiteCookie%s=true; path=%s; httponly;' . $secureCookie . 'expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=%s',
+					'Set-Cookie: %snc_sameSiteCookie%s=true; path=%s; httponly;' . $secureCookie . 'expires=Fri, 31-Dec-2100 23:59:59 GMT; SameSite=%s',
+					$cookiePrefix,
 					$policy,
 					$cookieParams['path'],
 					$policy
@@ -519,7 +537,6 @@ class OC {
 		if($request->isUserAgent($incompatibleUserAgents)) {
 			return;
 		}
-
 
 		if(count($_COOKIE) > 0) {
 			$requestUri = $request->getScriptName();
@@ -617,7 +634,9 @@ class OC {
 		@ini_set('display_errors', 0);
 		@ini_set('log_errors', 1);
 
-		date_default_timezone_set('UTC');
+		if(!date_default_timezone_set('UTC')) {
+			throw new \RuntimeException('Could not set timezone to UTC');
+		};
 
 		//try to configure php to enable big file uploads.
 		//this doesn´t work always depending on the webserver and php configuration.
@@ -652,7 +671,6 @@ class OC {
 		stream_wrapper_register('static', 'OC\Files\Stream\StaticStream');
 		stream_wrapper_register('close', 'OC\Files\Stream\Close');
 		stream_wrapper_register('quota', 'OC\Files\Stream\Quota');
-		stream_wrapper_register('oc', 'OC\Files\Stream\OC');
 
 		\OC::$server->getEventLogger()->start('init_session', 'Initialize session');
 		OC_App::loadApps(array('session'));
@@ -739,6 +757,7 @@ class OC {
 		self::registerLogRotate();
 		self::registerEncryptionWrapper();
 		self::registerEncryptionHooks();
+		self::registerAccountHooks();
 		self::registerSettingsHooks();
 
 		//make sure temporary files are cleaned up
@@ -849,6 +868,11 @@ class OC {
 		}
 	}
 
+	private static function registerAccountHooks() {
+		$hookHandler = new \OC\Accounts\Hooks(\OC::$server->getLogger());
+		\OCP\Util::connectHook('OC_User', 'changeUser', $hookHandler, 'changeUserHook');
+	}
+
 	/**
 	 * register hooks for the cache
 	 */
@@ -936,6 +960,9 @@ class OC {
 
 		$request = \OC::$server->getRequest();
 		$requestPath = $request->getRawPathInfo();
+		if ($requestPath === '/heartbeat') {
+			return;
+		}
 		if (substr($requestPath, -3) !== '.js') { // we need these files during the upgrade
 			self::checkMaintenanceMode();
 			self::checkUpgrade();
@@ -1026,6 +1053,12 @@ class OC {
 			return true;
 		}
 		if ($userSession->tryTokenLogin($request)) {
+			return true;
+		}
+		if (isset($_COOKIE['nc_username'])
+			&& isset($_COOKIE['nc_token'])
+			&& isset($_COOKIE['nc_session_id'])
+			&& $userSession->loginWithCookie($_COOKIE['nc_username'], $_COOKIE['nc_token'], $_COOKIE['nc_session_id'])) {
 			return true;
 		}
 		if ($userSession->tryBasicAuthLogin($request, \OC::$server->getBruteForceThrottler())) {

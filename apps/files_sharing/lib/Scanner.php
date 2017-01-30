@@ -31,6 +31,11 @@ use OC\Files\ObjectStore\NoopScanner;
  * Scanner for SharedStorage
  */
 class Scanner extends \OC\Files\Cache\Scanner {
+	/**
+	 * @var \OCA\Files_Sharing\SharedStorage $storage
+	 */
+	protected $storage;
+
 	private $sourceScanner;
 
 	/**
@@ -46,8 +51,8 @@ class Scanner extends \OC\Files\Cache\Scanner {
 		if ($data === null) {
 			return null;
 		}
-		list($sourceStorage, $internalPath) = $this->storage->resolvePath($path);
-		$data['permissions'] = $sourceStorage->getPermissions($internalPath);
+		$internalPath = $this->storage->getSourcePath($path);
+		$data['permissions'] = $this->storage->getSourceStorage()->getPermissions($internalPath);
 		return $data;
 	}
 
@@ -55,7 +60,7 @@ class Scanner extends \OC\Files\Cache\Scanner {
 		if ($this->sourceScanner) {
 			return $this->sourceScanner;
 		}
-		if ($this->storage->instanceOfStorage('\OC\Files\Storage\Shared')) {
+		if ($this->storage->instanceOfStorage('\OCA\Files_Sharing\SharedStorage')) {
 			/** @var \OC\Files\Storage\Storage $storage */
 			list($storage) = $this->storage->resolvePath('');
 			$this->sourceScanner = $storage->getScanner();

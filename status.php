@@ -35,12 +35,17 @@ try {
 
 	$installed = (bool) $systemConfig->getValue('installed', false);
 	$maintenance = (bool) $systemConfig->getValue('maintenance', false);
+	# see core/lib/private/legacy/defaults.php and core/themes/example/defaults.php
+	# for description and defaults
+	$defaults = new \OCP\Defaults();
 	$values=array(
 		'installed'=>$installed,
 		'maintenance' => $maintenance,
+		'needsDbUpgrade' => \OCP\Util::needUpgrade(),
 		'version'=>implode('.', \OCP\Util::getVersion()),
 		'versionstring'=>OC_Util::getVersionString(),
-		'edition'=> $installed ? OC_Util::getEditionString() : '');
+		'edition'=> '',
+		'productname'=>$defaults->getName());
 	if (OC::$CLI) {
 		print_r($values);
 	} else {

@@ -2,7 +2,7 @@
 
 Handlebars.registerHelper('score', function() {
 	if(this.score) {
-		var score = Math.round( this.score / 10 );
+		var score = Math.round( this.score * 10 );
 		var imageName = 'rating/s' + score + '.svg';
 
 		return new Handlebars.SafeString('<img src="' + OC.imagePath('core', imageName) + '">');
@@ -13,10 +13,6 @@ Handlebars.registerHelper('level', function() {
 	if(typeof this.level !== 'undefined') {
 		if(this.level === 200) {
 			return new Handlebars.SafeString('<span class="official icon-checkmark">' + t('settings', 'Official') + '</span>');
-		} else if(this.level === 100) {
-			return new Handlebars.SafeString('<span class="approved">' + t('settings', 'Approved') + '</span>');
-		} else {
-			return new Handlebars.SafeString('<span class="experimental">' + t('settings', 'Experimental') + '</span>');
 		}
 	}
 });
@@ -31,7 +27,9 @@ OC.Settings.Apps = OC.Settings.Apps || {
 
 	State: {
 		currentCategory: null,
-		apps: null
+		apps: null,
+		$updateNotification: null,
+		availableUpdates: 0
 	},
 
 	loadCategories: function() {
@@ -81,8 +79,9 @@ OC.Settings.Apps = OC.Settings.Apps || {
 		$('#app-category-' + OC.Settings.Apps.State.currentCategory).removeClass('active');
 		$('#app-category-' + categoryId).addClass('active');
 		OC.Settings.Apps.State.currentCategory = categoryId;
+		OC.Settings.Apps.State.availableUpdates = 0;
 
-		this._loadCategoryCall = $.ajax(OC.generateUrl('settings/apps/list?category={categoryId}&includeUpdateInfo=0', {
+		this._loadCategoryCall = $.ajax(OC.generateUrl('settings/apps/list?category={categoryId}', {
 			categoryId: categoryId
 		}), {
 			type:'GET',
@@ -113,7 +112,18 @@ OC.Settings.Apps = OC.Settings.Apps || {
 						} else {
 							OC.Settings.Apps.renderApp(app, template, null, false);
 						}
+
+						if (app.update) {
+							var $update = $('#app-' + app.id + ' .update');
+							$update.removeClass('hidden');
+							$update.val(t('settings', 'Update to %s').replace(/%s/g, app.update));
+							OC.Settings.Apps.State.availableUpdates++;
+						}
 					});
+
+					if (OC.Settings.Apps.State.availableUpdates > 0) {
+						OC.Settings.Apps.State.$updateNotification = OC.Notification.show(n('settings', 'You have %n app update pending', 'You have %n app updates pending', OC.Settings.Apps.State.availableUpdates));
+					}
 				} else {
 					$('#apps-list').addClass('hidden');
 					$('#apps-list-empty').removeClass('hidden').find('h2').text(t('settings', 'No apps found for your version'));
@@ -142,28 +152,7 @@ OC.Settings.Apps = OC.Settings.Apps || {
 				});
 			},
 			complete: function() {
-				var availableUpdates = 0;
 				$('#apps-list').removeClass('icon-loading');
-				$.ajax(OC.generateUrl('settings/apps/list?category={categoryId}&includeUpdateInfo=1', {
-					categoryId: categoryId
-				}), {
-					type: 'GET',
-					success: function (apps) {
-						_.each(apps.apps, function(app) {
-							if (app.update) {
-								var $update = $('#app-' + app.id + ' .update');
-								$update.removeClass('hidden');
-								$update.val(t('settings', 'Update to %s').replace(/%s/g, app.update));
-								availableUpdates++;
-								OC.Settings.Apps.State.apps[app.id].update = true;
-							}
-						});
-
-						if (availableUpdates > 0) {
-							OC.Notification.show(n('settings', 'You have %n app update pending', 'You have %n app updates pending', availableUpdates));
-						}
-					}
-				});
 			}
 		});
 	},
@@ -193,6 +182,8 @@ OC.Settings.Apps = OC.Settings.Apps || {
 				}
 			});
 			app.author = authors.join(', ');
+		} else if (typeof app.author !== 'string') {
+			app.author = app.author['@value'];
 		}
 
 		var html = template(app);
@@ -211,7 +202,7 @@ OC.Settings.Apps = OC.Settings.Apps || {
 
 			currentImage.onload = function() {
 				page.find('.app-image')
-					.append(OC.Settings.Apps.imageUrl(app.preview, app.detailpage))
+					.append(OC.Settings.Apps.imageUrl(app.preview, app.fromAppStore))
 					.fadeIn();
 			};
 		}
@@ -248,9 +239,9 @@ OC.Settings.Apps = OC.Settings.Apps || {
 		var img = '<svg width="72" height="72" viewBox="0 0 72 72">';
 
 		if (appfromstore) {
-			img += '<image x="0" y="0" width="72" height="72" preserveAspectRatio="xMinYMin meet" xlink:href="' + url + '"  class="app-icon" /></svg>';
+			img += '<image x="0" y="0" width="72" height="72" preserveAspectRatio="xMinYMin meet" xlink:href="' + url  + '"  class="app-icon" /></svg>';
 		} else {
-			img += '<image x="0" y="0" width="72" height="72" preserveAspectRatio="xMinYMin meet" filter="url(#invertIcon)" xlink:href="' + url + '"  class="app-icon"></image></svg>';
+			img += '<image x="0" y="0" width="72" height="72" preserveAspectRatio="xMinYMin meet" filter="url(#invertIcon)" xlink:href="' + url + '?v=' + oc_config.version + '" class="app-icon"></image></svg>';
 		}
 		return img;
 	},
@@ -271,11 +262,16 @@ OC.Settings.Apps = OC.Settings.Apps || {
 	},
 
 	enableApp:function(appId, active, element, groups) {
+		if (OC.PasswordConfirmation.requiresPasswordConfirmation()) {
+			OC.PasswordConfirmation.requirePasswordConfirmation(_.bind(this.enableApp, this, appId, active, element, groups));
+			return;
+		}
+
 		var self = this;
 		OC.Settings.Apps.hideErrorMessage(appId);
 		groups = groups || [];
 		var appItem = $('div#app-'+appId+'');
-		element.val(t('settings','Please wait....'));
+		element.val(t('settings','Enabling app …'));
 		if(active && !groups.length) {
 			$.post(OC.filePath('settings','ajax','disableapp.php'),{appid:appId},function(result) {
 				if(!result || result.status !== 'success') {
@@ -392,11 +388,30 @@ OC.Settings.Apps = OC.Settings.Apps || {
 			else {
 				element.val(t('settings','Updated'));
 				element.hide();
+
+				var $update = $('#app-' + appId + ' .update');
+				$update.addClass('hidden');
+				var $version = $('#app-' + appId + ' .app-version');
+				$version.text(OC.Settings.Apps.State.apps[appId]['update']);
+
+				if (OC.Settings.Apps.State.$updateNotification) {
+					OC.Notification.hide(OC.Settings.Apps.State.$updateNotification);
+				}
+
+				OC.Settings.Apps.State.availableUpdates--;
+				if (OC.Settings.Apps.State.availableUpdates > 0) {
+					OC.Settings.Apps.State.$updateNotification = OC.Notification.show(n('settings', 'You have %n app update pending', 'You have %n app updates pending', OC.Settings.Apps.State.availableUpdates));
+				}
 			}
 		},'json');
 	},
 
 	uninstallApp:function(appId, element) {
+		if (OC.PasswordConfirmation.requiresPasswordConfirmation()) {
+			OC.PasswordConfirmation.requirePasswordConfirmation(_.bind(this.uninstallApp, this, appId, element));
+			return;
+		}
+
 		OC.Settings.Apps.hideErrorMessage(appId);
 		element.val(t('settings','Uninstalling ....'));
 		$.post(OC.filePath('settings','ajax','uninstallapp.php'),{appid:appId},function(result) {
@@ -543,8 +558,8 @@ OC.Settings.Apps = OC.Settings.Apps || {
 
 		// Author Name
 		apps = apps.concat(_.filter(OC.Settings.Apps.State.apps, function (app) {
+			var authors = [];
 			if (_.isArray(app.author)) {
-				var authors = [];
 				_.each(app.author, function (author) {
 					if (typeof author === 'string') {
 						authors.push(author);
@@ -558,6 +573,15 @@ OC.Settings.Apps = OC.Settings.Apps || {
 						}
 					}
 				});
+				return OC.Settings.Apps._search(authors.join(' '), query);
+			} else if (typeof app.author !== 'string') {
+				authors.push(app.author['@value']);
+				if (!_.isUndefined(app.author['@attributes']['homepage'])) {
+					authors.push(app.author['@attributes']['homepage']);
+				}
+				if (!_.isUndefined(app.author['@attributes']['mail'])) {
+					authors.push(app.author['@attributes']['mail']);
+				}
 				return OC.Settings.Apps._search(authors.join(' '), query);
 			}
 			return OC.Settings.Apps._search(app.author, query);

@@ -1,7 +1,6 @@
 test/
 src/
 bower.json
-.gitignore
 .jshintrc
 .travis.yml
 CHANGELOG*
@@ -25,17 +24,17 @@ blueimp-md5/js/*
 blueimp-md5/index.html
 
 # momentjs - ignore all files except the two listed below
-moment/benchmarks
-moment/locale
+moment/**
+!moment/.bower.json
+!moment/min
+!moment/LICENSE
 moment/min/**
-moment/moment.js
-moment/scripts
-moment/templates
 !moment/min/moment-with-locales.js
 
 # jquery
 jquery/**
 !jquery/.bower.json
+!jquery/dist
 !jquery/dist/jquery.*
 !jquery/MIT-LICENSE.txt
 
@@ -72,6 +71,7 @@ jquery-ui/themes/vader
 jquery-ui/ui/**
 !jquery-ui/ui/jquery-ui.custom.js
 jquery-ui/*.json
+!jquery-ui/.bower.json
 jquery-ui/AUTHORS.txt
 jquery-ui/MANIFEST
 jquery-ui/README.md
@@ -104,7 +104,9 @@ select2/**
 #zxcvbn
 zxcvbn/**
 !zxcvbn/.bower.json
-!zxcvbn/zxcvbn.js
+!zxcvbn/dist
+zxcvbn/dist/**
+!zxcvbn/dist/zxcvbn.js
 !zxcvbn/LICENSE.txt
 
 # snapjs
@@ -116,6 +118,7 @@ snapjs/scripts
 
 # bootstrap - only include the tooltip plugin
 bootstrap/**
+!bootstrap/.bower.json
 !bootstrap/js
 bootstrap/js/*
 !bootstrap/js/tooltip.js
@@ -125,11 +128,14 @@ backbone/backbone-min*
 
 # davclient.js
 davclient.js/**
+!davclient.js/.bower.json
 !davclient.js/lib
+!davclient.js/lib/client.js
 !davclient.js/LICENSE
 
 # es6-promise
 es6-promise/**
+!es6-promise/.bower.json
 !es6-promise/LICENSE
 !es6-promise/dist
 es6-promise/dist/*
@@ -140,4 +146,13 @@ base64/*min.js
 
 # clipboard
 clipboard/**
+!clipboard/.bower.json
+!clipboard/dist
 !clipboard/dist/clipboard.js
+
+# autosize
+autosize/**
+!autosize/dist
+!autosize/dist/autosize.js
+!autosize/.bower.json
+!autosize/LICENCE.md

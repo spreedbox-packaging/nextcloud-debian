@@ -6,6 +6,8 @@
  * See the COPYING-README file.
  */
 
+/* globals escapeHTML, GroupList, DeleteHandler, UserManagementFilter */
+
 var $userList;
 var $userListBody;
 
@@ -46,10 +48,8 @@ var UserList = {
 	 *				'email':			'username@example.org'
 	 *				'isRestoreDisabled':false
 	 * 			}
-	 * @param sort
-	 * @returns table row created for this user
 	 */
-	add: function (user, sort) {
+	add: function (user) {
 		if (this.currentGid && this.currentGid !== '_everyone' && _.indexOf(user.groups, this.currentGid) < 0) {
 			return;
 		}
@@ -168,20 +168,12 @@ var UserList = {
 			UserList.checkUsersToLoad();
 		}
 
-		/**
-		 * sort list
-		 */
-		if (sort) {
-			UserList.doSort();
-		}
-
 		$quotaSelect.on('change', UserList.onQuotaSelect);
 
 		// defer init so the user first sees the list appear more quickly
 		window.setTimeout(function(){
 			$quotaSelect.singleSelect();
 		}, 0);
-		return $tr;
 	},
 	// From http://my.opera.com/GreyWyvern/blog/show.dml/1671288
 	alphanum: function(a, b) {
@@ -361,6 +353,14 @@ var UserList = {
 		$userListBody.on('click', '.delete', function () {
 			// Call function for handling delete/undo
 			var uid = UserList.getUID(this);
+
+			if (OC.PasswordConfirmation.requiresPasswordConfirmation()) {
+				OC.PasswordConfirmation.requirePasswordConfirmation(function() {
+					UserDeleteHandler.mark(uid);
+				});
+				return;
+			}
+
 			UserDeleteHandler.mark(uid);
 		});
 
@@ -387,8 +387,6 @@ var UserList = {
 			OC.generateUrl('/settings/users/users'),
 			{ offset: UserList.offset, limit: limit, gid: gid, pattern: pattern },
 			function (result) {
-				var loadedUsers = 0;
-				var trs = [];
 				//The offset does not mirror the amount of users available,
 				//because it is backend-dependent. For correct retrieval,
 				//always the limit(requested amount of users) needs to be added.
@@ -396,9 +394,7 @@ var UserList = {
 					if(UserList.has(user.name)) {
 						return true;
 					}
-					var $tr = UserList.add(user, false);
-					trs.push($tr);
-					loadedUsers++;
+					UserList.add(user);
 				});
 				if (result.length > 0) {
 					UserList.doSort();
@@ -417,6 +413,11 @@ var UserList = {
 	},
 
 	applyGroupSelect: function (element, user, checked) {
+		if (OC.PasswordConfirmation.requiresPasswordConfirmation()) {
+			OC.PasswordConfirmation.requirePasswordConfirmation(_.bind(this.applySubadminSelect, this, element, user, checked));
+			return;
+		}
+
 		var $element = $(element);
 
 		var checkHandler = null;
@@ -425,7 +426,7 @@ var UserList = {
 				if (user === OC.currentUser && group === 'admin') {
 					return false;
 				}
-				if (!oc_isadmin && checked.length === 1 && checked[0] === group) {
+				if (!OC.isUserAdmin() && checked.length === 1 && checked[0] === group) {
 					return false;
 				}
 				$.post(
@@ -461,8 +462,8 @@ var UserList = {
 			GroupList.addGroup(escapeHTML(group));
 		};
 		var label;
-		if (oc_isadmin) {
-			label = t('settings', 'add group');
+		if (OC.isUserAdmin()) {
+			label = t('settings', 'Add group');
 		}
 		else {
 			label = null;
@@ -479,6 +480,11 @@ var UserList = {
 	},
 
 	applySubadminSelect: function (element, user, checked) {
+		if (OC.PasswordConfirmation.requiresPasswordConfirmation()) {
+			OC.PasswordConfirmation.requirePasswordConfirmation(_.bind(this.applySubadminSelect, this, element, user, checked));
+			return;
+		}
+
 		var $element = $(element);
 		var checkHandler = function (group) {
 			if (group === 'admin') {
@@ -490,7 +496,10 @@ var UserList = {
 					username: user,
 					group: group
 				},
-				function () {
+				function (response) {
+					if (response.data !== undefined && response.data.message) {
+						OC.Notification.show(response.data.message);
+					}
 				}
 			);
 		};
@@ -530,7 +539,7 @@ var UserList = {
 			OC.Notification.showTemporary(t('core', 'Invalid quota value "{val}"', {val: quota}));
 			return;
 		}
-		UserList._updateQuota(uid, quota, function(returnedQuota){
+		UserList._updateQuota(uid, quota, function(returnedQuota) {
 			if (quota !== returnedQuota) {
 				$select.find(':selected').text(returnedQuota);
 			}
@@ -544,12 +553,21 @@ var UserList = {
 	 * @param {Function} ready callback after save
 	 */
 	_updateQuota: function(uid, quota, ready) {
+		if (OC.PasswordConfirmation.requiresPasswordConfirmation()) {
+			OC.PasswordConfirmation.requirePasswordConfirmation(_.bind(this._updateQuota, this, uid, quota, ready));
+			return;
+		}
+
 		$.post(
 			OC.filePath('settings', 'ajax', 'setquota.php'),
 			{username: uid, quota: quota},
 			function (result) {
-				if (ready) {
-					ready(result.data.quota);
+				if (result.status === 'error') {
+					OC.Notification.showTemporary(result.data.message);
+				} else {
+					if (ready) {
+						ready(result.data.quota);
+					}
 				}
 			}
 		);
@@ -647,6 +665,28 @@ $(document).ready(function () {
 	// TODO: move other init calls inside of initialize
 	UserList.initialize($('#userlist'));
 
+	var _submitPasswordChange = function(uid, password, recoveryPasswordVal, blurFunction) {
+		if (OC.PasswordConfirmation.requiresPasswordConfirmation()) {
+			OC.PasswordConfirmation.requirePasswordConfirmation(function() {
+				_submitPasswordChange(uid, password, recoveryPasswordVal, blurFunction);
+			});
+			return;
+		}
+
+		$.post(
+			OC.generateUrl('/settings/users/changepassword'),
+			{username: uid, password: password, recoveryPassword: recoveryPasswordVal},
+			function (result) {
+				blurFunction();
+				if (result.status === 'success') {
+					OC.Notification.showTemporary(t('admin', 'Password successfully changed'));
+				} else {
+					OC.Notification.showTemporary(t('admin', result.data.message));
+				}
+			}
+		).fail(blurFunction);
+	};
+
 	$userListBody.on('click', '.password', function (event) {
 		event.stopPropagation();
 
@@ -655,6 +695,13 @@ $(document).ready(function () {
 		var uid = UserList.getUID($td);
 		var $input = $('<input type="password">');
 		var isRestoreDisabled = UserList.getRestoreDisabled($td) === true;
+		var blurFunction = function () {
+			$(this).replaceWith($('<span>●●●●●●●</span>'));
+			$td.find('img').show();
+			// remove highlight class from users without recovery ability
+			$tr.removeClass('row-warning');
+		};
+		blurFunction = _.bind(blurFunction, $input);
 		if(isRestoreDisabled) {
 			$tr.addClass('row-warning');
 			// add tipsy if the password change could cause data loss - no recovery enabled
@@ -669,33 +716,50 @@ $(document).ready(function () {
 				if (event.keyCode === 13) {
 					if ($(this).val().length > 0) {
 						var recoveryPasswordVal = $('input:password[id="recoveryPassword"]').val();
-						$.post(
-							OC.generateUrl('/settings/users/changepassword'),
-							{username: uid, password: $(this).val(), recoveryPassword: recoveryPasswordVal},
-							function (result) {
-								if (result.status === 'success') {
-									OC.Notification.showTemporary(t('admin', 'Password successfully changed'));
-								} else {
-									OC.Notification.showTemporary(t('admin', result.data.message));
-								}
-							}
-						);
-						$input.blur();
+						$input.off('blur');
+						_submitPasswordChange(uid, $(this).val(), recoveryPasswordVal, blurFunction);
 					} else {
 						$input.blur();
 					}
 				}
 			})
-			.blur(function () {
-				$(this).replaceWith($('<span>●●●●●●●</span>'));
-				$td.find('img').show();
-				// remove highlight class from users without recovery ability
-				$tr.removeClass('row-warning');
-			});
+			.blur(blurFunction);
 	});
 	$('input:password[id="recoveryPassword"]').keyup(function() {
 		OC.Notification.hide();
 	});
+
+	var _submitDisplayNameChange = function($tr, uid, displayName, blurFunction) {
+		var $div = $tr.find('div.avatardiv');
+		if ($div.length) {
+			$div.imageplaceholder(uid, displayName);
+		}
+
+		if (OC.PasswordConfirmation.requiresPasswordConfirmation()) {
+			OC.PasswordConfirmation.requirePasswordConfirmation(function() {
+				_submitDisplayNameChange($tr, uid, displayName, blurFunction);
+			});
+			return;
+		}
+
+		$.ajax({
+			type: 'POST',
+			url: OC.generateUrl('/settings/users/{id}/displayName', {id: uid}),
+			data: {
+				username: uid,
+				displayName: displayName
+			}
+		}).success(function (result) {
+			if (result && result.status==='success' && $div.length){
+				$div.avatar(result.data.username, 32);
+			}
+			$tr.data('displayname', displayName);
+			blurFunction();
+		}).fail(function (result) {
+			OC.Notification.showTemporary(result.responseJSON.message);
+			$tr.find('.displayName input').blur(blurFunction);
+		});
+	};
 
 	$userListBody.on('click', '.displayName', function (event) {
 		event.stopPropagation();
@@ -704,6 +768,11 @@ $(document).ready(function () {
 		var uid = UserList.getUID($td);
 		var displayName = escapeHTML(UserList.getDisplayName($td));
 		var $input = $('<input type="text" value="' + displayName + '">');
+		var blurFunction = function() {
+			var displayName = $tr.data('displayname');
+			$input.replaceWith('<span>' + escapeHTML(displayName) + '</span>');
+			$td.find('img').show();
+		};
 		$td.find('img').hide();
 		$td.children('span').replaceWith($input);
 		$input
@@ -711,33 +780,52 @@ $(document).ready(function () {
 			.keypress(function (event) {
 				if (event.keyCode === 13) {
 					if ($(this).val().length > 0) {
-						var $div = $tr.find('div.avatardiv');
-						if ($div.length) {
-							$div.imageplaceholder(uid, displayName);
-						}
-						$.post(
-							OC.generateUrl('/settings/users/{id}/displayName', {id: uid}),
-							{username: uid, displayName: $(this).val()},
-							function (result) {
-								if (result && result.status==='success' && $div.length){
-									$div.avatar(result.data.username, 32);
-								}
-							}
-						);
-						var displayName = $input.val();
-						$tr.data('displayname', displayName);
-						$input.blur();
+						$input.off('blur');
+						_submitDisplayNameChange($tr, uid, $(this).val(), blurFunction);
 					} else {
 						$input.blur();
 					}
 				}
 			})
-			.blur(function () {
-				var displayName = $tr.data('displayname');
-				$input.replaceWith('<span>' + escapeHTML(displayName) + '</span>');
-				$td.find('img').show();
-			});
+			.blur(blurFunction);
 	});
+
+	var _submitEmailChange = function($tr, $td, $input, uid, mailAddress, blurFunction) {
+		if (OC.PasswordConfirmation.requiresPasswordConfirmation()) {
+			OC.PasswordConfirmation.requirePasswordConfirmation(function() {
+				_submitEmailChange($tr, $td, $input, uid, mailAddress, blurFunction);
+			});
+			return;
+		}
+
+		$.ajax({
+			type: 'PUT',
+			url: OC.generateUrl('/settings/users/{id}/mailAddress', {id: uid}),
+			data: {
+				mailAddress: mailAddress
+			}
+		}).success(function () {
+			// set data attribute to new value
+			// will in blur() be used to show the text instead of the input field
+			$tr.data('mailAddress', mailAddress);
+			$td.find('.loading-small').css('display', '');
+			$input.removeAttr('disabled')
+				.triggerHandler('blur'); // needed instead of $input.blur() for Firefox
+			blurFunction();
+		}).fail(function (result) {
+			if (!_.isUndefined(result.responseJSON.data)) {
+				OC.Notification.showTemporary(result.responseJSON.data.message);
+			} else if (!_.isUndefined(result.responseJSON.message)) {
+				OC.Notification.showTemporary(result.responseJSON.message);
+			} else {
+				OC.Notification.showTemporary(t('settings', 'Could not change the users email'));
+			}
+			$td.find('.loading-small').css('display', '');
+			$input.removeAttr('disabled')
+				.css('padding-right', '6px');
+			$input.blur(blurFunction);
+		});
+	};
 
 	$userListBody.on('click', '.mailAddress', function (event) {
 		event.stopPropagation();
@@ -746,6 +834,15 @@ $(document).ready(function () {
 		var uid = UserList.getUID($td);
 		var mailAddress = escapeHTML(UserList.getMailAddress($td));
 		var $input = $('<input type="text">').val(mailAddress);
+		var blurFunction = function() {
+			if($td.find('.loading-small').css('display') === 'inline-block') {
+				// in Chrome the blur event is fired too early by the browser - even if the request is still running
+				return;
+			}
+			var $span = $('<span>').text($tr.data('mailAddress'));
+			$input.replaceWith($span);
+			$td.find('img').show();
+		};
 		$td.children('span').replaceWith($input);
 		$td.find('img').hide();
 		$input
@@ -754,40 +851,14 @@ $(document).ready(function () {
 				if (event.keyCode === 13) {
 					// enter key
 
-					var mailAddress = $input.val();
 					$td.find('.loading-small').css('display', 'inline-block');
 					$input.css('padding-right', '26px');
 					$input.attr('disabled', 'disabled');
-					$.ajax({
-						type: 'PUT',
-						url: OC.generateUrl('/settings/users/{id}/mailAddress', {id: uid}),
-						data: {
-							mailAddress: $(this).val()
-						}
-					}).success(function () {
-						// set data attribute to new value
-						// will in blur() be used to show the text instead of the input field
-						$tr.data('mailAddress', mailAddress);
-						$td.find('.loading-small').css('display', '');
-						$input.removeAttr('disabled')
-							.triggerHandler('blur'); // needed instead of $input.blur() for Firefox
-					}).fail(function (result) {
-						OC.Notification.showTemporary(result.responseJSON.data.message);
-						$td.find('.loading-small').css('display', '');
-						$input.removeAttr('disabled')
-							.css('padding-right', '6px');
-					});
+					$input.off('blur');
+					_submitEmailChange($tr, $td, $input, uid, $(this).val(), blurFunction);
 				}
 			})
-			.blur(function () {
-				if($td.find('.loading-small').css('display') === 'inline-block') {
-					// in Chrome the blur event is fired too early by the browser - even if the request is still running
-					return;
-				}
-				var $span = $('<span>').text($tr.data('mailAddress'));
-				$input.replaceWith($span);
-				$td.find('img').show();
-			});
+			.blur(blurFunction);
 	});
 
 	$('#newuser .groupsListContainer').on('click', function (event) {
@@ -808,8 +879,15 @@ $(document).ready(function () {
 	});
 
 	UserList._updateGroupListLabel($('#newuser .groups'), []);
-	$('#newuser').submit(function (event) {
+	var _submitNewUserForm = function (event) {
 		event.preventDefault();
+		if (OC.PasswordConfirmation.requiresPasswordConfirmation()) {
+			OC.PasswordConfirmation.requirePasswordConfirmation(function() {
+				_submitNewUserForm(event);
+			});
+			return;
+		}
+
 		var username = $('#newusername').val();
 		var password = $('#newuserpassword').val();
 		var email = $('#newemail').val();
@@ -859,13 +937,14 @@ $(document).ready(function () {
 							if(UserList.availableGroups.indexOf(gid) === -1) {
 								UserList.availableGroups.push(gid);
 							}
-							$li = GroupList.getGroupLI(gid);
-							userCount = GroupList.getUserCount($li);
+							var $li = GroupList.getGroupLI(gid);
+							var userCount = GroupList.getUserCount($li);
 							GroupList.setUserCount($li, userCount + 1);
 						}
 					}
 					if(!UserList.has(username)) {
-						UserList.add(result, true);
+						UserList.add(result);
+						UserList.doSort();
 					}
 					$('#newusername').focus();
 					GroupList.incEveryoneCount();
@@ -877,7 +956,8 @@ $(document).ready(function () {
 					$('#newuser').get(0).reset();
 				});
 		});
-	});
+	};
+	$('#newuser').submit(_submitNewUserForm);
 
 	if ($('#CheckboxStorageLocation').is(':checked')) {
 		$("#userlist .storageLocation").show();
@@ -885,11 +965,17 @@ $(document).ready(function () {
 	// Option to display/hide the "Storage location" column
 	$('#CheckboxStorageLocation').click(function() {
 		if ($('#CheckboxStorageLocation').is(':checked')) {
-			$("#userlist .storageLocation").show();
-			OC.AppConfig.setValue('core', 'umgmt_show_storage_location', 'true');
+			OCP.AppConfig.setValue('core', 'umgmt_show_storage_location', 'true', {
+				success: function () {
+					$("#userlist .storageLocation").show();
+				}
+			});
 		} else {
-			$("#userlist .storageLocation").hide();
-			OC.AppConfig.setValue('core', 'umgmt_show_storage_location', 'false');
+			OCP.AppConfig.setValue('core', 'umgmt_show_storage_location', 'false', {
+				success: function () {
+					$("#userlist .storageLocation").hide();
+				}
+			});
 		}
 	});
 
@@ -900,10 +986,10 @@ $(document).ready(function () {
 	$('#CheckboxLastLogin').click(function() {
 		if ($('#CheckboxLastLogin').is(':checked')) {
 			$("#userlist .lastLogin").show();
-			OC.AppConfig.setValue('core', 'umgmt_show_last_login', 'true');
+			OCP.AppConfig.setValue('core', 'umgmt_show_last_login', 'true');
 		} else {
 			$("#userlist .lastLogin").hide();
-			OC.AppConfig.setValue('core', 'umgmt_show_last_login', 'false');
+			OCP.AppConfig.setValue('core', 'umgmt_show_last_login', 'false');
 		}
 	});
 
@@ -914,10 +1000,10 @@ $(document).ready(function () {
 	$('#CheckboxEmailAddress').click(function() {
 		if ($('#CheckboxEmailAddress').is(':checked')) {
 			$("#userlist .mailAddress").show();
-			OC.AppConfig.setValue('core', 'umgmt_show_email', 'true');
+			OCP.AppConfig.setValue('core', 'umgmt_show_email', 'true');
 		} else {
 			$("#userlist .mailAddress").hide();
-			OC.AppConfig.setValue('core', 'umgmt_show_email', 'false');
+			OCP.AppConfig.setValue('core', 'umgmt_show_email', 'false');
 		}
 	});
 
@@ -928,10 +1014,10 @@ $(document).ready(function () {
 	$('#CheckboxUserBackend').click(function() {
 		if ($('#CheckboxUserBackend').is(':checked')) {
 			$("#userlist .userBackend").show();
-			OC.AppConfig.setValue('core', 'umgmt_show_backend', 'true');
+			OCP.AppConfig.setValue('core', 'umgmt_show_backend', 'true');
 		} else {
 			$("#userlist .userBackend").hide();
-			OC.AppConfig.setValue('core', 'umgmt_show_backend', 'false');
+			OCP.AppConfig.setValue('core', 'umgmt_show_backend', 'false');
 		}
 	});
 
@@ -942,10 +1028,10 @@ $(document).ready(function () {
 	$('#CheckboxMailOnUserCreate').click(function() {
 		if ($('#CheckboxMailOnUserCreate').is(':checked')) {
 			$("#newemail").show();
-			OC.AppConfig.setValue('core', 'umgmt_send_email', 'true');
+			OCP.AppConfig.setValue('core', 'umgmt_send_email', 'true');
 		} else {
 			$("#newemail").hide();
-			OC.AppConfig.setValue('core', 'umgmt_send_email', 'false');
+			OCP.AppConfig.setValue('core', 'umgmt_send_email', 'false');
 		}
 	});
 
