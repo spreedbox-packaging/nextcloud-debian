@@ -1,10 +1,11 @@
 --- a/settings/js/apps.js
 +++ b/settings/js/apps.js
-@@ -144,6 +144,7 @@ OC.Settings.Apps = OC.Settings.Apps || {
- 			complete: function() {
- 				var availableUpdates = 0;
- 				$('#apps-list').removeClass('icon-loading');
-+				return;
- 				$.ajax(OC.generateUrl('settings/apps/list?category={categoryId}&includeUpdateInfo=1', {
- 					categoryId: categoryId
- 				}), {
+@@ -113,7 +113,7 @@
+ 							OC.Settings.Apps.renderApp(app, template, null, false);
+ 						}
+ 
+-						if (app.update) {
++						if (app.update && false) {
+ 							var $update = $('#app-' + app.id + ' .update');
+ 							$update.removeClass('hidden');
+ 							$update.val(t('settings', 'Update to %s').replace(/%s/g, app.update));

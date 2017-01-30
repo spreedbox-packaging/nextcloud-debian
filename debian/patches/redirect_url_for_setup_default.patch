@@ -1,7 +1,7 @@
 index 9190310..6a949a5 100644
 --- a/core/js/setup.js
 +++ b/core/js/setup.js
-@@ -81,14 +81,16 @@ $(document).ready(function() {
+@@ -81,14 +81,16 @@
  
  		// Add redirect_url
  		var redirectURL = getURLParameter('redirect_url');

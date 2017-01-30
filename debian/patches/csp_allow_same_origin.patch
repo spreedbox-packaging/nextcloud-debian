@@ -1,6 +1,6 @@
 --- a/lib/public/AppFramework/Http/ContentSecurityPolicy.php
 +++ b/lib/public/AppFramework/Http/ContentSecurityPolicy.php
-@@ -86,4 +86,12 @@ class ContentSecurityPolicy extends Empt
+@@ -84,4 +84,12 @@
  	];
  	/** @var array Domains from which web-workers and nested browsing content can load elements */
  	protected $allowedChildSrcDomains = [];
