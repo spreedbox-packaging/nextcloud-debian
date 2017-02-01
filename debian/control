@@ -33,43 +33,23 @@ Description: The Nextcloud Server - Private file sync and share server
 
 Package: nextcloud-server
 Architecture: all
+Pre-Depends:
+ ${misc:Pre-Depends}
 Depends:
  ${misc:Depends},
+ ${perl:Depends},
  ca-certificates,
  cron,
  nextcloud-server-php,
- nextcloud-server-php7.0 (= ${binary:Version}) | nextcloud-server-php5 (= ${binary:Version})
+ nextcloud-server-php7.0 (= ${binary:Version})
 Description: The Nextcloud server package
  .
  A complete Nextcloud server system install package.
 
-Package: nextcloud-server-php5
-Architecture: all
-Depends:
- ${misc:Depends},
- php5-common,
- php5-cli,
- php5-curl,
- php5-gd,
- php5-intl,
- php5-json,
- php5-ldap,
- php5-mcrypt,
- php5-sqlite
-# Don't recommend php5-apcu for Ubuntu-14.04 https://github.com/owncloud/core/issues/14188
-# Don't use apcu before 4.0.6 https://github.com/owncloud/core/issues/14175
-Suggests:
- php5-apcu (>= 4.0.6) | php-apc,
- php5-mysqlnd | php5-mysql,
- php5-pgsql
-Provides: nextcloud-server-php
-Conflicts: nextcloud-server-php
-Description: PHP5 dependencies for Nextcloud
- .
- This is a dependency package for Nextcloud with PHP5.
-
 Package: nextcloud-server-php7.0
 Architecture: all
+Pre-Depends:
+ ${misc:Pre-Depends}
 Depends:
  ${misc:Depends},
  php7.0-common,
@@ -80,16 +60,18 @@ Depends:
  php7.0-json,
  php7.0-ldap,
  php7.0-mcrypt,
- php7.0-sqlite | php7.0-sqlite3,
+ php7.0-sqlite | php7.0-sqlite3
 Suggests:
  php7.0-apcu,
  php7.0-mysqlnd | php7.0-mysql,
  php7.0-pgsql
 Provides: nextcloud-server-php
+Breaks: nextcloud-server-php
 Conflicts: nextcloud-server-php
+Replaces: nextcloud-server-php
 Description: PHP7.0 dependencies for Nextcloud
  .
- This is a dependency package for Nextcloud witH PHP7.0.
+ This is a dependency package for Nextcloud with PHP7.0.
 
 Package: nextcloud-occ
 Architecture: all

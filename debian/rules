@@ -25,9 +25,6 @@ override_dh_install:
 	rm -f $(WEBROOT)/resources/config/ca-bundle.crt
 	ln -s /etc/ssl/certs/ca-certificates.crt $(WEBROOT)/resources/config/ca-bundle.crt
 	# PHP specific occ console.
-	mkdir -p $(CURDIR)/debian/nextcloud-server-php5/usr/lib/nextcloud/www
-	cp -a debian/occ.php5 $(CURDIR)/debian/nextcloud-server-php5/usr/lib/nextcloud/www/occ
-	touch $(CURDIR)/debian/nextcloud-server-php5/usr/lib/nextcloud/nextcloud-server-php5
 	mkdir -p $(CURDIR)/debian/nextcloud-server-php7.0/usr/lib/nextcloud/www
 	cp -a debian/occ.php7.0 $(CURDIR)/debian/nextcloud-server-php7.0/usr/lib/nextcloud/www/occ
 	touch $(CURDIR)/debian/nextcloud-server-php7.0/usr/lib/nextcloud/nextcloud-server-php7.0
