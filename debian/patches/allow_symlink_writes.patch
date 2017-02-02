@@ -1,0 +1,11 @@
+--- a/lib/private/Files/Storage/Local.php
++++ b/lib/private/Files/Storage/Local.php
+@@ -45,7 +45,7 @@
+ 
+ 	protected $dataDirLength;
+ 
+-	protected $allowSymlinks = false;
++	protected $allowSymlinks = true;
+ 
+ 	protected $realDataDir;
+ 
