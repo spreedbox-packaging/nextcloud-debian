@@ -1,3 +1,14 @@
+nextcloud (11.0.1-1~strukturag+0) trusty; urgency=low
+
+  * Imported Upstream version 11.0.1
+  * Updated patches for new upstream version.
+  * Updated files to install for new upstream version.
+  * Nextcloud 11 no longer runs with php5, force to use php7.0
+  * Allow resolving symlinks, required for external storage (FS#4014).
+  * More dependencies required for Nextcloud 11.
+
+ -- Joachim Bauch <bauch@struktur.de>  Thu, 02 Feb 2017 09:41:00 +0100
+
 nextcloud (10.0.2-1~strukturag+0) trusty; urgency=medium
 
   * Imported Upstream version 10.0.2
