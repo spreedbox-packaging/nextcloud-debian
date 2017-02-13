@@ -1,3 +1,9 @@
+nextcloud (11.0.1-1~strukturag+1) trusty; urgency=medium
+
+  * Added patch to flag cookies as "secure" for internal requests.
+
+ -- Joachim Bauch <bauch@struktur.de>  Mon, 13 Feb 2017 10:39:37 +0100
+
 nextcloud (11.0.1-1~strukturag+0) trusty; urgency=low
 
   * Imported Upstream version 11.0.1
