@@ -5,3 +5,4 @@ reenable_disabled_apps.patch
 csp_allow_same_origin.patch
 redirect_url_for_setup_default.patch
 allow_symlink_writes.patch
+secure_internal_requests.patch

@@ -1,0 +1,13 @@
+--- a/lib/base.php
++++ b/lib/base.php
+@@ -682,7 +682,9 @@
+ 		self::checkInstalled();
+ 
+ 		OC_Response::addSecurityHeaders();
+-		if(self::$server->getRequest()->getServerProtocol() === 'https') {
++		$request = self::$server->getRequest();
++		if($request->getServerProtocol() === 'https' ||
++			(isset($request->server['spreedboxInternalRequest']) && $request->server['spreedboxInternalRequest'] === 'true')) {
+ 			ini_set('session.cookie_secure', true);
+ 		}
+ 
