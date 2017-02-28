@@ -1,6 +1,6 @@
 --- a/settings/js/apps.js
 +++ b/settings/js/apps.js
-@@ -113,7 +113,7 @@
+@@ -115,7 +115,7 @@
  							OC.Settings.Apps.renderApp(app, template, null, false);
  						}
  
