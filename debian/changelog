@@ -1,3 +1,11 @@
+nextcloud (11.0.2-1~strukturag+0) trusty; urgency=medium
+
+  * Catch exceptions when adding users to groups and report as error to UI.
+  * Imported Upstream version 11.0.2
+  * Updated patch for new upstream version.
+
+ -- Joachim Bauch <bauch@struktur.de>  Tue, 28 Feb 2017 08:23:34 +0100
+
 nextcloud (11.0.1-1~strukturag+1) trusty; urgency=medium
 
   * Added patch to flag cookies as "secure" for internal requests.
