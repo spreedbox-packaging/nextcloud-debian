@@ -4,7 +4,6 @@ OC.L10N.register(
     "Storage is temporarily not available" : "Хранилище временно недоступно",
     "Storage invalid" : "Хранилище неисправно",
     "Unknown error" : "Неизвестная ошибка",
-    "Files" : "Файлы",
     "All files" : "Все файлы",
     "Recent" : "Недавние",
     "File could not be found" : "Невозможно найти файл",
@@ -29,6 +28,7 @@ OC.L10N.register(
     "Disconnect storage" : "Отсоединить хранилище",
     "Unshare" : "Закрыть доступ",
     "Could not load info for file \"{file}\"" : "Не удаётся загрузить информацию для файла \"{file}\"",
+    "Files" : "Файлы",
     "Details" : "Подробно",
     "Select" : "Выбрать",
     "Pending" : "Ожидается",
@@ -174,6 +174,9 @@ OC.L10N.register(
     "%2$s restored %1$s" : "%2$s восстановил %1$s",
     "Changed by %2$s" : "Изменено %2$s",
     "Deleted by %2$s" : "Удалено %2$s",
-    "Restored by %2$s" : "Восстановлено %2$s"
+    "Restored by %2$s" : "Восстановлено %2$s",
+    "_{hours}:{minutes}:{seconds} hour left_::_{hours}:{minutes}:{seconds} hours left_" : ["Остался {hours}:{minutes}:{seconds} час","Осталось {hours}:{minutes}:{seconds} часа","Осталось {hours}:{minutes}:{seconds} часов","Осталось {hours}:{minutes}:{seconds} часов"],
+    "_{minutes}:{seconds} minute left_::_{minutes}:{seconds} minutes left_" : ["осталась {minutes}:{seconds} минута","осталось {minutes}:{seconds} минуты","осталось {minutes}:{seconds} минут","осталось {minutes}:{seconds} минут"],
+    "_{seconds} second left_::_{seconds} seconds left_" : ["осталась {seconds} секунда","осталось {seconds} секунды","осталось {seconds} секунд","осталось {seconds} секунд"]
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

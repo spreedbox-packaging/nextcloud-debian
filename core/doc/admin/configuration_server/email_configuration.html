@@ -252,13 +252,11 @@ The following examples are for SMTP, PHP, Sendmail, and Qmail.</p>
 to enter the name or IP address of the server, optionally followed by a colon
 separated port number, e.g. <strong>:425</strong>. If this value is not given the default
 port 25/tcp will be used unless you change that by modifying the
-<strong>mail_smtpport</strong> parameter. Multiple servers can be entered, separated by
-semicolons:</p>
+<strong>mail_smtpport</strong> parameter.</p>
 <div class="highlight-python"><div class="highlight"><pre>&lt;?php
 
   &quot;mail_smtpmode&quot;     =&gt; &quot;smtp&quot;,
-  &quot;mail_smtphost&quot;     =&gt; &quot;smtp-1.server.dom;smtp-2.server.dom:425&quot;,
-  &quot;mail_smtpport&quot;     =&gt; 25,
+  &quot;mail_smtphost&quot;     =&gt; &quot;smtp.server.dom:425&quot;,
 </pre></div>
 </div>
 <p>or</p>

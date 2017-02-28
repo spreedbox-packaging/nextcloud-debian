@@ -4,7 +4,6 @@ OC.L10N.register(
     "Storage is temporarily not available" : "L'archiviazione è temporaneamente non disponibile",
     "Storage invalid" : "Archiviazione non valida",
     "Unknown error" : "Errore sconosciuto",
-    "Files" : "File",
     "All files" : "Tutti i file",
     "Recent" : "Recenti",
     "File could not be found" : "Il file non può essere trovato",
@@ -29,6 +28,7 @@ OC.L10N.register(
     "Disconnect storage" : "Disconnetti archiviazione",
     "Unshare" : "Rimuovi condivisione",
     "Could not load info for file \"{file}\"" : "Impossibile caricare le informazioni per il file \"{file}\"",
+    "Files" : "File",
     "Details" : "Dettagli",
     "Select" : "Seleziona",
     "Pending" : "In corso",
@@ -174,6 +174,9 @@ OC.L10N.register(
     "%2$s restored %1$s" : "%2$s ha ripristinato %1$s",
     "Changed by %2$s" : "Modificata da %2$s",
     "Deleted by %2$s" : "Eliminata da %2$s",
-    "Restored by %2$s" : "Ripristinata da %2$s"
+    "Restored by %2$s" : "Ripristinata da %2$s",
+    "_{hours}:{minutes}:{seconds} hour left_::_{hours}:{minutes}:{seconds} hours left_" : ["{hours}:{minutes}:{seconds} ora rimanente","{hours}:{minutes}:{seconds} ore rimanenti"],
+    "_{minutes}:{seconds} minute left_::_{minutes}:{seconds} minutes left_" : ["{minutes}:{seconds} minuto rimanente","{minutes}:{seconds} minuti rimanenti"],
+    "_{seconds} second left_::_{seconds} seconds left_" : ["{seconds} secondo rimanente","{seconds} secondi rimanenti"]
 },
 "nplurals=2; plural=(n != 1);");

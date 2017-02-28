@@ -246,6 +246,7 @@ Replace the <code class="docutils literal"><span class="pre">ocpath</span></code
 replace the <code class="docutils literal"><span class="pre">htuser</span></code> and <code class="docutils literal"><span class="pre">htgroup</span></code> variables with your HTTP user and group:</p>
 <div class="highlight-python"><div class="highlight"><pre>#!/bin/bash
 ocpath=&#39;/var/www/nextcloud&#39;
+datapath=&#39;/var/www/nextcloud/data&#39;
 htuser=&#39;www-data&#39;
 htgroup=&#39;www-data&#39;
 rootuser=&#39;root&#39;
@@ -262,7 +263,7 @@ printf &quot;chown Directories\n&quot;
 chown -R ${rootuser}:${htgroup} ${ocpath}/
 chown -R ${htuser}:${htgroup} ${ocpath}/apps/
 chown -R ${htuser}:${htgroup} ${ocpath}/config/
-chown -R ${htuser}:${htgroup} ${ocpath}/data/
+chown -R ${htuser}:${htgroup} ${datapath}
 chown -R ${htuser}:${htgroup} ${ocpath}/themes/
 chown -R ${htuser}:${htgroup} ${ocpath}/updater/
 
@@ -274,10 +275,10 @@ if [ -f ${ocpath}/.htaccess ]
   chmod 0644 ${ocpath}/.htaccess
   chown ${rootuser}:${htgroup} ${ocpath}/.htaccess
 fi
-if [ -f ${ocpath}/data/.htaccess ]
+if [ -f ${datapath}/.htaccess ]
  then
-  chmod 0644 ${ocpath}/data/.htaccess
-  chown ${rootuser}:${htgroup} ${ocpath}/data/.htaccess
+  chmod 0644 ${datapath}/.htaccess
+  chown ${rootuser}:${htgroup} ${datapath}/.htaccess
 fi
 </pre></div>
 </div>

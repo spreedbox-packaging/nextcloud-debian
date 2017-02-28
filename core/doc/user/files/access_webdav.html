@@ -126,7 +126,7 @@
   <div class="section" id="accessing-nextcloud-files-using-webdav">
 <h1>Accessing Nextcloud Files Using WebDAV<a class="headerlink" href="#accessing-nextcloud-files-using-webdav" title="Permalink to this headline">¶</a></h1>
 <p>Nextcloud fully supports the WebDAV protocol, and you can connect and synchronize
-with your Nextcloud files over WebDAV.  In this chapter you will learn how to
+with your Nextcloud files over WebDAV. In this chapter you will learn how to
 connect Linux, Mac OS X, Windows, and mobile devices to your Nextcloud server via
 WebDAV. Before we get into configuring WebDAV, let&#8217;s take a quick look at the
 recommended way of connecting client devices to your Nextcloud servers.</p>
@@ -146,7 +146,7 @@ base URL and folder only:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">nextcloud</span>
 </pre></div>
 </div>
-<p>In addition to the mobile apps provided by Nextcloud or Nextcloud, you can use other apps to
+<p>In addition to the mobile apps provided by Nextcloud or ownCloud, you can use other apps to
 connect to Nextcloud from your mobile device using WebDAV. <a class="reference external" href="http://seanashton.net/webdav/">WebDAV Navigator</a> is
 a good (proprietary) app for <a class="reference external" href="https://play.google.com/store/apps/details?id=com.schimera.webdavnavlite">Android devices</a> and <a class="reference external" href="https://itunes.apple.com/app/webdav-navigator/id382551345">iPhones</a>. The URL to use on these is:</p>
 <div class="highlight-python"><div class="highlight"><pre>example.com/nextcloud/remote.php/dav/files/USERNAME/
@@ -253,7 +253,7 @@ mkdir ~/.davfs2
 </div>
 </li>
 <li><p class="first">Set yourself as the owner and make the permissions read-write owner only:</p>
-<div class="highlight-python"><div class="highlight"><pre>chown &lt;username&gt;:&lt;username&gt;  ~/.davfs2/secrets
+<div class="highlight-python"><div class="highlight"><pre>chown &lt;username&gt;:&lt;username&gt; ~/.davfs2/secrets
 chmod 600 ~/.davfs2/secrets
 </pre></div>
 </div>
@@ -311,7 +311,7 @@ change this, you need to configure <code class="docutils literal"><span class="p
 Copy <code class="docutils literal"><span class="pre">mycertificate.pem</span></code> to <code class="docutils literal"><span class="pre">/etc/davfs2/certs/</span></code>. Then edit
 <code class="docutils literal"><span class="pre">/etc/davfs2/davfs2.conf</span></code> and uncomment the line <code class="docutils literal"><span class="pre">servercert</span></code>. Now add the
 path of your certificate as in this example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">servercert</span>   <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">davfs2</span><span class="o">/</span><span class="n">certs</span><span class="o">/</span><span class="n">mycertificate</span><span class="o">.</span><span class="n">pem</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">servercert</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">davfs2</span><span class="o">/</span><span class="n">certs</span><span class="o">/</span><span class="n">mycertificate</span><span class="o">.</span><span class="n">pem</span>
 </pre></div>
 </div>
 </div>
@@ -347,7 +347,7 @@ from the Mac OS X Finder is:</p>
 <blockquote>
 <div>The device connects to the server.</div></blockquote>
 <p>For added details about how to connect to an external server using Mac OS X,
-check the <a class="reference external" href="http://docs.info.apple.com/article.html?path=Mac/10.6/en/8160.html">vendor documentation</a></p>
+check the <a class="reference external" href="http://docs.info.apple.com/article.html?path=Mac/10.6/en/8160.html">vendor documentation</a> .</p>
 </div>
 <div class="section" id="accessing-files-using-microsoft-windows">
 <h2>Accessing Files Using Microsoft Windows<a class="headerlink" href="#accessing-files-using-microsoft-windows" title="Permalink to this headline">¶</a></h2>
@@ -363,13 +363,13 @@ Nextcloud to one or more directories of your local hard drive.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Prior to mapping your drive, you must permit the use of Basic
 Authentication in the Windows Registry. The procedure is documented in
-<a class="reference external" href="http://support.microsoft.com/kb/841215">KB841215</a> and differs between Windows XP/Server 2003 and Windows Vista/7.
+<a class="reference external" href="https://support.microsoft.com/kb/841215">KB841215</a> and differs between Windows XP/Server 2003 and Windows Vista/7.
 Please follow the Knowledge Base article before proceeding, and follow the
 Vista instructions if you run Windows 7.</p>
 </div>
 <div class="section" id="mapping-drives-with-the-command-line">
 <h3>Mapping Drives With the Command Line<a class="headerlink" href="#mapping-drives-with-the-command-line" title="Permalink to this headline">¶</a></h3>
-<p>The following example shows how to map a drive using the command line.  To map
+<p>The following example shows how to map a drive using the command line. To map
 the drive:</p>
 <ol class="arabic">
 <li><p class="first">Open a command prompt in Windows.</p>
@@ -391,7 +391,7 @@ yourpassword
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Though not recommended, you can also mount the Nextcloud server
-using HTTP, leaving the connection unencrypted.  If you plan to use HTTP
+using HTTP, leaving the connection unencrypted. If you plan to use HTTP
 connections on devices while in a public place, we strongly recommend using a
 VPN tunnel to provide the necessary security.</p>
 </div>
@@ -451,9 +451,9 @@ Mac OS X and Windows.</p>
 </ol>
 <blockquote>
 <div><code class="docutils literal"><span class="pre">example.com</span></code></div></blockquote>
-<p>2. Specify the appropriate port.  The port you choose depends on whether or not
+<p>2. Specify the appropriate port. The port you choose depends on whether or not
 your Nextcloud server supports SSL. Cyberduck requires that you select a
-different connection type if you plan to use SSL.  For example:</p>
+different connection type if you plan to use SSL. For example:</p>
 <blockquote>
 <div><p>80 (for WebDAV)</p>
 <p>443 (for WebDAV (HTTPS/SSL))</p>
@@ -501,10 +501,10 @@ exceeds the limit allowed and cannot be saved.</strong></p>
 </div>
 <div class="section" id="id5">
 <h3>Solution<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<p>Windows limits the maximum size a file transferred from or to  a WebDAV share
+<p>Windows limits the maximum size a file transferred from or to a WebDAV share
 may have.  You can increase the value <strong>FileSizeLimitInBytes</strong> in
-<strong>HKEY_LOCAL_MacHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters
-** by clicking on **Modify</strong>.</p>
+<strong>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters</strong>
+by clicking on <strong>Modify</strong>.</p>
 <p>To increase the limit to the maximum value of 4GB, select <strong>Decimal</strong>, enter a
 value of <strong>4294967295</strong>, and reboot Windows or restart the <strong>WebClient</strong>
 service.</p>
@@ -529,7 +529,7 @@ service.</p>
 <li>Click through until you get to the certificate error in the browser status
 line.</li>
 <li>View the cert, then from the Details tab, select Copy to File.</li>
-<li>Save to the desktop with an arbitrary name, for example <code class="docutils literal"><span class="pre">myNextcloud.cer</span></code>.</li>
+<li>Save to the desktop with an arbitrary name, for example <code class="docutils literal"><span class="pre">myNextcloud.pem</span></code>.</li>
 <li>Start, Run, MMC.</li>
 <li>File, Add/Remove Snap-In.</li>
 <li>Select Certificates, Click Add, My User Account, then Finish, then OK.</li>

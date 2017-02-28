@@ -4,7 +4,6 @@ OC.L10N.register(
     "Storage is temporarily not available" : "Speicher ist vorübergehend nicht verfügbar",
     "Storage invalid" : "Speicher ungültig",
     "Unknown error" : "Unbekannter Fehler",
-    "Files" : "Dateien",
     "All files" : "Alle Dateien",
     "Recent" : "Aktuelle",
     "File could not be found" : "Datei konnte nicht gefunden werden",
@@ -29,6 +28,7 @@ OC.L10N.register(
     "Disconnect storage" : "Speicher trennen",
     "Unshare" : "Freigabe aufheben",
     "Could not load info for file \"{file}\"" : "Die Informationen zur Datei \"{file}\" konnten nicht geladen werden",
+    "Files" : "Dateien",
     "Details" : "Details",
     "Select" : "Auswählen",
     "Pending" : "Ausstehend",
@@ -76,7 +76,7 @@ OC.L10N.register(
     "Added to favorites" : "Zu den Favoriten hinzugefügt",
     "Removed from favorites" : "Aus den Favoriten entfernt",
     "You added {file} to your favorites" : "Sie haben {file} zu Ihren Favoriten hinzugefügt",
-    "You removed {file} from your favorites" : "Sie haben {file} aus Ihren Favoriten hentfernt",
+    "You removed {file} from your favorites" : "Sie haben {file} aus Ihren Favoriten entfernt",
     "File changes" : "Datei geändert",
     "Created by {user}" : "Erstellt durch {user}",
     "Changed by {user}" : "Geändert durch {user}",
@@ -174,6 +174,9 @@ OC.L10N.register(
     "%2$s restored %1$s" : "%2$s hat %1$s wiederhergestellt ",
     "Changed by %2$s" : "Geändert von %2$s",
     "Deleted by %2$s" : "Gelöscht von %2$s",
-    "Restored by %2$s" : "Wiederhergestellt von %2$s"
+    "Restored by %2$s" : "Wiederhergestellt von %2$s",
+    "_{hours}:{minutes}:{seconds} hour left_::_{hours}:{minutes}:{seconds} hours left_" : ["{hours}:{minutes}:{seconds} Stunde verbleiben","{hours}:{minutes}:{seconds} Stunden verbleiben"],
+    "_{minutes}:{seconds} minute left_::_{minutes}:{seconds} minutes left_" : ["{minutes}:{seconds} Minute verbleibend","{minutes}:{seconds} Minuten verbleiben"],
+    "_{seconds} second left_::_{seconds} seconds left_" : ["{seconds} Sekunde verbleiben","{seconds} Sekunden verbleiben"]
 },
 "nplurals=2; plural=(n != 1);");

@@ -129,22 +129,22 @@ permissions problems after a new Nextcloud installation, and see <code class="do
 <p>The following settings should work for most SELinux systems that use the
 default distro profiles. Run these commands as root, and remember to adjust the filepaths
 in these examples for your installation:</p>
-<div class="highlight-python"><div class="highlight"><pre>semanage fcontext -a -t httpd_sys_rw_content_t &#39;/var/www/html/nextcloud/data&#39;
-restorecon &#39;/var/www/html/nextcloud/data&#39;
-semanage fcontext -a -t httpd_sys_rw_content_t &#39;/var/www/html/nextcloud/config&#39;
-restorecon &#39;/var/www/html/nextcloud/config&#39;
-semanage fcontext -a -t httpd_sys_rw_content_t &#39;/var/www/html/nextcloud/apps&#39;
-restorecon &#39;/var/www/html/nextcloud/apps&#39;
+<div class="highlight-python"><div class="highlight"><pre>semanage fcontext -a -t httpd_sys_rw_content_t &#39;/var/www/html/nextcloud/data(/.*)?&#39;
+restorecon -v -R &#39;/var/www/html/nextcloud/data&#39;
+semanage fcontext -a -t httpd_sys_rw_content_t &#39;/var/www/html/nextcloud/config(/.*)?&#39;
+restorecon -v -R &#39;/var/www/html/nextcloud/config&#39;
+semanage fcontext -a -t httpd_sys_rw_content_t &#39;/var/www/html/nextcloud/apps(/.*)?&#39;
+restorecon -v -R &#39;/var/www/html/nextcloud/apps&#39;
 </pre></div>
 </div>
 <p>If you uninstall Nextcloud you need to remove the Nextcloud directory labels. To do
 this execute the following commands as root after uninstalling Nextcloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>semanage fcontext -d -t httpd_sys_rw_content_t &#39;/var/www/html/nextcloud/data&#39;
-restorecon &#39;/var/www/html/nextcloud/data&#39;
-semanage fcontext -d -t httpd_sys_rw_content_t &#39;/var/www/html/nextcloud/config&#39;
-restorecon &#39;/var/www/html/nextcloud/config&#39;
-semanage fcontext -d -t httpd_sys_rw_content_t &#39;/var/www/html/nextcloud/apps&#39;
-restorecon &#39;/var/www/html/nextcloud/apps&#39;
+<div class="highlight-python"><div class="highlight"><pre>semanage fcontext -d -t httpd_sys_rw_content_t &#39;/var/www/html/nextcloud/data(/.*)?&#39;
+restorecon -v -R &#39;/var/www/html/nextcloud/data&#39;
+semanage fcontext -d -t httpd_sys_rw_content_t &#39;/var/www/html/nextcloud/config(/.*)?&#39;
+restorecon -v -R &#39;/var/www/html/nextcloud/config&#39;
+semanage fcontext -d -t httpd_sys_rw_content_t &#39;/var/www/html/nextcloud/apps(/.*)?&#39;
+restorecon -v -R &#39;/var/www/html/nextcloud/apps&#39;
 </pre></div>
 </div>
 <p>If you have customized SELinux policies and these examples do not work, you must give the
