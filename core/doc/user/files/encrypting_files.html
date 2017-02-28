@@ -76,6 +76,7 @@
 <li class="toctree-l2"><a class="reference internal" href="deleted_file_management.html">Managing Deleted Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="desktop_mobile_sync.html">Desktop and Mobile Synchronization</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Encrypting Your Nextcloud Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#encryption-faq">Encryption FAQ</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#using-encryption">Using Encryption</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sharing-encrypted-files">Sharing Encrypted Files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#files-not-encrypted">Files Not Encrypted</a></li>
@@ -138,6 +139,35 @@ possible for your Nextcloud admin to snoop in your files, and if the server is
 compromised the intruder may get access to your files. (Read
 <a class="reference external" href="https://owncloud.org/blog/how-owncloud-uses-encryption-to-protect-your-data/">How Nextcloud uses encryption to protect your data</a>
 to learn more.)</p>
+<div class="section" id="encryption-faq">
+<h2>Encryption FAQ<a class="headerlink" href="#encryption-faq" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="how-can-encryption-be-disabled">
+<h3>How Can Encryption Be Disabled?<a class="headerlink" href="#how-can-encryption-be-disabled" title="Permalink to this headline">¶</a></h3>
+<p>The only way to disable encryption is to run the <span class="xref std std-ref">&#8220;decrypt all&#8221;</span>
+script, which decrypts all files and disables encryption.</p>
+</div>
+<div class="section" id="is-it-possible-to-disable-encryption-with-the-recovery-key">
+<h3>Is It Possible To Disable Encryption With The Recovery Key?<a class="headerlink" href="#is-it-possible-to-disable-encryption-with-the-recovery-key" title="Permalink to this headline">¶</a></h3>
+<p>Yes, <em>if</em> every user uses the <span class="xref std std-ref">file recovery key</span>, <span class="xref std std-ref">&#8220;decrypt all&#8221;</span> will use it
+to decrypt all files.</p>
+</div>
+<div class="section" id="can-encryption-be-disabled-without-the-users-password">
+<h3>Can Encryption Be Disabled Without The User’s Password?<a class="headerlink" href="#can-encryption-be-disabled-without-the-users-password" title="Permalink to this headline">¶</a></h3>
+<p>If you don&#8217;t have the users password or <span class="xref std std-ref">file recovery key</span> then there is no way to decrypt all files. What&#8217;s
+more, running it on login would be dangerous, because you would most likely run
+into timeouts.</p>
+</div>
+<div class="section" id="is-it-planned-to-move-this-to-the-next-user-login-or-a-background-job">
+<h3>Is It Planned To Move This To The Next User Login Or A Background Job?<a class="headerlink" href="#is-it-planned-to-move-this-to-the-next-user-login-or-a-background-job" title="Permalink to this headline">¶</a></h3>
+<p>If we did that, then we would need to store your login password in the database.
+This could be seen as a security issue, so nothing like that is planned.</p>
+</div>
+<div class="section" id="is-group-sharing-possible-with-the-recovery-key">
+<h3>Is Group Sharing Possible With The Recovery Key?<a class="headerlink" href="#is-group-sharing-possible-with-the-recovery-key" title="Permalink to this headline">¶</a></h3>
+<p>If you mean adding users to groups and make it magically work? No. This only
+works with the master key.</p>
+</div>
+</div>
 <div class="section" id="using-encryption">
 <h2>Using Encryption<a class="headerlink" href="#using-encryption" title="Permalink to this headline">¶</a></h2>
 <p>Nextcloud encryption is pretty much set it and forget it, but you have a few
@@ -176,8 +206,6 @@ owner to re-share the file with them. For individual shares, un-share and
 re-share the file. For group shares, share with any individuals who can&#8217;t access
 the share. This updates the encryption, and then the share owner can remove the
 individual shares.</p>
-<div class="section" id="recovery-key-password">
-<h3>Recovery Key Password<a class="headerlink" href="#recovery-key-password" title="Permalink to this headline">¶</a></h3>
 <p>If your Nextcloud administrator has enabled the recovery key feature, you can
 choose to use this feature for your account. If you enable &#8220;Password recovery&#8221;
 the administrator can read your data with a special password. This feature
@@ -186,7 +214,6 @@ Nextcloud password. If the recovery key is not enabled, then there is no way to
 restore your files if you lose your login password.</p>
 <div class="figure">
 <img alt="../_images/encryption3.png" src="../_images/encryption3.png" />
-</div>
 </div>
 </div>
 <div class="section" id="files-not-encrypted">
@@ -202,16 +229,13 @@ structures. These files are never encrypted:</p>
 </ul>
 <p>There may be other files that are not encrypted; only files that are exposed to
 third-party storage providers are guaranteed to be encrypted.</p>
-<div class="section" id="change-private-key-password">
-<h3>Change Private Key Password<a class="headerlink" href="#change-private-key-password" title="Permalink to this headline">¶</a></h3>
 <p>This option is only available if your log-in password, but not your encryption
 password, was changed by your administrator. This can occur if your Nextcloud
-provider uses a external user back-end (for example, LDAP) and changed your
+provider uses an external user back-end (for example, LDAP) and changed your
 login password using that back-end configuration. In this case, you can set
 your encryption password to your new login password by providing your old and
 new login password. The Encryption app works only if your login password and
 your encryption password are identical.</p>
-</div>
 </div>
 </div>
 

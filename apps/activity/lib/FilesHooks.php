@@ -34,6 +34,7 @@ use OCP\Files\NotFoundException;
 use OCP\IDBConnection;
 use OCP\IGroup;
 use OCP\IGroupManager;
+use OCP\ILogger;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\Share;
@@ -65,6 +66,9 @@ class FilesHooks {
 	/** @var IURLGenerator */
 	protected $urlGenerator;
 
+	/** @var ILogger */
+	protected $logger;
+
 	/** @var CurrentUser */
 	protected $currentUser;
 
@@ -89,9 +93,10 @@ class FilesHooks {
 	 * @param View $view
 	 * @param IDBConnection $connection
 	 * @param IURLGenerator $urlGenerator
+	 * @param ILogger $logger
 	 * @param CurrentUser $currentUser
 	 */
-	public function __construct(IManager $manager, Data $activityData, UserSettings $userSettings, IGroupManager $groupManager, View $view, IDBConnection $connection, IURLGenerator $urlGenerator, CurrentUser $currentUser) {
+	public function __construct(IManager $manager, Data $activityData, UserSettings $userSettings, IGroupManager $groupManager, View $view, IDBConnection $connection, IURLGenerator $urlGenerator, ILogger $logger, CurrentUser $currentUser) {
 		$this->manager = $manager;
 		$this->activityData = $activityData;
 		$this->userSettings = $userSettings;
@@ -99,6 +104,7 @@ class FilesHooks {
 		$this->view = $view;
 		$this->connection = $connection;
 		$this->urlGenerator = $urlGenerator;
+		$this->logger = $logger;
 		$this->currentUser = $currentUser;
 	}
 
@@ -163,6 +169,7 @@ class FilesHooks {
 		$filteredEmailUsers = $this->userSettings->filterUsersBySetting(array_keys($affectedUsers), 'email', $activityType);
 
 		foreach ($affectedUsers as $user => $path) {
+			$user = (string) $user;
 			if (empty($filteredStreamUsers[$user]) && empty($filteredEmailUsers[$user])) {
 				continue;
 			}
@@ -364,7 +371,7 @@ class FilesHooks {
 		$this->generateAddActivities($addUsers, $affectedUsers, $fileId, $fileName);
 
 		$moveUsers = array_intersect($beforeUsers, $afterUsers);
-		$this->generateMoveActivities($moveUsers, $this->oldParentUsers, $affectedUsers, $fileId, $oldFileName, $fileName);
+		$this->generateMoveActivities($moveUsers, $this->oldParentUsers, $affectedUsers, $fileId, $oldFileName, $parentId, $fileName);
 	}
 
 	/**
@@ -451,9 +458,10 @@ class FilesHooks {
 	 * @param string[] $afterPathMap
 	 * @param int $fileId
 	 * @param string $oldFileName
+	 * @param int $newParentId
 	 * @param string $fileName
 	 */
-	protected function generateMoveActivities($users, $beforePathMap, $afterPathMap, $fileId, $oldFileName, $fileName) {
+	protected function generateMoveActivities($users, $beforePathMap, $afterPathMap, $fileId, $oldFileName, $newParentId, $fileName) {
 		if (empty($users)) {
 			return;
 		}
@@ -466,20 +474,19 @@ class FilesHooks {
 				continue;
 			}
 
+			if ($oldFileName === $fileName) {
+				$userParams = [[$newParentId => $afterPathMap[$user] . '/']];
+			} else {
+				$userParams = [[$fileId => $afterPathMap[$user] . '/' . $fileName]];
+			}
+
 			if ($user === $this->currentUser->getUID()) {
 				$userSubject = 'moved_self';
-				$userParams = [
-					[$fileId => $afterPathMap[$user] . '/' . $fileName],
-					[$fileId => $beforePathMap[$user] . '/' . $oldFileName],
-				];
 			} else {
 				$userSubject = 'moved_by';
-				$userParams = [
-					[$fileId => $afterPathMap[$user] . '/' . $fileName],
-					$this->currentUser->getUserIdentifier(),
-					[$fileId => $beforePathMap[$user] . '/' . $oldFileName],
-				];
+				$userParams[] = $this->currentUser->getUserIdentifier();
 			}
+			$userParams[] = [$fileId => $beforePathMap[$user] . '/' . $oldFileName];
 
 			$this->addNotificationsForUser(
 				$user, $userSubject, $userParams,
@@ -510,29 +517,36 @@ class FilesHooks {
 	 */
 	protected function getSourcePathAndOwner($path) {
 		$view = Filesystem::getView();
-		$uidOwner = $view->getOwner($path);
+		$owner = $view->getOwner($path);
+		$owner = !is_string($owner) || $owner === '' ? null : $owner;
 		$fileId = 0;
+		$currentUser = $this->currentUser->getUID();
 
-		if ($uidOwner !== $this->currentUser->getUID()) {
+		if ($owner === null || $owner !== $currentUser) {
 			/** @var \OCP\Files\Storage\IStorage $storage */
 			list($storage,) = $view->resolvePath($path);
-			if (!$storage->instanceOfStorage('OCA\Files_Sharing\External\Storage')) {
-				Filesystem::initMountPoints($uidOwner);
+
+			if ($owner !== null && !$storage->instanceOfStorage('OCA\Files_Sharing\External\Storage')) {
+				Filesystem::initMountPoints($owner);
 			} else {
 				// Probably a remote user, let's try to at least generate activities
 				// for the current user
-				$uidOwner = $this->currentUser->getUID();
+				if ($currentUser === null) {
+					list(,$owner,) = explode('/', $view->getAbsolutePath($path), 3);
+				} else {
+					$owner = $currentUser;
+				}
 			}
 		}
 
 		$info = Filesystem::getFileInfo($path);
 		if ($info !== false) {
-			$ownerView = new View('/' . $uidOwner . '/files');
+			$ownerView = new View('/' . $owner . '/files');
 			$fileId = (int) $info['fileid'];
 			$path = $ownerView->getPath($fileId);
 		}
 
-		return array($path, $uidOwner, $fileId);
+		return array($path, $owner, $fileId);
 	}
 
 	/**
@@ -883,14 +897,22 @@ class FilesHooks {
 		$objectType = ($fileId) ? 'files' : '';
 
 		$event = $this->manager->generateEvent();
-		$event->setApp($app)
-			->setType($type)
-			->setAffectedUser($user)
-			->setAuthor($this->currentUser->getUID())
-			->setTimestamp(time())
-			->setSubject($subject, $subjectParams)
-			->setObject($objectType, $fileId, $path)
-			->setLink($link);
+		try {
+			$event->setApp($app)
+				->setType($type)
+				->setAffectedUser($user)
+				->setTimestamp(time())
+				->setSubject($subject, $subjectParams)
+				->setObject($objectType, $fileId, $path)
+				->setLink($link);
+
+			if ($this->currentUser->getUID() !== null) {
+				// Allow this to be empty for guests
+				$event->setAuthor($this->currentUser->getUID());
+			}
+		} catch (\InvalidArgumentException $e) {
+			$this->logger->logException($e);
+		}
 
 		// Add activity to stream
 		if ($streamSetting && (!$selfAction || $this->userSettings->getUserSetting($this->currentUser->getUID(), 'setting', 'self'))) {
