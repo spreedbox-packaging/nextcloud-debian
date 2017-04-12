@@ -1,0 +1,14 @@
+--- a/3rdparty/sabre/http/lib/Sapi.php
++++ b/3rdparty/sabre/http/lib/Sapi.php
+@@ -72,7 +72,10 @@
+         if (is_null($body)) return;
+ 
+         $contentLength = $response->getHeader('Content-Length');
+-        if ($contentLength !== null) {
++        // Converting the "Content-Length" header to an integer is not possible
++        // for responses larger than 2GB on 32 bit platforms, so always send the
++        // whole body in this case.
++        if ($contentLength !== null && PHP_INT_SIZE > 4) {
+             $output = fopen('php://output', 'wb');
+             if (is_resource($body) && get_resource_type($body) == 'stream') {
+                 stream_copy_to_stream($body, $output, $contentLength);
