@@ -1,3 +1,9 @@
+nextcloud (11.0.2-1~strukturag+1) trusty; urgency=medium
+
+  * Support downloads larger than 2GB.
+
+ -- Joachim Bauch <bauch@struktur.de>  Wed, 12 Apr 2017 09:18:56 +0200
+
 nextcloud (11.0.2-1~strukturag+0) trusty; urgency=medium
 
   * Catch exceptions when adding users to groups and report as error to UI.
