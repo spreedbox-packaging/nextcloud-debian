@@ -141,7 +141,7 @@ the amount of data stored in Nextcloud will only grow. Plan ahead.</p>
 <p>Consider setting up a scale-out deployment, or using Federated Cloud Sharing to
 keep individual Nextcloud instances to a manageable size.</p>
 <ul class="simple">
-<li>Operating system: Linux.</li>
+<li>Operating system: Linux (Ubuntu 16.04 or Red Hat Enterprise Linux 7 is recommended).</li>
 <li>Web server: Apache 2.4.</li>
 <li>Database: MySQL/MariaDB.</li>
 <li>PHP 5.6+. PHP 5.6 is the minimum supported version. We recommend to deploy
@@ -150,7 +150,7 @@ advantages. <code class="docutils literal"><span class="pre">mod_php</span></cod
 vendor support and ease of configuration. <code class="docutils literal"><span class="pre">php-fpm</span></code> with Apache Event
 MPM (or nginx) is an alternative with potentially better scalability in
 high load and limited RAM environments. For the best results we recommend
-working with the Nextcloud GmbH enterprise suppor team for large deployments.</li>
+working with the Nextcloud GmbH enterprise support team for large deployments.</li>
 </ul>
 </div>
 <div class="section" id="small-workgroups-or-departments">
@@ -194,8 +194,8 @@ local storage.</p>
 </li>
 <li><dl class="first docutils">
 <dt>Operating system</dt>
-<dd><p class="first last">Enterprise-grade Linux distribution with full support from OS vendor. We
-recommend Red Hat Enterprise Linux or SUSE Linux Enterprise Server 12.</p>
+<dd><p class="first last">Enterprise grade Linux distribution with full support from OS vendor. Red
+Hat Enterprise Linux or Ubuntu 16.04 are recommended.</p>
 </dd>
 </dl>
 </li>
@@ -323,7 +323,7 @@ Backups without service interruption</p>
 <li><dl class="first docutils">
 <dt>Operating system</dt>
 <dd><p class="first last">Enterprise grade Linux distribution with full support from OS vendor. Red
-Hat Enterprise Linux or SUSE Linux Enterprise Server 12 are recommended.</p>
+Hat Enterprise Linux or Ubuntu 16.04 are recommended.</p>
 </dd>
 </dl>
 </li>
@@ -346,7 +346,10 @@ application servers.</p>
 <ul>
 <li><dl class="first docutils">
 <dt>Database</dt>
-<dd><p class="first last">MySQL/MariaDB Galera cluster with master-master replication.</p>
+<dd><p class="first last">MySQL/MariaDB Galera cluster with master-slave replication. The slave is
+only used as failover in case the master is down. This could be extended
+with a load balancer infront to distribute writes to the master and reads
+to the slave as well. (see &#8220;Database load balancer&#8221; below)</p>
 </dd>
 </dl>
 </li>
@@ -439,20 +442,25 @@ Backups without service interruption</p>
 <div class="section" id="id2">
 <h3>Recommended System Requirements<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>4 to 20 application/Web servers.</p>
-<p>A cluster of two or more database servers.</p>
+<p>A cluster of two or more database servers which are behind a load balancer to
+send all writes to the master and reads to the slaves. (see &#8220;Database load balancer&#8221;
+below)</p>
 <p>Storage is an NFS server, or an object store that is S3 compatible.</p>
 <p>Cloud federation for a distributed setup over several data centers.</p>
 <p>Authentication via an existing LDAP or Active Directory server, or SAML.</p>
 <div class="figure">
-<a class="reference internal image-reference" href="../_images/deprecs-3.png"><img alt="Network diagram for large enterprise." src="../_images/deprecs-3.png" style="width: 505.8px; height: 607.8px;" /></a>
+<img alt="Network diagram for large enterprise." src="../_images/deprecs-3.png" />
 </div>
 <ul>
 <li><dl class="first docutils">
 <dt>Components</dt>
 <dd><ul class="first last simple">
 <li>4 to 20 application servers with 4 sockets and 64GB  RAM.</li>
-<li>4 DB servers with 4 sockets and 128GB RAM</li>
-<li>2 Hardware load balancer, for example BIG IP from F5</li>
+<li>4 DB servers with 4 sockets and 128GB RAM plus a DB load balancer
+(see &#8220;Database load balancer&#8221; below)</li>
+<li>2 load balancer - either HAProxy with keepalived (heartbeat) and a shared
+virutal IP address as a software solution or a hardware load balancer. For
+the HAProxy we recommend at least 2 sockets and 16GB RAM each.</li>
 <li>NFS storage server as needed.</li>
 </ul>
 </dd>
@@ -460,7 +468,8 @@ Backups without service interruption</p>
 </li>
 <li><dl class="first docutils">
 <dt>Operating system</dt>
-<dd><p class="first last">RHEL 7 with latest service packs.</p>
+<dd><p class="first last">Enterprise grade Linux distribution with full support from OS vendor. Red
+Hat Enterprise Linux or Ubuntu 16.04 are recommended.</p>
 </dd>
 </dl>
 </li>
@@ -473,14 +482,16 @@ is needed, installed according to the load balancer documentation.</p>
 </li>
 <li><dl class="first docutils">
 <dt>Load Balancer</dt>
-<dd><p class="first last">A redundant hardware load-balancer with heartbeat, for example <a class="reference external" href="https://f5.com/products/big-ip/">F5 Big-IP</a>.
+<dd><p class="first last">A redundant load-balancer with heartbeat, for example <a class="reference external" href="http://www.haproxy.org/">HAProxy</a>.
 This runs two load balancers in front of the application servers.</p>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>Database</dt>
-<dd><p class="first last">MySQL/MariaDB Galera Cluster with 4x master &#8211; master replication.</p>
+<dd><p class="first last">MySQL/MariaDB Galera Cluster with master - slave replication (master &amp; 3 slaves).
+The load balancer infront distributes writes to the master and reads to the
+slaves. (see &#8220;Database load balancer&#8221; below)</p>
 </dd>
 </dl>
 </li>
@@ -576,7 +587,9 @@ resources)</li>
 <li>Least load to Apache servers (2-n)</li>
 <li>Memcached/Redis for shared session storage (2-n)</li>
 <li>Database cluster with single Master, multiple slaves and proxy to split
-requests accordingly (2-n)</li>
+requests accordingly (2-n) - HAProxy or <a class="reference external" href="https://mariadb.com/products/mariadb-maxscale">MaxScale</a> are possible proxy
+solutions to load balance the writes to the master and reads to the slaves
+(see &#8220;Database load balancer&#8221; below)</li>
 <li>GPFS or Ceph via phprados (2-n, 3 to be safe, Ceph 10+ nodes to see speed
 benefits under load)</li>
 </ul>
@@ -601,10 +614,18 @@ But on uploads stores the whole file on disk before handing it over to PHP-FPM.<
 </div>
 <div class="section" id="a-single-master-db-is-single-point-of-failure-does-not-scale">
 <h3>A Single Master DB is Single Point of Failure, Does Not Scale<a class="headerlink" href="#a-single-master-db-is-single-point-of-failure-does-not-scale" title="Permalink to this headline">¶</a></h3>
-<p>When master fails another slave can become master. However, the increased
-complexity carries some risks: Multi-master has the risk of split brain, and
-deadlocks. Nextcloud tries to solve the problem of deadlocks with high-level
-file locking.</p>
+<p>When master fails another slave can become master.</p>
+<p>A multi-master setup with Galera cluster is not supported, because we require
+<code class="docutils literal"><span class="pre">READ-COMMITTED</span></code> as transaction isolation level. <a class="reference external" href="http://galeracluster.com/documentation-webpages/isolationlevels.html#understanding-isolation-levels">Galera doesn&#8217;t support this
+with a master-master replication</a> which will lead to deadlocks during uploads
+of multiple files into one directory for example.</p>
+</div>
+<div class="section" id="database-load-balancer">
+<h3>Database load balancer<a class="headerlink" href="#database-load-balancer" title="Permalink to this headline">¶</a></h3>
+<p>When Galera cluster is used as DB cluster solution, we recommend to use
+<a class="reference external" href="https://mariadb.com/products/mariadb-maxscale">MaxScale</a> as load balancer infront of the cluster to distribute writes to
+the master node and reads to the slaves.</p>
+<p>As alternative also <a class="reference external" href="https://severalnines.com/blog/avoiding-deadlocks-galera-set-haproxy-single-node-writes-and-multi-node-reads">HAProxy can be used as load balancer for the DB</a>.</p>
 </div>
 </div>
 <div class="section" id="software-considerations">
@@ -612,13 +633,10 @@ file locking.</p>
 <div class="section" id="operating-system">
 <h3>Operating System<a class="headerlink" href="#operating-system" title="Permalink to this headline">¶</a></h3>
 <p>We are dependent on distributions that offer an easy way to install the various
-components in up-to-date versions. Nextcloud has a partnership with RedHat
-and SUSE for customers who need commercial support. Canonical, the parent
-company of Ubuntu Linux, also offers enterprise service and support. Debian
+components in up-to-date versions. We recommend Red Hat Enterprise Linux 7 or
+Ubuntu 16.04 - for both commercial support can be purchased. Debian
 and Ubuntu are free of cost, and include newer software packages. CentOS is the
-community-supported free-of-cost Red Hat Enterprise Linux clone. openSUSE is
-community-supported, and includes many of the same system administration tools
-as SUSE Linux Enterprise Server.</p>
+community-supported free-of-cost Red Hat Enterprise Linux clone.</p>
 </div>
 <div class="section" id="web-server">
 <h3>Web server<a class="headerlink" href="#web-server" title="Permalink to this headline">¶</a></h3>
@@ -632,9 +650,9 @@ deployments separate PHP pools are simply not necessary.</p>
 <p>More often than not the customer already has an opinion on what database to
 use. In general, the recommendation is to use what their database administrator
 is most familiar with. Taking into account what we are seeing at customer
-deployments, we recommend MySQL/MariaDB in a master-slave deployment with a
+deployments, we recommend MySQL/MariaDB in a master - slave deployment with a
 MySQL proxy in front of them to send updates to master, and selects to the
-slave(s).</p>
+slave(s). (see &#8220;Database load balancer&#8221; above)</p>
 <p>The second best option is PostgreSQL (alter table does not lock table, which
 makes migration less painful) although we have yet to find a customer who uses a
 master-slave setup.</p>
@@ -643,8 +661,8 @@ master-slave setup.</p>
 <li>Sqlite is adequate for simple testing, and for low-load single-user
 deployments. It is not adequate for production systems.</li>
 <li>Microsoft SQL Server is not a supported option.</li>
-<li>Oracle DB is the de facto standard at large enterprises and is currently only
-supported with an Nextcloud Enterprise Support Subscription only.</li>
+<li>For Oracle DB support please <a class="reference external" href="https://nextcloud.com/contact/">contact the Nextcloud team</a> to get more
+information on this.</li>
 </ul>
 </div>
 </div>

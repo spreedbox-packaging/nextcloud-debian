@@ -5,6 +5,8 @@ OC.L10N.register(
     "Could not start updater, please try the manual update" : "No se pudo iniciar el actualizador, por favor inténtalo de forma manual la actualización",
     "{version} is available. Get more information on how to update." : "{version} está disponible. Obtenga más información sobre cómo actualizar.",
     "Channel updated" : "Canal actualizado",
+    "The update server could not be reached since %d days to check for new updates." : "El servidor de actualización no se ha podido alcanzar desde hace %d días para comprobar nuevas actualizaciones.",
+    "Please check the Nextcloud and server log files for errors." : "Por favor revise los archivos de registros para Nextcloud y el servidor en búsca de errores.",
     "Update to %1$s is available." : "Actualización a %1$s esta disponible.",
     "Update for %1$s to version %2$s is available." : "La actualización de %1$s a la versión %2$s está disponible.",
     "Update for {app} to version %s is available." : "Actualización de {app} a la versión %s disponible.",
@@ -18,7 +20,6 @@ OC.L10N.register(
     "Notify members of the following groups about available updates:" : "Notificar a los miembros de los siguientes grupos sobre actualizaciones disponibles:",
     "Only notification for app updates are available." : "Solo están disponibles las notificaciones para actualizaciones de apps",
     "The selected update channel makes dedicated notifications for the server obsolete." : "El canal de actualización seleccionado hace obsoletas las notificaciones dedicadas para el servidor.",
-    "The selected update channel does not support updates of the server." : "El canal de actualización seleccionado no soporta actualizaciones del servidor",
-    "You are running PHP %s. To allow you to upgrade to Nextcloud 11 and higher you need to run at least PHP 5.6. Once you upgraded your PHP version you will be able to receive update notifications for these newer versions." : "Esta usando PHP %s. Para permitir actualizar a Nextcloud 11 y superior necesita usar al menos PHP 5.6. Una vez que haya actualizado su versión de PHP será capaz de recibir las notificaciones de actualización para estas nuevas versiones."
+    "The selected update channel does not support updates of the server." : "El canal de actualización seleccionado no soporta actualizaciones del servidor"
 },
 "nplurals=2; plural=(n != 1);");

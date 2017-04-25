@@ -1,7 +1,6 @@
 { "translations": {
-    "Successfully saved" : "Salvato correttamente",
+    "Saved" : "Salvato",
     "Saving failed:" : "Salvataggio non riuscito:",
-    "File mime type" : "Tipo MIME del file",
     "is" : "è",
     "is not" : "non è",
     "matches" : "corrisponde",
@@ -64,6 +63,8 @@
     "Reset" : "Ripristina",
     "Save" : "Salva",
     "Saving…" : "Salvataggio in corso...",
-    "Loading…" : "Caricamento in corso..."
+    "Loading…" : "Caricamento in corso...",
+    "Successfully saved" : "Salvato correttamente",
+    "File mime type" : "Tipo MIME del file"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

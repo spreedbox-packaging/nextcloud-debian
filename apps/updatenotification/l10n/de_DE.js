@@ -5,6 +5,8 @@ OC.L10N.register(
     "Could not start updater, please try the manual update" : "Der Updater konnte nicht gestartet werden, bitte versuchen Sie ein manuelles Update",
     "{version} is available. Get more information on how to update." : "{version} ist verfügbar. Weitere Informationen zur Aktualisierung.",
     "Channel updated" : "Kanal aktualisiert",
+    "The update server could not be reached since %d days to check for new updates." : "Der Aktualisierungsserver konnte seit %d Tagen nicht erreicht werden um auf verfügbare Aktualisierungen zu prüfen.",
+    "Please check the Nextcloud and server log files for errors." : "Bitte überprüfe die Server und Nextcloud Protokolle auf Fehler.",
     "Update to %1$s is available." : "Aktualisierung auf %1$s ist verfügbar.",
     "Update for %1$s to version %2$s is available." : "Ein Update von %1$s auf Version %2$s ist verfügbar.",
     "Update for {app} to version %s is available." : "Ein Update für {app} auf Version %s ist verfügbar.",
@@ -18,7 +20,6 @@ OC.L10N.register(
     "Notify members of the following groups about available updates:" : "Informieren Sie die Mitglieder der folgenden Gruppen über verfügbare Updates:",
     "Only notification for app updates are available." : "Benachrichtigungen sind nur für Aktualisierungen von Apps verfügbar.",
     "The selected update channel makes dedicated notifications for the server obsolete." : "Der gewählte Aktualisierungskanal macht dedizierte Benachrichtigungen für Server Aktualisierungen obsolet.",
-    "The selected update channel does not support updates of the server." : "Der gewählte Aktualisierungskanal unterstützt keine Aktualisierungen für Server.",
-    "You are running PHP %s. To allow you to upgrade to Nextcloud 11 and higher you need to run at least PHP 5.6. Once you upgraded your PHP version you will be able to receive update notifications for these newer versions." : "Sie benutzen PHP %s. Um die Aktualisierung auf  Nextcloud 11 und höher zu ermöglichen ist mindestens PHP 5.6 erforderlich. Nach Aktualisierung der PHP-Version werden Sie wieder Benachrichtigungen über neuere Nextcloud-Versionen erhalten."
+    "The selected update channel does not support updates of the server." : "Der gewählte Aktualisierungskanal unterstützt keine Aktualisierungen für Server."
 },
 "nplurals=2; plural=(n != 1);");

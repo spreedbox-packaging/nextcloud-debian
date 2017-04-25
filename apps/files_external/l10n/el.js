@@ -30,7 +30,6 @@ OC.L10N.register(
     "Password" : "Κωδικός πρόσβασης",
     "Credentials saved" : "Τα διαπιστευτήρια αποθηκεύτηκαν",
     "Credentials saving failed" : "Αποτυχία αποθήκευσης διαπιστευτηρίων",
-    "Storage with id \"%i\" not found" : "Αποθήκευση με id \"%i\" δεν βρέθηκε",
     "Invalid backend or authentication mechanism class" : "Μη έγκυρη κλάση συστήματος ή μηχανισμού πιστοποίησης",
     "Invalid mount point" : "Μη έγκυρο σημείο ανάρτησης",
     "Objectstore forbidden" : "Απαγορευμένο objectstore",
@@ -110,6 +109,6 @@ OC.L10N.register(
     "Delete" : "Διαγραφή",
     "Allow users to mount external storage" : "Να επιτρέπεται στους χρήστες η σύνδεση εξωτερικού χώρου",
     "Allow users to mount the following external storage" : "Χορήγηση άδειας στους χρήστες να συνδέσουν τα παρακάτω εξωτερικά μέσα αποθήκευσης",
-    "Couldn't get the information from the ownCloud server: {code} {type}" : "Αδυναμία λήψης πληροφορίας από τον διακομιστή nextcloud: {code} {type}"
+    "Storage with id \"%i\" not found" : "Αποθήκευση με id \"%i\" δεν βρέθηκε"
 },
 "nplurals=2; plural=(n != 1);");

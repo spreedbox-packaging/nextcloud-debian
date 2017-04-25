@@ -5,6 +5,8 @@ OC.L10N.register(
     "Could not start updater, please try the manual update" : "Impossible de démarrer le système de mise à jour, veuillez essayer de mettre à jour manuellement",
     "{version} is available. Get more information on how to update." : "La version {version} est disponible. Cliquez ici pour plus d'informations sur comment mettre à jour.",
     "Channel updated" : "Canal de mise à jour modifié",
+    "The update server could not be reached since %d days to check for new updates." : "Le serveur de mise à jour n'a pas pu être atteint depuis %d jours pour vérifier les nouvelles mises à jour.",
+    "Please check the Nextcloud and server log files for errors." : "Veuillez vérifier les fichiers de log de Nextcloud et du serveur pour les erreurs.",
     "Update to %1$s is available." : "Une mise à jour vers %1$s est disponible",
     "Update for %1$s to version %2$s is available." : "Une mise à jour de %1$s vers la version %2$s est disponible.",
     "Update for {app} to version %s is available." : "Une mise à jour de {app} vers la version %s est disponible.",
@@ -18,7 +20,6 @@ OC.L10N.register(
     "Notify members of the following groups about available updates:" : "Notifier les membres des groupes suivants des mises à jours disponibles :",
     "Only notification for app updates are available." : "Seules les notifications pour les mises à jour d'applications sont diponibles.",
     "The selected update channel makes dedicated notifications for the server obsolete." : "Le canal de mise à jour sélectionné rend obsolètes les notifications dédiées au serveur.",
-    "The selected update channel does not support updates of the server." : "Le canal de mises à jour sélectionné ne supporte pas les mises à jour du serveur.",
-    "You are running PHP %s. To allow you to upgrade to Nextcloud 11 and higher you need to run at least PHP 5.6. Once you upgraded your PHP version you will be able to receive update notifications for these newer versions." : "Vous utilisé PHP %s. Pour pouvoir mettre à jour vers Nextcloud 11 et supérieur, vous devez utiliser au minimum PHP 5.6. Une fois votre version PHP mis à jour, vous pourrez recevoir des notifications de mise à jour pour ces nouvelles versions. "
+    "The selected update channel does not support updates of the server." : "Le canal de mises à jour sélectionné ne supporte pas les mises à jour du serveur."
 },
 "nplurals=2; plural=(n > 1);");

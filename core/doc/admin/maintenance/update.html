@@ -181,15 +181,6 @@ timeouts.</p>
 <div class="highlight-python"><div class="highlight"><pre>$ sudo -u www-data php occ upgrade
 </pre></div>
 </div>
-<p>Before completing the upgrade, Nextcloud first runs a simulation by copying all
-database tables to new tables, and then performs the upgrade on them, to ensure
-that the upgrade will complete correctly. The copied tables are deleted after
-the upgrade. This takes twice as much time, which on large installations can be
-many hours, so you can omit this step with the <code class="docutils literal"><span class="pre">--skip-migration-test</span></code>
-option, like this example on Ubuntu:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo -u www-data php occ upgrade --skip-migration-test
-</pre></div>
-</div>
 <p>See <a class="reference internal" href="../configuration_server/occ_command.html"><em>Using the occ Command</em></a> to learn more.</p>
 <ol class="arabic simple" start="8">
 <li>It runs for a few minutes, and when it is finished displays a success

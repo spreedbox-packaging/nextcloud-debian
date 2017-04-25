@@ -33,12 +33,11 @@ OC.L10N.register(
     "Couldn't get the list of Windows network drive mount points: empty response from the server" : "Gat ekki fengið lista yfir tengipunkta Windows-netdrifa: autt svar frá þjóni",
     "Some of the configured external mount points are not connected. Please click on the red row(s) for more information" : "Sumir uppsettir tengipunktar eru ekki tengdir í skráakerfið. Smelltu á rauðu örina/örvarnar til að fá frekari upplýsingar",
     "Please enter the credentials for the {mount} mount" : "Settu inn auðkenni fyrir {mount} tengipunktinn",
-    "Username" : "Notendanafn",
+    "Username" : "Notandanafn",
     "Password" : "Lykilorð",
     "Credentials saved" : "Auðkenni vistuð",
     "Credentials saving failed" : "Vistun auðkenna tókst ekki",
     "Credentials required" : "Auðkenna krafist",
-    "Storage with id \"%i\" not found" : "Geymsla með auðkennið '%i' fannst ekki",
     "Invalid backend or authentication mechanism class" : "Ógildur flokkur bakenda eða auðkenningartækni",
     "Invalid mount point" : "Ógildur tengipunktur",
     "Objectstore forbidden" : "Hlutageymsla (objectstore) bönnuð",
@@ -49,7 +48,6 @@ OC.L10N.register(
     "Unsatisfied authentication mechanism parameters" : "Óuppfyllt viðföng auðkenningartækni",
     "Insufficient data: %s" : "Ónóg gögn: %s",
     "%s" : "%s",
-    "Storage with id \"%i\" is not user editable" : "Geymslan með auðkennið '%s' er ekki breytanleg af notanda",
     "Access key" : "Aðgangslykill",
     "Secret key" : "Leynilykill",
     "Builtin" : "Innbyggt",
@@ -126,6 +124,7 @@ OC.L10N.register(
     "Delete" : "Eyða",
     "Allow users to mount external storage" : "Leyfa notendum að tengja ytri gagnageymslur í skráakerfi",
     "Allow users to mount the following external storage" : "Leyfa notendum að tengja eftirfarandi ytri gagnageymslu í skráakerfi",
-    "Couldn't get the information from the ownCloud server: {code} {type}" : "Gat ekki lesið upplýsingar frá ownCloud-þjóninum: {code} {type}"
+    "Storage with id \"%i\" not found" : "Geymsla með auðkennið '%i' fannst ekki",
+    "Storage with id \"%i\" is not user editable" : "Geymslan með auðkennið '%s' er ekki breytanleg af notanda"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

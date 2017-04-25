@@ -271,7 +271,7 @@ class Server extends ServerContainer implements IServerContainer {
 				$defaultTokenProvider = null;
 			}
 
-			$userSession = new \OC\User\Session($manager, $session, $timeFactory, $defaultTokenProvider, $c->getConfig(), $c->getSecureRandom());
+			$userSession = new \OC\User\Session($manager, $session, $timeFactory, $defaultTokenProvider, $c->getConfig(), $c->getSecureRandom(), $c->getLockdownManager());
 			$userSession->listen('\OC\User', 'preCreateUser', function ($uid, $password) {
 				\OC_Hook::emit('OC_User', 'pre_createUser', array('run' => true, 'uid' => $uid, 'password' => $password));
 			});
@@ -361,7 +361,8 @@ class Server extends ServerContainer implements IServerContainer {
 			return new CategoryFetcher(
 				$this->getAppDataDir('appstore'),
 				$this->getHTTPClientService(),
-				$this->query(TimeFactory::class)
+				$this->query(TimeFactory::class),
+				$this->getConfig()
 			);
 		});
 		$this->registerService('UserCache', function ($c) {
@@ -805,7 +806,9 @@ class Server extends ServerContainer implements IServerContainer {
 		});
 
 		$this->registerService('LockdownManager', function (Server $c) {
-			return new LockdownManager();
+			return new LockdownManager(function() use ($c) {
+				return $c->getSession();
+			});
 		});
 
 		/* To trick DI since we don't extend the DIContainer here */

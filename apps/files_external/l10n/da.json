@@ -16,11 +16,13 @@
     "(group)" : "(gruppe)",
     "Admin defined" : "Bestemt af administrator",
     "Saved" : "Gemt",
+    "Saving..." : "Gemmer...",
     "Save" : "Gem",
     "Empty response from the server" : "Svar fra serveren uden data",
+    "There was an error with message: " : "Der var et problem med beskeden:",
+    "external-storage" : "Eksternt lager",
     "Username" : "Brugernavn",
     "Password" : "Kodeord",
-    "Storage with id \"%i\" not found" : "Lager med ID'et \"%i% er ikke fundet",
     "Invalid backend or authentication mechanism class" : "Ugyldig backend eller klasse for godkendelsesmekanisme",
     "Invalid mount point" : "Fokert monteringspunkt",
     "Objectstore forbidden" : "Objectstore er forbudt",
@@ -31,7 +33,6 @@
     "Unsatisfied authentication mechanism parameters" : "Utilfredsstillede parametre for godkendelsesmekanisme",
     "Insufficient data: %s" : "Utilstrækkelige data: %s",
     "%s" : "%s",
-    "Storage with id \"%i\" is not user editable" : "Lageret med id \"%i\" kan ikke redigeres af bruger",
     "Access key" : "Adgangsnøgle",
     "Secret key" : "Hemmelig nøgle",
     "Builtin" : "Indbygget",
@@ -68,6 +69,7 @@
     "Google Drive" : "Google Drev",
     "Local" : "Lokal",
     "Location" : "Placering",
+    "Nextcloud" : "Nextcloud",
     "SFTP" : "SFTP",
     "Root" : "Root",
     "SFTP with secret key login" : "SFTP med hemmelig nøglelogin",
@@ -97,6 +99,8 @@
     "Add storage" : "Tilføj lager",
     "Advanced settings" : "Avancerede indstillinger",
     "Delete" : "Slet",
-    "Allow users to mount the following external storage" : "Tillad brugere at montere følgende som eksternt lager"
+    "Allow users to mount the following external storage" : "Tillad brugere at montere følgende som eksternt lager",
+    "Storage with id \"%i\" not found" : "Lager med ID'et \"%i% er ikke fundet",
+    "Storage with id \"%i\" is not user editable" : "Lageret med id \"%i\" kan ikke redigeres af bruger"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

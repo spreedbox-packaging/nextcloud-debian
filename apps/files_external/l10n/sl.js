@@ -37,7 +37,6 @@ OC.L10N.register(
     "Credentials saved" : "Poverila so shranjena",
     "Credentials saving failed" : "Shranjevanje poveril je spodletelo",
     "Credentials required" : "Zahtevana so poverila",
-    "Storage with id \"%i\" not found" : "Shrambe z ID \"%i\" ni mogoče najti.",
     "Invalid backend or authentication mechanism class" : "Neveljaven ozadnji program oziroma razred mehanizma overitve",
     "Invalid mount point" : "Neveljavna priklopna točka",
     "Objectstore forbidden" : "Shranjevanje predmeta je prepovedano",
@@ -48,7 +47,6 @@ OC.L10N.register(
     "Unsatisfied authentication mechanism parameters" : "Nezadovoljivi parametri mehanizma overitve",
     "Insufficient data: %s" : "Nepopolni podatki: %s",
     "%s" : "%s",
-    "Storage with id \"%i\" is not user editable" : "Shramba z ID \"%i\" ni uporabniško uredljiva.",
     "Access key" : "Ključ za dostop",
     "Secret key" : "Skriti ključ",
     "Builtin" : "Vgrajeno",
@@ -119,6 +117,7 @@ OC.L10N.register(
     "Delete" : "Izbriši",
     "Allow users to mount external storage" : "Dovoli uporabnikom priklapljanje zunanje shrambe",
     "Allow users to mount the following external storage" : "Dovoli uporabnikom priklapljanje navedenih zunanjih shramb.",
-    "Couldn't get the information from the ownCloud server: {code} {type}" : "Ni mogoče pridobiti podrobnosti s strežnika ownCloud:{koda} {vrsta}"
+    "Storage with id \"%i\" not found" : "Shrambe z ID \"%i\" ni mogoče najti.",
+    "Storage with id \"%i\" is not user editable" : "Shramba z ID \"%i\" ni uporabniško uredljiva."
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

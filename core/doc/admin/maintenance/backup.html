@@ -141,7 +141,7 @@ your Nextcloud environment. You could use this command:</p>
 <h3>MySQL/MariaDB<a class="headerlink" href="#mysql-mariadb" title="Permalink to this headline">¶</a></h3>
 <p>MySQL or MariaDB, which is a drop-in MySQL replacement, is the recommended
 database engine. To backup MySQL/MariaDB:</p>
-<div class="highlight-python"><div class="highlight"><pre>mysqldump --lock-tables -h [server] -u [username] -p[password] [db_name] &gt; nextcloud-sqlbkp_`date +&quot;%Y%m%d&quot;`.bak
+<div class="highlight-python"><div class="highlight"><pre>mysqldump --single-transaction -h [server] -u [username] -p[password] [db_name] &gt; nextcloud-sqlbkp_`date +&quot;%Y%m%d&quot;`.bak
 </pre></div>
 </div>
 </div>
