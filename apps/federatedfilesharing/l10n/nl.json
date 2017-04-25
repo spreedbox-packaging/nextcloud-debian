@@ -11,7 +11,7 @@
     "Press ⌘-C to copy." : "Druk op ⌘-C om te kopiëren.",
     "Press Ctrl-C to copy." : "Druk op Ctrl-C om te kopiëren.",
     "Invalid Federated Cloud ID" : "Ongeldige Federated Cloud ID",
-    "Server to server sharing is not enabled on this server" : "Server met server delen is op deze server niet geactiveerd",
+    "Server to server sharing is not enabled on this server" : "Server met server delen is op deze server niet ingeschakeld",
     "Couldn't establish a federated share." : "Kon geen gefedereerde share tot stand brengen",
     "Couldn't establish a federated share, maybe the password was wrong." : "Kon geen gefedereerde share tot stand brengen, misschien was het wachtwoord onjuist.",
     "Federated Share request was successful, you will receive a invitation. Check your notifications." : "De gefedereerde share aanvraag is geslaagd, je ontvangt een uitnodiging. Controleer je meldingen.",
@@ -39,15 +39,14 @@
     "Open documentation" : "Open documentatie",
     "Allow users on this server to send shares to other servers" : "Toestaan dat gebruikers op deze server shares sturen naar andere servers",
     "Allow users on this server to receive shares from other servers" : "Toestaan dat gebruikers op deze server shares ontvangen van andere servers",
-    "Search global and public address book for users" : "Doorzoeken globale en openbare adresboeken naar gebruikers",
+    "Search global and public address book for users and let local users publish their data" : "Openbare adresboeken voor gebruikers doorzoeken en laat lokale gebruikers de data plubliceren",
+    "Allow users to publish their data to a global and public address book" : "Publiek maken van data met een openbaar adresboek toestaan",
     "Federated Cloud" : "Gefedereerde Cloud",
     "Your Federated Cloud ID:" : "Je Federated Cloud ID:",
     "Share it:" : "Deel het:",
     "Add to your website" : "Toevoegen aan je website",
     "Share with me via Nextcloud" : "Deel met mij via Nextcloud",
     "HTML Code:" : "HTML Code:",
-    "Sharing %s failed, could not find %s, maybe the server is currently unreachable." : "Delen van %s mislukt, kon %s niet vinden, misschien is de server niet bereikbaar.",
-    "You received \"/%3$s\" as a remote share from %1$s (on behalf of %2$s)" : "Je ontving \"/%3$s\" als een externe share van %1$s (namens %2$s)",
-    "You received \"/%3$s\" as a remote share from %1$s" : "Je ontving \"/%3$s\" als een externe share van %1$s"
+    "Search global and public address book for users" : "Doorzoeken van openbare adresboeken voor gebruikers"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

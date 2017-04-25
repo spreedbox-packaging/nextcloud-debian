@@ -9,11 +9,8 @@ OC.L10N.register(
     "Federation allows you to connect with other trusted servers to exchange the user directory. For example this will be used to auto-complete external users for federated sharing." : "Birleşim, diğer güvenilir sunucularla dosya/klasör paylaşımı yapılmasını sağlar. Örneğin, bu işlem birleştirilmiş paylaşım için dış kullanıcıların otomatik olarak tamamlanmasını sağlar.",
     "Add server automatically once a federated share was created successfully" : "Bir birleşik paylaşım eklendiğinde sunucu otomatik olarak eklensin",
     "Trusted servers" : "Güvenilen sunucular",
-    "+ Add trusted server" : "+ Güvenilir sunucuya ekle",
-    "Trusted server" : "Güvenilen sunucular",
-    "Add" : "Ekle",
-    "Trusted Servers" : "Güvenilir Sunucular",
-    "+ Add Nextcloud server" : "+ Nextcloud sunucusu ekle",
-    "Nextcloud Server" : "Nextcloud Sunucusu"
+    "+ Add trusted server" : "+ Güvenilir sunucu ekle",
+    "Trusted server" : "Güvenilen sunucu",
+    "Add" : "Ekle"
 },
 "nplurals=2; plural=(n > 1);");

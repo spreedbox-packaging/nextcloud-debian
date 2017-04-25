@@ -83,7 +83,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#st-login">1st login</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#upgrade-tips">Upgrade Tips</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#migration-test">Migration Test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#setting-strong-directory-permissions">Setting Strong Directory Permissions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#upgrading-across-skipped-releases">Upgrading Across Skipped Releases</a></li>
 </ul>
@@ -155,8 +154,7 @@ using Snappy Base 16.04 as it&#8217;s currently unreleased.</p>
 <ul class="simple">
 <li>Make a <a class="reference internal" href="backup.html"><em>fresh backup</em></a>.</li>
 <li>Upgrade your Nextcloud snap: sudo snap refresh nextcloud</li>
-<li>Run <a class="reference internal" href="../configuration_server/occ_command.html#command-line-upgrade-label"><span>occ upgrade</span></a> (optionally disabling the
-<a class="reference internal" href="#migration-test-label"><span>migration test</span></a>).</li>
+<li>Run <a class="reference internal" href="../configuration_server/occ_command.html#command-line-upgrade-label"><span>occ upgrade</span></a>.</li>
 <li><a class="reference internal" href="../installation/installation_wizard.html#strong-perms-label"><span>Apply strong permissions</span></a> to your
 Nextcloud directories.</li>
 <li>Take your Nextcloud server out of <a class="reference internal" href="../configuration_server/occ_command.html#maintenance-commands-label"><span>maintenance mode</span></a>.</li>
@@ -182,18 +180,6 @@ user. This example is for Debian/Ubuntu:</p>
 </div>
 <p>This example is for CentOS/RHEL/Fedora:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u apache php occ upgrade
-</pre></div>
-</div>
-</div>
-<div class="section" id="migration-test">
-<span id="migration-test-label"></span><h2>Migration Test<a class="headerlink" href="#migration-test" title="Permalink to this headline">¶</a></h2>
-<p>Before completing the upgrade, Nextcloud first runs a simulation by copying all
-database tables to new tables, and then performs the upgrade on them, to ensure
-that the upgrade will complete correctly. The copied tables are deleted after
-the upgrade. This takes twice as much time, which on large installations can be
-many hours, so you can omit this step with the <code class="docutils literal"><span class="pre">--skip-migration-test</span></code>
-option, like this example on CentOS:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo -u apache php occ upgrade --skip-migration-test
 </pre></div>
 </div>
 </div>

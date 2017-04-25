@@ -1,7 +1,7 @@
 OC.L10N.register(
     "federatedfilesharing",
     {
-    "Federated sharing" : "Общий доступ из объединённого общего хранилища",
+    "Federated sharing" : "Общий доступ из федеративного хранилища",
     "Do you want to add the remote share {name} from {owner}@{remote}?" : "Вы хотите добавить удалённый общий каталог {name} из {owner}@{remote}?",
     "Remote share" : "Удалённый общий ресурс",
     "Remote share password" : "Пароль для удалённого общего ресурса",
@@ -15,7 +15,7 @@ OC.L10N.register(
     "Invalid Federated Cloud ID" : "Неверный ID в объединении облачных хранилищ.",
     "Server to server sharing is not enabled on this server" : "На данном сервере выключено межсерверное предоставление общего доступа",
     "Couldn't establish a federated share." : "Не удаётся установить федеративный общий доступ.",
-    "Couldn't establish a federated share, maybe the password was wrong." : "Не удаётся установить федеративный общий доступ, может быть пароль был не верен.",
+    "Couldn't establish a federated share, maybe the password was wrong." : "Не удаётся установить федеративный общий доступ, возможно неверный пароль.",
     "Federated Share request was successful, you will receive a invitation. Check your notifications." : "Запрос на федеративный общий ресурс прошёл успешно, вы получите приглашение. Проверьте ваши уведомления.",
     "The mountpoint name contains invalid characters." : "Имя точки монтирования содержит недопустимые символы.",
     "Not allowed to create a federated share with the owner." : "Не допускается создание федеративного общего ресурса с владельцем.",
@@ -41,15 +41,14 @@ OC.L10N.register(
     "Open documentation" : "Открыть документацию",
     "Allow users on this server to send shares to other servers" : "Разрешить пользователям делиться с пользователями других серверов",
     "Allow users on this server to receive shares from other servers" : "Разрешить пользователям использовать общие ресурсы с других серверов",
-    "Search global and public address book for users" : "Искать пользователей в глобальной и открытой адресной книге",
+    "Search global and public address book for users and let local users publish their data" : "Поиск пользователей в глобальной и общедоступной адресной книге и резрешение публикации своих данных локальным пользователям ",
+    "Allow users to publish their data to a global and public address book" : "Резрешить пользователям публиковать свои данные в глобальной и общедосупной адресной книге",
     "Federated Cloud" : "Федерация облачных хранилищ",
     "Your Federated Cloud ID:" : "Ваш ID в федерации облачных хранилищ:",
     "Share it:" : "Поделиться:",
     "Add to your website" : "Добавить к себе на сайт",
     "Share with me via Nextcloud" : "Поделитесь со мной через Nextcloud",
     "HTML Code:" : "HTML код:",
-    "Sharing %s failed, could not find %s, maybe the server is currently unreachable." : "Не удалось поделиться %s, не удалось найти %s, возможно, сервер не доступен.",
-    "You received \"/%3$s\" as a remote share from %1$s (on behalf of %2$s)" : "Вы получили \"/%3$s\"  в качестве удалённого ресурса из %1$s (от имени %2$s)",
-    "You received \"/%3$s\" as a remote share from %1$s" : "Вы получили \"/%3$s\" в качестве удалённого ресурса из %1$s"
+    "Search global and public address book for users" : "Искать пользователей в глобальной и открытой адресной книге"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

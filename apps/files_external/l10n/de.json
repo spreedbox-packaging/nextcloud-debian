@@ -36,7 +36,7 @@
     "Credentials saved" : "Anmeldeinformationen gespeichert",
     "Credentials saving failed" : "Speichern der Anmeldeinformationen fehlgeschlagen",
     "Credentials required" : "Anmeldeinformationen benötigt",
-    "Storage with id \"%i\" not found" : "Der Speicher mit der ID „%i“ wurde nicht gefunden",
+    "Storage with ID \"%d\" not found" : "Der Speicher mit der ID „%d“ wurde nicht gefunden",
     "Invalid backend or authentication mechanism class" : "Ungültiger Backend- oder Authentifizierungsmechanismus",
     "Invalid mount point" : "Ungültiger mount point",
     "Objectstore forbidden" : "Objekt nicht erlaubt",
@@ -47,7 +47,7 @@
     "Unsatisfied authentication mechanism parameters" : "Unbefriedigende Authentifizierungsmechanismus Parameter",
     "Insufficient data: %s" : "Unzureichende Daten: %s",
     "%s" : "%s",
-    "Storage with id \"%i\" is not user editable" : "Speicher mit der ID \"%i\" kann nicht vom Benutzer bearbeitet werden",
+    "Storage with ID \"%d\" is not user editable" : "Speicher mit der ID \"%d\" kann nicht vom Benutzer bearbeitet werden",
     "Access key" : "Zugangsschlüssel",
     "Secret key" : "Geheimer Schlüssel",
     "Builtin" : "eingebaut",
@@ -124,6 +124,7 @@
     "Delete" : "Löschen",
     "Allow users to mount external storage" : "Benutzern erlauben, externen Speicher einzubinden",
     "Allow users to mount the following external storage" : "Benutzern erlauben, den oder die folgenden externen Speicher einzubinden:",
-    "Couldn't get the information from the ownCloud server: {code} {type}" : "Die gewünschten Informationen konnten nicht vom Server gelesen werden: {code} {type}"
+    "Storage with id \"%i\" not found" : "Der Speicher mit der ID „%i“ wurde nicht gefunden",
+    "Storage with id \"%i\" is not user editable" : "Speicher mit der ID \"%i\" kann nicht vom Benutzer bearbeitet werden"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -5,15 +5,12 @@ OC.L10N.register(
     "Not enabled" : "未啟用",
     "Wrong password" : "密碼錯誤",
     "Saved" : "已儲存",
-    "test email settings" : "測試電子郵件設定",
     "Email sent" : "郵件已傳",
-    "Sending..." : "發送中...",
     "All" : "所有",
     "Disable" : "停用",
     "Enable" : "啟用",
     "Updating...." : "更新中....",
     "Updated" : "已更新",
-    "Uninstalling ...." : "正在解除安裝 ....",
     "Uninstall" : "解除安裝",
     "Delete" : "刪除",
     "Groups" : "群組",
@@ -48,9 +45,8 @@ OC.L10N.register(
     "Everyone" : "所有人",
     "Other" : "其他",
     "Default" : "預設",
-    "Please wait...." : "請稍候....",
-    "Log" : "日誌",
-    "More" : "更多",
-    "Group" : "群組"
+    "test email settings" : "測試電子郵件設定",
+    "Sending..." : "發送中...",
+    "Uninstalling ...." : "正在解除安裝 ...."
 },
 "nplurals=1; plural=0;");

@@ -41,15 +41,12 @@ OC.L10N.register(
     "Open documentation" : "Buka dokumentasi",
     "Allow users on this server to send shares to other servers" : "Izinkan para pengguna di server ini untuk mengirimkan berbagi ke server lainnya.",
     "Allow users on this server to receive shares from other servers" : "Izinkan para pengguna di server ini untuk menerima berbagi ke server lainnya.",
-    "Search global and public address book for users" : "Cari alamat buku global dan alamat publik untuk pengguna",
     "Federated Cloud" : "Federated Cloud",
     "Your Federated Cloud ID:" : "Federated Cloud ID Anda:",
     "Share it:" : "Bagikan:",
     "Add to your website" : "Tambahkan pada situs web Anda",
     "Share with me via Nextcloud" : "Dibagikan pada saya via Nextcloud",
     "HTML Code:" : "Kode HTML:",
-    "Sharing %s failed, could not find %s, maybe the server is currently unreachable." : "Berbagi %s gagal, tidak menemukan %s, kemungkinan saat ini server tidak dapat dijangkau.",
-    "You received \"/%3$s\" as a remote share from %1$s (on behalf of %2$s)" : "Anda menerima \"/%3$s\" sebagai berbagi remote dari %1$s (mewakili %2$s)",
-    "You received \"/%3$s\" as a remote share from %1$s" : "Anda menerima \"/%3$s\" sebagai berbagi remote dari %1$s"
+    "Search global and public address book for users" : "Cari alamat buku global dan alamat publik untuk pengguna"
 },
 "nplurals=1; plural=0;");

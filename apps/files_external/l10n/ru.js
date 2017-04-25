@@ -38,7 +38,7 @@ OC.L10N.register(
     "Credentials saved" : "Учетные данные сохранены",
     "Credentials saving failed" : "Ошибка сохранения учетных данных",
     "Credentials required" : "Требуются учетные данные",
-    "Storage with id \"%i\" not found" : "Хранилище с идентификатором \"%i\" не найдено",
+    "Storage with ID \"%d\" not found" : "Хранилище с идентификатором «%d» не найдено",
     "Invalid backend or authentication mechanism class" : "Некорректный механизм авторизации или бэкенд",
     "Invalid mount point" : "Неправильная точка входа",
     "Objectstore forbidden" : "Хранение объектов запрещено",
@@ -49,7 +49,7 @@ OC.L10N.register(
     "Unsatisfied authentication mechanism parameters" : "Недопустимые настройки механизма авторизации",
     "Insufficient data: %s" : "Недостаточно данных: %s",
     "%s" : "%s",
-    "Storage with id \"%i\" is not user editable" : "Пользователь не может редактировать хранилище \"%i\"",
+    "Storage with ID \"%d\" is not user editable" : "Пользователь не может редактировать хранилище с идентификатором «%d»",
     "Access key" : "Ключ доступа",
     "Secret key" : "Секретный ключ",
     "Builtin" : "Встроенный",
@@ -126,6 +126,7 @@ OC.L10N.register(
     "Delete" : "Удалить",
     "Allow users to mount external storage" : "Разрешить пользователями монтировать внешние накопители",
     "Allow users to mount the following external storage" : "Разрешить пользователям монтировать следующие сервисы хранения данных",
-    "Couldn't get the information from the ownCloud server: {code} {type}" : "Не удалось получить информацию от сервера Nextcloud: {code} {type}"
+    "Storage with id \"%i\" not found" : "Хранилище с идентификатором \"%i\" не найдено",
+    "Storage with id \"%i\" is not user editable" : "Пользователь не может редактировать хранилище \"%i\""
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

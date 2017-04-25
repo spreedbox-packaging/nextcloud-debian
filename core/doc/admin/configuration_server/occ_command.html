@@ -90,7 +90,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#logging-commands">Logging Commands</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maintenance-commands">Maintenance Commands</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#security">Security</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#shibboleth-modes-enterprise-edition-only">Shibboleth Modes (Enterprise Edition only)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#trashbin">Trashbin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#user-commands">User Commands</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#versions">Versions</a></li>
@@ -177,7 +176,6 @@ on your Nextcloud files and directories.</p>
 <li><a class="reference internal" href="#logging-commands-label"><span>Logging Commands</span></a></li>
 <li><a class="reference internal" href="#maintenance-commands-label"><span>Maintenance Commands</span></a></li>
 <li><a class="reference internal" href="#security-commands-label"><span>Security</span></a></li>
-<li><a class="reference internal" href="#shibboleth-label"><span>Shibboleth Modes (Enterprise Edition only)</span></a></li>
 <li><a class="reference internal" href="#trashbin-label"><span>Trashbin</span></a></li>
 <li><a class="reference internal" href="#user-commands-label"><span>User Commands</span></a></li>
 <li><a class="reference internal" href="#versions-label"><span>Versions</span></a></li>
@@ -1011,19 +1009,6 @@ change to existing files.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="shibboleth-modes-enterprise-edition-only">
-<span id="shibboleth-label"></span><h2>Shibboleth Modes (Enterprise Edition only)<a class="headerlink" href="#shibboleth-modes-enterprise-edition-only" title="Permalink to this headline">¶</a></h2>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This command is only available when the &#8220;Shibboleth user backend&#8221; app
-(<code class="docutils literal"><span class="pre">user_shibboleth</span></code>) is enabled.</p>
-</div>
-<p><code class="docutils literal"><span class="pre">shibboleth:mode</span></code> sets your Shibboleth mode to <code class="docutils literal"><span class="pre">notactive</span></code>,
-<code class="docutils literal"><span class="pre">autoprovision</span></code>, or <code class="docutils literal"><span class="pre">ssoonly</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre>shibboleth:mode [mode]
-</pre></div>
-</div>
-</div>
 <div class="section" id="trashbin">
 <span id="trashbin-label"></span><h2>Trashbin<a class="headerlink" href="#trashbin" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
@@ -1301,13 +1286,9 @@ tar archives, and before you complete the upgrade.</p>
 <p>List all options, like this example on CentOS Linux:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo -u apache php occ upgrade -h
 Usage:
-upgrade [--skip-migration-test] [--dry-run] [--no-app-disable]
+upgrade [--no-app-disable]
 
 Options:
---skip-migration-test  skips the database schema migration simulation and
-   update directly
---dry-run              only runs the database schema migration simulation, do
-  not actually update
 --no-app-disable       skips the disable of third party apps
 --help (-h)            Display this help message.
 --quiet (-q)           Do not output any message.
@@ -1366,19 +1347,6 @@ Exception
 ServerNotAvailableException: LDAP server is not available
 Update failed
 Turned off maintenance mode
-</pre></div>
-</div>
-<p>Before completing the upgrade, Nextcloud first runs a simulation by copying all
-database tables to new tables, and then performs the upgrade on them, to ensure
-that the upgrade will complete correctly. The copied tables are deleted after
-the upgrade. This takes twice as much time, which on large installations can be
-many hours, so you can omit this step with the <code class="docutils literal"><span class="pre">--skip-migration-test</span></code>
-option:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ upgrade --skip-migration-test
-</pre></div>
-</div>
-<p>You can perform this simulation manually with the <code class="docutils literal"><span class="pre">--dry-run</span></code> option:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo -u www-data php occ upgrade --dry-run
 </pre></div>
 </div>
 </div>

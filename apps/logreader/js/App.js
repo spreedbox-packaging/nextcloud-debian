@@ -58,6 +58,7 @@ export class App extends Component {
 	}
 
 	fetchNextPage = _.throttle(async () => {
+		console.log(this.state.provider.hasMore);
 		if (this.state.provider.hasMore) {
 			this.setState({loading: true});
 			this.state.provider.limit += 25;
@@ -106,7 +107,9 @@ export class App extends Component {
 			data = event.clipboardData.getData('text/plain');
 		}
 		data = data.trim();
-		this.onLogFile(data);
+		if (data.indexOf('{') !== -1 && data.indexOf('}')) {
+			this.onLogFile(data);
+		}
 	};
 
 	render () {
@@ -128,11 +131,11 @@ export class App extends Component {
 
 		let content;
 
-		if (this.state.loading) {
+		if (this.state.loading && entries.length < 1) {
 			content = <div className="loading log-loading"/>
 		} else {
 			content = <ReactScrolla
-				id="app-content"
+				className={styles.scrollContainer}
 				percentage={85}
 				onPercentage={this.fetchNextPage}
 				isLoading={this.state.loading}>
@@ -153,7 +156,7 @@ export class App extends Component {
 
 		return (
 
-			<AppContainer appId="logreader">
+			<div>
 				{!this.props.inlineSettings ?
 					<SideBar><LogUploader
 						onLogFile={this.onLogFile}/>
@@ -170,7 +173,7 @@ export class App extends Component {
 					: <div/>}
 
 				{content}
-			</AppContainer>
+			</div>
 		);
 	}
 }

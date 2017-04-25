@@ -41,15 +41,14 @@ OC.L10N.register(
     "Open documentation" : "Voir la documentation",
     "Allow users on this server to send shares to other servers" : "Autoriser les utilisateurs de ce serveur à envoyer des partages vers d'autres serveurs",
     "Allow users on this server to receive shares from other servers" : "Autoriser les utilisateurs de ce serveur à recevoir des partages d'autres serveurs",
-    "Search global and public address book for users" : "Rechercher dans le carnet d'adresse global et public pour les utilisateurs",
+    "Search global and public address book for users and let local users publish their data" : "Rechercher dans le carnet d'adresse global et public pour les utilisateurs et laisser les utilisateurs publier leurs données",
+    "Allow users to publish their data to a global and public address book" : "Autoriser les utilisateurs à publier leurs données dans un carnet d'adresse global et public",
     "Federated Cloud" : "Federated Cloud",
     "Your Federated Cloud ID:" : "Votre identifiant Federated Cloud :",
     "Share it:" : "Partager :",
     "Add to your website" : "Ajouter à votre site web",
     "Share with me via Nextcloud" : "Partagez avec moi via Nextcloud",
     "HTML Code:" : "Code HTML :",
-    "Sharing %s failed, could not find %s, maybe the server is currently unreachable." : "Le partage de %s a échoué : impossible de trouver %s. Peut-être le serveur est-il momentanément injoignable.",
-    "You received \"/%3$s\" as a remote share from %1$s (on behalf of %2$s)" : "Vous avez reçu  \"/%3$s\" en tant que ressource distante de %1$s (de la part de %2$s)",
-    "You received \"/%3$s\" as a remote share from %1$s" : "Vous avez reçu \"/%3$s\" comme partage distant de %1$s"
+    "Search global and public address book for users" : "Rechercher dans le carnet d'adresse global et public pour les utilisateurs"
 },
 "nplurals=2; plural=(n > 1);");

@@ -194,9 +194,6 @@ your nginx installation.</p>
     <span class="c1"># This module is currently not supported.</span>
     <span class="c1">#pagespeed off;</span>
 
-    <span class="kn">error_page</span> <span class="mi">403</span> <span class="s">/core/templates/403.php</span><span class="p">;</span>
-    <span class="kn">error_page</span> <span class="mi">404</span> <span class="s">/core/templates/404.php</span><span class="p">;</span>
-
     <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
         <span class="kn">rewrite</span> <span class="s">^</span> <span class="s">/index.php</span><span class="nv">$uri</span><span class="p">;</span>
     <span class="p">}</span>
@@ -209,8 +206,8 @@ your nginx installation.</p>
     <span class="p">}</span>
 
     <span class="kn">location</span> <span class="p">~</span> <span class="sr">^/(?:index|remote|public|cron|core/ajax/update|status|ocs/v[12]|updater/.+|ocs-provider/.+|core/templates/40[34])\.php(?:$|/)</span> <span class="p">{</span>
-        <span class="kn">include</span> <span class="s">fastcgi_params</span><span class="p">;</span>
         <span class="kn">fastcgi_split_path_info</span> <span class="s">^(.+\.php)(/.*)</span>$<span class="p">;</span>
+        <span class="kn">include</span> <span class="s">fastcgi_params</span><span class="p">;</span>
         <span class="kn">fastcgi_param</span> <span class="s">SCRIPT_FILENAME</span> <span class="nv">$document_root$fastcgi_script_name</span><span class="p">;</span>
         <span class="kn">fastcgi_param</span> <span class="s">PATH_INFO</span> <span class="nv">$fastcgi_path_info</span><span class="p">;</span>
         <span class="kn">fastcgi_param</span> <span class="s">HTTPS</span> <span class="no">on</span><span class="p">;</span>
@@ -330,9 +327,6 @@ your nginx installation.</p>
         <span class="c1"># This module is currently not supported.</span>
         <span class="c1">#pagespeed off;</span>
 
-        <span class="kn">error_page</span> <span class="mi">403</span> <span class="s">/nextcloud/core/templates/403.php</span><span class="p">;</span>
-        <span class="kn">error_page</span> <span class="mi">404</span> <span class="s">/nextcloud/core/templates/404.php</span><span class="p">;</span>
-
         <span class="kn">location</span> <span class="s">/nextcloud</span> <span class="p">{</span>
             <span class="kn">rewrite</span> <span class="s">^</span> <span class="s">/nextcloud/index.php</span><span class="nv">$uri</span><span class="p">;</span>
         <span class="p">}</span>
@@ -345,8 +339,8 @@ your nginx installation.</p>
         <span class="p">}</span>
 
         <span class="kn">location</span> <span class="p">~</span> <span class="sr">^/nextcloud/(?:index|remote|public|cron|core/ajax/update|status|ocs/v[12]|updater/.+|ocs-provider/.+|core/templates/40[34])\.php(?:$|/)</span> <span class="p">{</span>
-            <span class="kn">include</span> <span class="s">fastcgi_params</span><span class="p">;</span>
             <span class="kn">fastcgi_split_path_info</span> <span class="s">^(.+\.php)(/.*)</span>$<span class="p">;</span>
+            <span class="kn">include</span> <span class="s">fastcgi_params</span><span class="p">;</span>
             <span class="kn">fastcgi_param</span> <span class="s">SCRIPT_FILENAME</span> <span class="nv">$document_root$fastcgi_script_name</span><span class="p">;</span>
             <span class="kn">fastcgi_param</span> <span class="s">PATH_INFO</span> <span class="nv">$fastcgi_path_info</span><span class="p">;</span>
             <span class="kn">fastcgi_param</span> <span class="s">HTTPS</span> <span class="no">on</span><span class="p">;</span>
