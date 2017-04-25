@@ -1,6 +1,6 @@
 --- a/lib/private/Updater.php
 +++ b/lib/private/Updater.php
-@@ -270,6 +270,15 @@
+@@ -289,6 +289,15 @@
  			$this->emit('\OC\Updater', 'finishedCheckCodeIntegrity');
  		}
  
