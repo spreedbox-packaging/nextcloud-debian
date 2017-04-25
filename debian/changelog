@@ -1,3 +1,10 @@
+nextcloud (11.0.3-1~strukturag+0) trusty; urgency=medium
+
+  * Imported Upstream version 11.0.3
+  * Updated patch for new upstream version.
+
+ -- Joachim Bauch <bauch@struktur.de>  Tue, 25 Apr 2017 08:40:21 +0200
+
 nextcloud (11.0.2-1~strukturag+1) trusty; urgency=medium
 
   * Support downloads larger than 2GB.
