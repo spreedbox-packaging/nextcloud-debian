@@ -2,7 +2,7 @@ before_script:
   - ssh-keyscan -t rsa,dsa,ecdsa github.com $ADDITIONAL_GIT_SERVERS > /etc/ssh/ssh_known_hosts
 
 variables:
-  UPSTREAM_REPOSITORY: "git@github.com:spreedbox/nextcloud-debian.git"
+  UPSTREAM_REPOSITORY: "git@github.com:spreedbox-packaging/nextcloud-debian.git"
 
 mirror-branches:
   stage: deploy
