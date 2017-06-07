@@ -40,6 +40,7 @@ Depends:
  ${perl:Depends},
  ca-certificates,
  cron,
+ nextcloud-migration,
  nextcloud-server-php,
  nextcloud-server-php7.0 (= ${binary:Version})
 Description: The Nextcloud server package
