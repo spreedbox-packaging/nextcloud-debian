@@ -37,7 +37,13 @@ class Capabilities implements ICapability {
 		return [
 			'files_sharing' =>
 				[
-					'sharebymail' => ['enabled' => true]
+					'sharebymail' =>
+						[
+							'enabled' => true,
+							'upload_files_drop' => ['enabled' => true],
+							'password' => ['enabled' => true],
+							'expire_date' => ['enabled' => true]
+						]
 				]
 		];
 	}

@@ -38,7 +38,7 @@
 		_containerTemplate: '' +
 		'<div class="notifications hidden">' +
 		'  <div class="notifications-button menutoggle">' +
-		'    <img class="svg" alt="' + t('notifications', 'Notifications') + '"' +
+		'    <img class="svg" alt="" title="' + t('notifications', 'Notifications') + '"' +
 		'      src="' + OC.imagePath('notifications', 'notifications') + '">' +
 		'  </div>' +
 		'  <div class="notification-container">' +
@@ -74,8 +74,7 @@
 		'    {{/each}}' +
 		'  </div>' +
 		'  <div style="display: none;" class="notification-delete">' +
-		'    <img class="svg" alt="' + t('notifications', 'Dismiss') + '"' +
-		'      src="' + OC.imagePath('core', 'actions/close') + '">' +
+		'    <div class="icon icon-close svg" title="' + t('notifications', 'Dismiss') + '"></div>' +
 		'  </div>' +
 		'</div>',
 
@@ -91,7 +90,7 @@
 			this.$container = this.$notifications.find('.notification-container');
 
 			// Add to the UI
-			$('form.searchbox').before(this.$notifications);
+			$('form.searchbox').after(this.$notifications);
 
 			// Initial call to the notification endpoint
 			this.initialFetch();
@@ -365,6 +364,14 @@
 				}
 			});
 
+			$element.find('.avatar-name-wrapper').each(function() {
+				var element = $(this);
+				var avatar = element.find('.avatar');
+				var label = element.find('strong');
+
+				$.merge(avatar, label).contactsMenu(element.data('user'), 0, element);
+			});
+
 			$element.find('.has-tooltip').tooltip({
 				placement: 'bottom'
 			});
@@ -385,11 +392,10 @@
 			}
 			this.$button.addClass('hasNotifications');
 			this.$button.find('img').attr('src', OC.imagePath('notifications', icon))
-				.animate({opacity: 0.5}, 600)
+				.animate({opacity: 0.6}, 600)
 				.animate({opacity: 1}, 600)
-				.animate({opacity: 0.5}, 600)
-				.animate({opacity: 1}, 600)
-				.animate({opacity: 0.7}, 600);
+				.animate({opacity: 0.6}, 600)
+				.animate({opacity: 1}, 600);
 			this.$container.find('.emptycontent').addClass('hidden');
 
 			this.$notifications.removeClass('hidden');

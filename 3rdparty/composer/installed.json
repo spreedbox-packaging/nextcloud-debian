@@ -1,274 +1,5 @@
 [
     {
-        "name": "guzzle/common",
-        "version": "v3.8.1",
-        "version_normalized": "3.8.1.0",
-        "target-dir": "Guzzle/Common",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Guzzle3/common.git",
-            "reference": "67f6c3fd04bae387d47c2a673fa623ed8f4189bb"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Guzzle3/common/zipball/67f6c3fd04bae387d47c2a673fa623ed8f4189bb",
-            "reference": "67f6c3fd04bae387d47c2a673fa623ed8f4189bb",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.2",
-            "symfony/event-dispatcher": ">=2.1"
-        },
-        "time": "2014-01-28T22:29:15+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.7-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Guzzle\\Common": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "description": "Common libraries used by Guzzle",
-        "homepage": "http://guzzlephp.org/",
-        "keywords": [
-            "collection",
-            "common",
-            "event",
-            "exception"
-        ],
-        "abandoned": "guzzle/guzzle"
-    },
-    {
-        "name": "guzzle/stream",
-        "version": "v3.8.1",
-        "version_normalized": "3.8.1.0",
-        "target-dir": "Guzzle/Stream",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Guzzle3/stream.git",
-            "reference": "fa8af730ca714861c0001cfba64aaecc5f21bb96"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Guzzle3/stream/zipball/fa8af730ca714861c0001cfba64aaecc5f21bb96",
-            "reference": "fa8af730ca714861c0001cfba64aaecc5f21bb96",
-            "shasum": ""
-        },
-        "require": {
-            "guzzle/common": "self.version",
-            "php": ">=5.3.2"
-        },
-        "suggest": {
-            "guzzle/http": "To convert Guzzle request objects to PHP streams"
-        },
-        "time": "2014-01-28T22:14:17+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.7-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Guzzle\\Stream": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Michael Dowling",
-                "email": "mtdowling@gmail.com",
-                "homepage": "https://github.com/mtdowling"
-            }
-        ],
-        "description": "Guzzle stream wrapper component",
-        "homepage": "http://guzzlephp.org/",
-        "keywords": [
-            "Guzzle",
-            "component",
-            "stream"
-        ],
-        "abandoned": "guzzle/guzzle"
-    },
-    {
-        "name": "guzzle/parser",
-        "version": "v3.8.1",
-        "version_normalized": "3.8.1.0",
-        "target-dir": "Guzzle/Parser",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Guzzle3/parser.git",
-            "reference": "3f52387052f2e4ef083145a0f73c3654aa14e086"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Guzzle3/parser/zipball/3f52387052f2e4ef083145a0f73c3654aa14e086",
-            "reference": "3f52387052f2e4ef083145a0f73c3654aa14e086",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.2"
-        },
-        "time": "2013-10-24T00:04:09+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.7-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Guzzle\\Parser": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "description": "Interchangeable parsers used by Guzzle",
-        "homepage": "http://guzzlephp.org/",
-        "keywords": [
-            "URI Template",
-            "cookie",
-            "http",
-            "message",
-            "url"
-        ],
-        "abandoned": "guzzle/guzzle"
-    },
-    {
-        "name": "guzzle/http",
-        "version": "v3.8.1",
-        "version_normalized": "3.8.1.0",
-        "target-dir": "Guzzle/Http",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Guzzle3/http.git",
-            "reference": "565fd64be16d91c840f497c5de76f86d54a822d8"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Guzzle3/http/zipball/565fd64be16d91c840f497c5de76f86d54a822d8",
-            "reference": "565fd64be16d91c840f497c5de76f86d54a822d8",
-            "shasum": ""
-        },
-        "require": {
-            "guzzle/common": "self.version",
-            "guzzle/parser": "self.version",
-            "guzzle/stream": "self.version",
-            "php": ">=5.3.2"
-        },
-        "suggest": {
-            "ext-curl": "*"
-        },
-        "time": "2014-01-23T18:23:29+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.7-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Guzzle\\Http": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Michael Dowling",
-                "email": "mtdowling@gmail.com",
-                "homepage": "https://github.com/mtdowling"
-            }
-        ],
-        "description": "HTTP libraries used by Guzzle",
-        "homepage": "http://guzzlephp.org/",
-        "keywords": [
-            "Guzzle",
-            "client",
-            "curl",
-            "http",
-            "http client"
-        ],
-        "abandoned": "guzzle/guzzle"
-    },
-    {
-        "name": "rackspace/php-opencloud",
-        "version": "v1.9.2",
-        "version_normalized": "1.9.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/rackspace/php-opencloud.git",
-            "reference": "6551de7aebcebb369d025662f99ab27c9b4527ac"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/rackspace/php-opencloud/zipball/6551de7aebcebb369d025662f99ab27c9b4527ac",
-            "reference": "6551de7aebcebb369d025662f99ab27c9b4527ac",
-            "shasum": ""
-        },
-        "require": {
-            "guzzle/http": "3.8.*@dev",
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "guzzle/guzzle": "dev-master",
-            "psr/log": "1.0.*",
-            "satooshi/php-coveralls": "0.6.*@dev"
-        },
-        "time": "2014-02-06T20:53:21+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "OpenCloud": [
-                    "lib/",
-                    "tests/"
-                ]
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Glen Campbell",
-                "email": "glen.campbell@rackspace.com"
-            },
-            {
-                "name": "Jamie Hannaford",
-                "email": "jamie.hannaford@rackspace.com",
-                "homepage": "https://github.com/jamiehannaford"
-            }
-        ],
-        "description": "PHP SDK for Rackspace/OpenStack APIs",
-        "keywords": [
-            "Openstack",
-            "nova",
-            "opencloud",
-            "rackspace",
-            "swift"
-        ]
-    },
-    {
         "name": "bantu/ini-get-wrapper",
         "version": "v1.0.1",
         "version_normalized": "1.0.1.0",
@@ -342,60 +73,6 @@
         "keywords": [
             "css",
             "minify"
-        ]
-    },
-    {
-        "name": "swiftmailer/swiftmailer",
-        "version": "v5.3.1",
-        "version_normalized": "5.3.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/swiftmailer/swiftmailer.git",
-            "reference": "c5f963e7f9d6f6438fda4f22d5cc2db296ec621a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/c5f963e7f9d6f6438fda4f22d5cc2db296ec621a",
-            "reference": "c5f963e7f9d6f6438fda4f22d5cc2db296ec621a",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "mockery/mockery": "~0.9.1"
-        },
-        "time": "2014-12-05T14:17:14+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "5.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "lib/swift_required.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Chris Corbyn"
-            },
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            }
-        ],
-        "description": "Swiftmailer, free feature-rich PHP mailer",
-        "homepage": "http://swiftmailer.org",
-        "keywords": [
-            "mail",
-            "mailer"
         ]
     },
     {
@@ -678,52 +355,6 @@
             "docblock",
             "parser"
         ]
-    },
-    {
-        "name": "pear/pear-core-minimal",
-        "version": "v1.10.1",
-        "version_normalized": "1.10.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/pear/pear-core-minimal.git",
-            "reference": "cae0f1ce0cb5bddb611b0a652d322905a65a5896"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/pear/pear-core-minimal/zipball/cae0f1ce0cb5bddb611b0a652d322905a65a5896",
-            "reference": "cae0f1ce0cb5bddb611b0a652d322905a65a5896",
-            "shasum": ""
-        },
-        "require": {
-            "pear/console_getopt": "~1.3",
-            "pear/pear_exception": "~1.0"
-        },
-        "replace": {
-            "rsky/pear-core-min": "self.version"
-        },
-        "time": "2015-10-17T11:41:19+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "include-path": [
-            "src/"
-        ],
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Christian Weiske",
-                "email": "cweiske@php.net",
-                "role": "Lead"
-            }
-        ],
-        "description": "Minimal set of PEAR core files to be used as composer dependency"
     },
     {
         "name": "pimple/pimple",
@@ -1012,73 +643,6 @@
         ]
     },
     {
-        "name": "punic/punic",
-        "version": "1.6.3",
-        "version_normalized": "1.6.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/punic/punic.git",
-            "reference": "5805b35d6a574f754b49be1f539aaf3ae6484808"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/punic/punic/zipball/5805b35d6a574f754b49be1f539aaf3ae6484808",
-            "reference": "5805b35d6a574f754b49be1f539aaf3ae6484808",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3"
-        },
-        "replace": {
-            "punic/calendar": "*",
-            "punic/common": "*"
-        },
-        "require-dev": {
-            "apigen/apigen": "4.0.*"
-        },
-        "time": "2015-06-16T13:04:27+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Punic\\": "code/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Michele Locati",
-                "email": "mlocati@gmail.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Remo Laubacher",
-                "email": "remo.laubacher@gmail.com",
-                "role": "Collaborator, motivator and perfectionist supporter"
-            }
-        ],
-        "description": "PHP-Unicode CLDR",
-        "homepage": "https://github.com/punic/punic",
-        "keywords": [
-            "calendar",
-            "cldr",
-            "date",
-            "date-time",
-            "i18n",
-            "internationalization",
-            "l10n",
-            "localization",
-            "php",
-            "time",
-            "translate",
-            "translations",
-            "unicode"
-        ]
-    },
-    {
         "name": "jeremeamia/SuperClosure",
         "version": "2.1.0",
         "version_normalized": "2.1.0.0",
@@ -1252,63 +816,6 @@
             "pluralize",
             "singularize",
             "string"
-        ]
-    },
-    {
-        "name": "sabre/http",
-        "version": "4.2.1",
-        "version_normalized": "4.2.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fruux/sabre-http.git",
-            "reference": "2e93bc8321524c67be4ca5b8415daebd4c8bf85e"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fruux/sabre-http/zipball/2e93bc8321524c67be4ca5b8415daebd4c8bf85e",
-            "reference": "2e93bc8321524c67be4ca5b8415daebd4c8bf85e",
-            "shasum": ""
-        },
-        "require": {
-            "ext-mbstring": "*",
-            "php": ">=5.4",
-            "sabre/event": ">=1.0.0,<4.0.0",
-            "sabre/uri": "~1.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "~4.3",
-            "sabre/cs": "~0.0.1"
-        },
-        "suggest": {
-            "ext-curl": " to make http requests with the Client class"
-        },
-        "time": "2016-01-06T23:00:08+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "lib/functions.php"
-            ],
-            "psr-4": {
-                "Sabre\\HTTP\\": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Evert Pot",
-                "email": "me@evertpot.com",
-                "homepage": "http://evertpot.com/",
-                "role": "Developer"
-            }
-        ],
-        "description": "The sabre/http library provides utilities for dealing with http requests and responses. ",
-        "homepage": "https://github.com/fruux/sabre-http",
-        "keywords": [
-            "http"
         ]
     },
     {
@@ -1634,91 +1141,6 @@
             "polyfill",
             "portable",
             "shim"
-        ]
-    },
-    {
-        "name": "league/flysystem",
-        "version": "1.0.20",
-        "version_normalized": "1.0.20.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/thephpleague/flysystem.git",
-            "reference": "e87a786e3ae12a25cf78a71bb07b4b384bfaa83a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/e87a786e3ae12a25cf78a71bb07b4b384bfaa83a",
-            "reference": "e87a786e3ae12a25cf78a71bb07b4b384bfaa83a",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4.0"
-        },
-        "conflict": {
-            "league/flysystem-sftp": "<1.0.6"
-        },
-        "require-dev": {
-            "ext-fileinfo": "*",
-            "mockery/mockery": "~0.9",
-            "phpspec/phpspec": "^2.2",
-            "phpunit/phpunit": "~4.8 || ~5.0"
-        },
-        "suggest": {
-            "ext-fileinfo": "Required for MimeType",
-            "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
-            "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
-            "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
-            "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
-            "league/flysystem-copy": "Allows you to use Copy.com storage",
-            "league/flysystem-dropbox": "Allows you to use Dropbox storage",
-            "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
-            "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
-            "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
-            "league/flysystem-webdav": "Allows you to use WebDAV storage",
-            "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter"
-        },
-        "time": "2016-03-14T21:54:11+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "League\\Flysystem\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Frank de Jonge",
-                "email": "info@frenky.net"
-            }
-        ],
-        "description": "Filesystem abstraction: Many filesystems, one API.",
-        "keywords": [
-            "Cloud Files",
-            "WebDAV",
-            "abstraction",
-            "aws",
-            "cloud",
-            "copy.com",
-            "dropbox",
-            "file systems",
-            "files",
-            "filesystem",
-            "filesystems",
-            "ftp",
-            "rackspace",
-            "remote",
-            "s3",
-            "sftp",
-            "storage"
         ]
     },
     {
@@ -2062,100 +1484,6 @@
         ]
     },
     {
-        "name": "phpseclib/phpseclib",
-        "version": "2.0.3",
-        "version_normalized": "2.0.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/phpseclib/phpseclib.git",
-            "reference": "41f85e9c2582b3f6d1b7d20395fb40c687ad5370"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/41f85e9c2582b3f6d1b7d20395fb40c687ad5370",
-            "reference": "41f85e9c2582b3f6d1b7d20395fb40c687ad5370",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "phing/phing": "~2.7",
-            "phpunit/phpunit": "~4.0",
-            "sami/sami": "~2.0",
-            "squizlabs/php_codesniffer": "~2.0"
-        },
-        "suggest": {
-            "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
-            "ext-libsodium": "SSH2/SFTP can make use of some algorithms provided by the libsodium-php extension.",
-            "ext-mcrypt": "Install the Mcrypt extension in order to speed up a few other cryptographic operations.",
-            "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations."
-        },
-        "time": "2016-08-18T18:49:14+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "phpseclib/bootstrap.php"
-            ],
-            "psr-4": {
-                "phpseclib\\": "phpseclib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jim Wigginton",
-                "email": "terrafrost@php.net",
-                "role": "Lead Developer"
-            },
-            {
-                "name": "Patrick Monnerat",
-                "email": "pm@datasphere.ch",
-                "role": "Developer"
-            },
-            {
-                "name": "Andreas Fischer",
-                "email": "bantu@phpbb.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Hans-Jürgen Petrich",
-                "email": "petrich@tronic-media.com",
-                "role": "Developer"
-            },
-            {
-                "name": "Graham Campbell",
-                "email": "graham@alt-three.com",
-                "role": "Developer"
-            }
-        ],
-        "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
-        "homepage": "http://phpseclib.sourceforge.net",
-        "keywords": [
-            "BigInteger",
-            "aes",
-            "asn.1",
-            "asn1",
-            "blowfish",
-            "crypto",
-            "cryptography",
-            "encryption",
-            "rsa",
-            "security",
-            "sftp",
-            "signature",
-            "signing",
-            "ssh",
-            "twofish",
-            "x.509",
-            "x509"
-        ]
-    },
-    {
         "name": "symfony/event-dispatcher",
         "version": "v3.1.4",
         "version_normalized": "3.1.4.0",
@@ -2412,79 +1740,6 @@
         ]
     },
     {
-        "name": "doctrine/dbal",
-        "version": "v2.5.5",
-        "version_normalized": "2.5.5.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/doctrine/dbal.git",
-            "reference": "9f8c05cd5225a320d56d4bfdb4772f10d045a0c9"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/dbal/zipball/9f8c05cd5225a320d56d4bfdb4772f10d045a0c9",
-            "reference": "9f8c05cd5225a320d56d4bfdb4772f10d045a0c9",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/common": ">=2.4,<2.7-dev",
-            "php": ">=5.3.2"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "4.*",
-            "symfony/console": "2.*||^3.0"
-        },
-        "suggest": {
-            "symfony/console": "For helpful console commands such as SQL execution and import of files."
-        },
-        "time": "2016-09-09T19:13:33+00:00",
-        "bin": [
-            "bin/doctrine-dbal"
-        ],
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.5.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Doctrine\\DBAL\\": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Roman Borschel",
-                "email": "roman@code-factory.org"
-            },
-            {
-                "name": "Benjamin Eberlei",
-                "email": "kontakt@beberlei.de"
-            },
-            {
-                "name": "Guilherme Blanco",
-                "email": "guilhermeblanco@gmail.com"
-            },
-            {
-                "name": "Jonathan Wage",
-                "email": "jonwage@gmail.com"
-            }
-        ],
-        "description": "Database Abstraction Layer",
-        "homepage": "http://www.doctrine-project.org",
-        "keywords": [
-            "database",
-            "dbal",
-            "persistence",
-            "queryobject"
-        ]
-    },
-    {
         "name": "symfony/process",
         "version": "v3.1.5",
         "version_normalized": "3.1.5.0",
@@ -2534,59 +1789,6 @@
         ],
         "description": "Symfony Process Component",
         "homepage": "https://symfony.com"
-    },
-    {
-        "name": "sabre/uri",
-        "version": "1.1.1",
-        "version_normalized": "1.1.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fruux/sabre-uri.git",
-            "reference": "258b72540fe3f2c0bb395cb40e56f9ae409f93b5"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fruux/sabre-uri/zipball/258b72540fe3f2c0bb395cb40e56f9ae409f93b5",
-            "reference": "258b72540fe3f2c0bb395cb40e56f9ae409f93b5",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4.7"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "*",
-            "sabre/cs": "~1.0.0"
-        },
-        "time": "2016-10-27T04:56:33+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "lib/functions.php"
-            ],
-            "psr-4": {
-                "Sabre\\Uri\\": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Evert Pot",
-                "email": "me@evertpot.com",
-                "homepage": "http://evertpot.com/",
-                "role": "Developer"
-            }
-        ],
-        "description": "Functions for making sense out of URIs.",
-        "homepage": "http://sabre.io/uri/",
-        "keywords": [
-            "rfc3986",
-            "uri",
-            "url"
-        ]
     },
     {
         "name": "sabre/xml",
@@ -2651,105 +1853,6 @@
             "XMLWriter",
             "dom",
             "xml"
-        ]
-    },
-    {
-        "name": "sabre/vobject",
-        "version": "4.1.1",
-        "version_normalized": "4.1.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/fruux/sabre-vobject.git",
-            "reference": "a3a59b06947f122af2d45d52b72172cdc1efd68f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/a3a59b06947f122af2d45d52b72172cdc1efd68f",
-            "reference": "a3a59b06947f122af2d45d52b72172cdc1efd68f",
-            "shasum": ""
-        },
-        "require": {
-            "ext-mbstring": "*",
-            "php": ">=5.5",
-            "sabre/xml": "~1.1"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "*",
-            "sabre/cs": "~0.0.3"
-        },
-        "suggest": {
-            "hoa/bench": "If you would like to run the benchmark scripts"
-        },
-        "time": "2016-07-15T19:52:17+00:00",
-        "bin": [
-            "bin/vobject",
-            "bin/generate_vcards"
-        ],
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "4.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Sabre\\VObject\\": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Evert Pot",
-                "email": "me@evertpot.com",
-                "homepage": "http://evertpot.com/",
-                "role": "Developer"
-            },
-            {
-                "name": "Dominik Tobschall",
-                "email": "dominik@fruux.com",
-                "homepage": "http://tobschall.de/",
-                "role": "Developer"
-            },
-            {
-                "name": "Ivan Enderlin",
-                "email": "ivan.enderlin@hoa-project.net",
-                "homepage": "http://mnt.io/",
-                "role": "Developer"
-            }
-        ],
-        "description": "The VObject library for PHP allows you to easily parse and manipulate iCalendar and vCard objects",
-        "homepage": "http://sabre.io/vobject/",
-        "keywords": [
-            "availability",
-            "freebusy",
-            "iCalendar",
-            "ical",
-            "ics",
-            "jCal",
-            "jCard",
-            "recurrence",
-            "rfc2425",
-            "rfc2426",
-            "rfc2739",
-            "rfc4770",
-            "rfc5545",
-            "rfc5546",
-            "rfc6321",
-            "rfc6350",
-            "rfc6351",
-            "rfc6474",
-            "rfc6638",
-            "rfc6715",
-            "rfc6868",
-            "vCalendar",
-            "vCard",
-            "vcf",
-            "xCal",
-            "xCard"
         ]
     },
     {
@@ -2861,88 +1964,59 @@
         ]
     },
     {
-        "name": "sabre/dav",
-        "version": "3.2.0",
-        "version_normalized": "3.2.0.0",
+        "name": "swiftmailer/swiftmailer",
+        "version": "v5.4.5",
+        "version_normalized": "5.4.5.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/fruux/sabre-dav.git",
-            "reference": "5b9737cc2f0182e368d14c80df7f6b2d77dc1457"
+            "url": "https://github.com/swiftmailer/swiftmailer.git",
+            "reference": "cd142238a339459b10da3d8234220963f392540c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fruux/sabre-dav/zipball/5b9737cc2f0182e368d14c80df7f6b2d77dc1457",
-            "reference": "5b9737cc2f0182e368d14c80df7f6b2d77dc1457",
+            "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/cd142238a339459b10da3d8234220963f392540c",
+            "reference": "cd142238a339459b10da3d8234220963f392540c",
             "shasum": ""
         },
         "require": {
-            "ext-ctype": "*",
-            "ext-date": "*",
-            "ext-dom": "*",
-            "ext-iconv": "*",
-            "ext-mbstring": "*",
-            "ext-pcre": "*",
-            "ext-simplexml": "*",
-            "ext-spl": "*",
-            "lib-libxml": ">=2.7.0",
-            "php": ">=5.5.0",
-            "psr/log": "^1.0",
-            "sabre/event": ">=2.0.0, <4.0.0",
-            "sabre/http": "^4.2.1",
-            "sabre/uri": "^1.0.1",
-            "sabre/vobject": "^4.1.0",
-            "sabre/xml": "^1.4.0"
+            "php": ">=5.3.3"
         },
         "require-dev": {
-            "evert/phpdoc-md": "~0.1.0",
-            "monolog/monolog": "^1.18",
-            "phpunit/phpunit": "> 4.8, <=6.0.0",
-            "sabre/cs": "~0.0.5"
+            "mockery/mockery": "~0.9.1",
+            "symfony/phpunit-bridge": "~3.2"
         },
-        "suggest": {
-            "ext-curl": "*",
-            "ext-pdo": "*"
-        },
-        "time": "2016-06-28T02:44:05+00:00",
-        "bin": [
-            "bin/sabredav",
-            "bin/naturalselection"
-        ],
+        "time": "2016-12-29T10:02:40+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "3.1.0-dev"
+                "dev-master": "5.4-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
-            "psr-4": {
-                "Sabre\\DAV\\": "lib/DAV/",
-                "Sabre\\DAVACL\\": "lib/DAVACL/",
-                "Sabre\\CalDAV\\": "lib/CalDAV/",
-                "Sabre\\CardDAV\\": "lib/CardDAV/"
-            }
+            "files": [
+                "lib/swift_required.php"
+            ]
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "BSD-3-Clause"
+            "MIT"
         ],
         "authors": [
             {
-                "name": "Evert Pot",
-                "email": "me@evertpot.com",
-                "homepage": "http://evertpot.com/",
-                "role": "Developer"
+                "name": "Chris Corbyn"
+            },
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
             }
         ],
-        "description": "WebDAV Framework for PHP",
-        "homepage": "http://sabre.io/",
+        "description": "Swiftmailer, free feature-rich PHP mailer",
+        "homepage": "http://swiftmailer.org",
         "keywords": [
-            "CalDAV",
-            "CardDAV",
-            "WebDAV",
-            "framework",
-            "iCalendar"
+            "email",
+            "mail",
+            "mailer"
         ]
     },
     {
@@ -2987,5 +2061,946 @@
             }
         ],
         "description": "A set of generic stream wrappers"
+    },
+    {
+        "name": "doctrine/dbal",
+        "version": "v2.5.9",
+        "version_normalized": "2.5.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/doctrine/dbal.git",
+            "reference": "0d2f8187d4b4c7b72d8e2acba359e25c36feaf5e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/doctrine/dbal/zipball/0d2f8187d4b4c7b72d8e2acba359e25c36feaf5e",
+            "reference": "0d2f8187d4b4c7b72d8e2acba359e25c36feaf5e",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/common": ">=2.4,<2.8-dev",
+            "php": ">=5.3.2"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.*",
+            "symfony/console": "2.*||^3.0"
+        },
+        "suggest": {
+            "symfony/console": "For helpful console commands such as SQL execution and import of files."
+        },
+        "time": "2017-01-19T13:27:33+00:00",
+        "bin": [
+            "bin/doctrine-dbal"
+        ],
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.5.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Doctrine\\DBAL\\": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Roman Borschel",
+                "email": "roman@code-factory.org"
+            },
+            {
+                "name": "Benjamin Eberlei",
+                "email": "kontakt@beberlei.de"
+            },
+            {
+                "name": "Guilherme Blanco",
+                "email": "guilhermeblanco@gmail.com"
+            },
+            {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com"
+            }
+        ],
+        "description": "Database Abstraction Layer",
+        "homepage": "http://www.doctrine-project.org",
+        "keywords": [
+            "database",
+            "dbal",
+            "persistence",
+            "queryobject"
+        ]
+    },
+    {
+        "name": "sabre/uri",
+        "version": "1.2.1",
+        "version_normalized": "1.2.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fruux/sabre-uri.git",
+            "reference": "ada354d83579565949d80b2e15593c2371225e61"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fruux/sabre-uri/zipball/ada354d83579565949d80b2e15593c2371225e61",
+            "reference": "ada354d83579565949d80b2e15593c2371225e61",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.7"
+        },
+        "require-dev": {
+            "phpunit/phpunit": ">=4.0,<6.0",
+            "sabre/cs": "~1.0.0"
+        },
+        "time": "2017-02-20T19:59:28+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "lib/functions.php"
+            ],
+            "psr-4": {
+                "Sabre\\Uri\\": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Evert Pot",
+                "email": "me@evertpot.com",
+                "homepage": "http://evertpot.com/",
+                "role": "Developer"
+            }
+        ],
+        "description": "Functions for making sense out of URIs.",
+        "homepage": "http://sabre.io/uri/",
+        "keywords": [
+            "rfc3986",
+            "uri",
+            "url"
+        ]
+    },
+    {
+        "name": "sabre/vobject",
+        "version": "4.1.2",
+        "version_normalized": "4.1.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fruux/sabre-vobject.git",
+            "reference": "d0fde2fafa2a3dad1f559c2d1c2591d4fd75ae3c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/d0fde2fafa2a3dad1f559c2d1c2591d4fd75ae3c",
+            "reference": "d0fde2fafa2a3dad1f559c2d1c2591d4fd75ae3c",
+            "shasum": ""
+        },
+        "require": {
+            "ext-mbstring": "*",
+            "php": ">=5.5",
+            "sabre/xml": ">=1.5 <3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "*",
+            "sabre/cs": "^1.0.0"
+        },
+        "suggest": {
+            "hoa/bench": "If you would like to run the benchmark scripts"
+        },
+        "time": "2016-12-06T04:14:09+00:00",
+        "bin": [
+            "bin/vobject",
+            "bin/generate_vcards"
+        ],
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Sabre\\VObject\\": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Evert Pot",
+                "email": "me@evertpot.com",
+                "homepage": "http://evertpot.com/",
+                "role": "Developer"
+            },
+            {
+                "name": "Dominik Tobschall",
+                "email": "dominik@fruux.com",
+                "homepage": "http://tobschall.de/",
+                "role": "Developer"
+            },
+            {
+                "name": "Ivan Enderlin",
+                "email": "ivan.enderlin@hoa-project.net",
+                "homepage": "http://mnt.io/",
+                "role": "Developer"
+            }
+        ],
+        "description": "The VObject library for PHP allows you to easily parse and manipulate iCalendar and vCard objects",
+        "homepage": "http://sabre.io/vobject/",
+        "keywords": [
+            "availability",
+            "freebusy",
+            "iCalendar",
+            "ical",
+            "ics",
+            "jCal",
+            "jCard",
+            "recurrence",
+            "rfc2425",
+            "rfc2426",
+            "rfc2739",
+            "rfc4770",
+            "rfc5545",
+            "rfc5546",
+            "rfc6321",
+            "rfc6350",
+            "rfc6351",
+            "rfc6474",
+            "rfc6638",
+            "rfc6715",
+            "rfc6868",
+            "vCalendar",
+            "vCard",
+            "vcf",
+            "xCal",
+            "xCard"
+        ]
+    },
+    {
+        "name": "sabre/http",
+        "version": "4.2.2",
+        "version_normalized": "4.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fruux/sabre-http.git",
+            "reference": "dd50e7260356f4599d40270826f9548b23efa204"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fruux/sabre-http/zipball/dd50e7260356f4599d40270826f9548b23efa204",
+            "reference": "dd50e7260356f4599d40270826f9548b23efa204",
+            "shasum": ""
+        },
+        "require": {
+            "ext-ctype": "*",
+            "ext-mbstring": "*",
+            "php": ">=5.4",
+            "sabre/event": ">=1.0.0,<4.0.0",
+            "sabre/uri": "~1.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.3",
+            "sabre/cs": "~0.0.1"
+        },
+        "suggest": {
+            "ext-curl": " to make http requests with the Client class"
+        },
+        "time": "2017-01-02T19:38:42+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "lib/functions.php"
+            ],
+            "psr-4": {
+                "Sabre\\HTTP\\": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Evert Pot",
+                "email": "me@evertpot.com",
+                "homepage": "http://evertpot.com/",
+                "role": "Developer"
+            }
+        ],
+        "description": "The sabre/http library provides utilities for dealing with http requests and responses. ",
+        "homepage": "https://github.com/fruux/sabre-http",
+        "keywords": [
+            "http"
+        ]
+    },
+    {
+        "name": "sabre/dav",
+        "version": "3.2.2",
+        "version_normalized": "3.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fruux/sabre-dav.git",
+            "reference": "e987775e619728f12205606c9cc3ee565ffb1516"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/fruux/sabre-dav/zipball/e987775e619728f12205606c9cc3ee565ffb1516",
+            "reference": "e987775e619728f12205606c9cc3ee565ffb1516",
+            "shasum": ""
+        },
+        "require": {
+            "ext-ctype": "*",
+            "ext-date": "*",
+            "ext-dom": "*",
+            "ext-iconv": "*",
+            "ext-mbstring": "*",
+            "ext-pcre": "*",
+            "ext-simplexml": "*",
+            "ext-spl": "*",
+            "lib-libxml": ">=2.7.0",
+            "php": ">=5.5.0",
+            "psr/log": "^1.0",
+            "sabre/event": ">=2.0.0, <4.0.0",
+            "sabre/http": "^4.2.1",
+            "sabre/uri": "^1.0.1",
+            "sabre/vobject": "^4.1.0",
+            "sabre/xml": "^1.4.0"
+        },
+        "require-dev": {
+            "evert/phpdoc-md": "~0.1.0",
+            "monolog/monolog": "^1.18",
+            "phpunit/phpunit": "> 4.8, <6.0.0",
+            "sabre/cs": "^1.0.0"
+        },
+        "suggest": {
+            "ext-curl": "*",
+            "ext-pdo": "*"
+        },
+        "time": "2017-02-15T03:06:08+00:00",
+        "bin": [
+            "bin/sabredav",
+            "bin/naturalselection"
+        ],
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Sabre\\DAV\\": "lib/DAV/",
+                "Sabre\\DAVACL\\": "lib/DAVACL/",
+                "Sabre\\CalDAV\\": "lib/CalDAV/",
+                "Sabre\\CardDAV\\": "lib/CardDAV/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Evert Pot",
+                "email": "me@evertpot.com",
+                "homepage": "http://evertpot.com/",
+                "role": "Developer"
+            }
+        ],
+        "description": "WebDAV Framework for PHP",
+        "homepage": "http://sabre.io/",
+        "keywords": [
+            "CalDAV",
+            "CardDAV",
+            "WebDAV",
+            "framework",
+            "iCalendar"
+        ]
+    },
+    {
+        "name": "icewind/searchdav",
+        "version": "v0.3.1",
+        "version_normalized": "0.3.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/icewind1991/SearchDAV.git",
+            "reference": "3071937c64a5e45d23c2600e5524538694e03042"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/icewind1991/SearchDAV/zipball/3071937c64a5e45d23c2600e5524538694e03042",
+            "reference": "3071937c64a5e45d23c2600e5524538694e03042",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6",
+            "sabre/dav": "^3.2.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^4.8"
+        },
+        "time": "2017-03-15T13:21:40+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "SearchDAV\\": "src/",
+                "SearchDAV\\Test\\": "tests/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "AGPL"
+        ],
+        "authors": [
+            {
+                "name": "Robin Appelman",
+                "email": "robin@icewind.nl"
+            }
+        ],
+        "description": "sabre/dav plugin to implement rfc5323 SEARCH"
+    },
+    {
+        "name": "punic/punic",
+        "version": "1.6.5",
+        "version_normalized": "1.6.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/punic/punic.git",
+            "reference": "7bc85ce1137cf52db4d2a6298256a4c4a24da99a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/punic/punic/zipball/7bc85ce1137cf52db4d2a6298256a4c4a24da99a",
+            "reference": "7bc85ce1137cf52db4d2a6298256a4c4a24da99a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3"
+        },
+        "replace": {
+            "punic/calendar": "*",
+            "punic/common": "*"
+        },
+        "require-dev": {
+            "apigen/apigen": "4.0.*"
+        },
+        "time": "2017-02-03T16:13:09+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Punic\\": "code/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michele Locati",
+                "email": "mlocati@gmail.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Remo Laubacher",
+                "email": "remo.laubacher@gmail.com",
+                "role": "Collaborator, motivator and perfectionist supporter"
+            }
+        ],
+        "description": "PHP-Unicode CLDR",
+        "homepage": "https://github.com/punic/punic",
+        "keywords": [
+            "calendar",
+            "cldr",
+            "date",
+            "date-time",
+            "i18n",
+            "internationalization",
+            "l10n",
+            "localization",
+            "php",
+            "time",
+            "translate",
+            "translations",
+            "unicode"
+        ]
+    },
+    {
+        "name": "league/flysystem",
+        "version": "1.0.37",
+        "version_normalized": "1.0.37.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/thephpleague/flysystem.git",
+            "reference": "78b5cc4feb61a882302df4fbaf63b7662e5e4ccd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/78b5cc4feb61a882302df4fbaf63b7662e5e4ccd",
+            "reference": "78b5cc4feb61a882302df4fbaf63b7662e5e4ccd",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.9"
+        },
+        "conflict": {
+            "league/flysystem-sftp": "<1.0.6"
+        },
+        "require-dev": {
+            "ext-fileinfo": "*",
+            "mockery/mockery": "~0.9",
+            "phpspec/phpspec": "^2.2",
+            "phpunit/phpunit": "~4.8"
+        },
+        "suggest": {
+            "ext-fileinfo": "Required for MimeType",
+            "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
+            "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
+            "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
+            "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
+            "league/flysystem-copy": "Allows you to use Copy.com storage",
+            "league/flysystem-dropbox": "Allows you to use Dropbox storage",
+            "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
+            "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
+            "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
+            "league/flysystem-webdav": "Allows you to use WebDAV storage",
+            "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter"
+        },
+        "time": "2017-03-22T15:43:14+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\Flysystem\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Frank de Jonge",
+                "email": "info@frenky.net"
+            }
+        ],
+        "description": "Filesystem abstraction: Many filesystems, one API.",
+        "keywords": [
+            "Cloud Files",
+            "WebDAV",
+            "abstraction",
+            "aws",
+            "cloud",
+            "copy.com",
+            "dropbox",
+            "file systems",
+            "files",
+            "filesystem",
+            "filesystems",
+            "ftp",
+            "rackspace",
+            "remote",
+            "s3",
+            "sftp",
+            "storage"
+        ]
+    },
+    {
+        "name": "pear/pear-core-minimal",
+        "version": "v1.10.3",
+        "version_normalized": "1.10.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/pear/pear-core-minimal.git",
+            "reference": "070f0b600b2caca2501e2c9b7e553016e4b0d115"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/pear/pear-core-minimal/zipball/070f0b600b2caca2501e2c9b7e553016e4b0d115",
+            "reference": "070f0b600b2caca2501e2c9b7e553016e4b0d115",
+            "shasum": ""
+        },
+        "require": {
+            "pear/console_getopt": "~1.4",
+            "pear/pear_exception": "~1.0"
+        },
+        "replace": {
+            "rsky/pear-core-min": "self.version"
+        },
+        "time": "2017-02-28T16:46:11+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "include-path": [
+            "src/"
+        ],
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Christian Weiske",
+                "email": "cweiske@php.net",
+                "role": "Lead"
+            }
+        ],
+        "description": "Minimal set of PEAR core files to be used as composer dependency"
+    },
+    {
+        "name": "leafo/scssphp",
+        "version": "v0.6.7",
+        "version_normalized": "0.6.7.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/leafo/scssphp.git",
+            "reference": "562213cd803e42ea53b0735554794c4022d8db89"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/leafo/scssphp/zipball/562213cd803e42ea53b0735554794c4022d8db89",
+            "reference": "562213cd803e42ea53b0735554794c4022d8db89",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "kherge/box": "~2.5",
+            "phpunit/phpunit": "~3.7",
+            "squizlabs/php_codesniffer": "~2.5"
+        },
+        "time": "2017-02-23T05:07:33+00:00",
+        "bin": [
+            "bin/pscss"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Leafo\\ScssPhp\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Leaf Corcoran",
+                "email": "leafot@gmail.com",
+                "homepage": "http://leafo.net"
+            }
+        ],
+        "description": "scssphp is a compiler for SCSS written in PHP.",
+        "homepage": "http://leafo.github.io/scssphp/",
+        "keywords": [
+            "css",
+            "less",
+            "sass",
+            "scss",
+            "stylesheet"
+        ]
+    },
+    {
+        "name": "mikemccabe/json-patch-php",
+        "version": "0.1.0",
+        "version_normalized": "0.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mikemccabe/json-patch-php.git",
+            "reference": "b3af30a6aec7f6467c773cd49b2d974a70f7c0d4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mikemccabe/json-patch-php/zipball/b3af30a6aec7f6467c773cd49b2d974a70f7c0d4",
+            "reference": "b3af30a6aec7f6467c773cd49b2d974a70f7c0d4",
+            "shasum": ""
+        },
+        "time": "2015-01-05T21:19:54+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "mikemccabe\\JsonPatch\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL-3.0"
+        ],
+        "description": "Produce and apply json-patch objects"
+    },
+    {
+        "name": "guzzle/guzzle",
+        "version": "v3.8.1",
+        "version_normalized": "3.8.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/guzzle.git",
+            "reference": "4de0618a01b34aa1c8c33a3f13f396dcd3882eba"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/4de0618a01b34aa1c8c33a3f13f396dcd3882eba",
+            "reference": "4de0618a01b34aa1c8c33a3f13f396dcd3882eba",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "php": ">=5.3.3",
+            "symfony/event-dispatcher": ">=2.1"
+        },
+        "replace": {
+            "guzzle/batch": "self.version",
+            "guzzle/cache": "self.version",
+            "guzzle/common": "self.version",
+            "guzzle/http": "self.version",
+            "guzzle/inflection": "self.version",
+            "guzzle/iterator": "self.version",
+            "guzzle/log": "self.version",
+            "guzzle/parser": "self.version",
+            "guzzle/plugin": "self.version",
+            "guzzle/plugin-async": "self.version",
+            "guzzle/plugin-backoff": "self.version",
+            "guzzle/plugin-cache": "self.version",
+            "guzzle/plugin-cookie": "self.version",
+            "guzzle/plugin-curlauth": "self.version",
+            "guzzle/plugin-error-response": "self.version",
+            "guzzle/plugin-history": "self.version",
+            "guzzle/plugin-log": "self.version",
+            "guzzle/plugin-md5": "self.version",
+            "guzzle/plugin-mock": "self.version",
+            "guzzle/plugin-oauth": "self.version",
+            "guzzle/service": "self.version",
+            "guzzle/stream": "self.version"
+        },
+        "require-dev": {
+            "doctrine/cache": "*",
+            "monolog/monolog": "1.*",
+            "phpunit/phpunit": "3.7.*",
+            "psr/log": "1.0.*",
+            "symfony/class-loader": "*",
+            "zendframework/zend-cache": "<2.3",
+            "zendframework/zend-log": "<2.3"
+        },
+        "time": "2014-01-28T22:29:15+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.8-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Guzzle": "src/",
+                "Guzzle\\Tests": "tests/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            },
+            {
+                "name": "Guzzle Community",
+                "homepage": "https://github.com/guzzle/guzzle/contributors"
+            }
+        ],
+        "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+        "homepage": "http://guzzlephp.org/",
+        "keywords": [
+            "client",
+            "curl",
+            "framework",
+            "http",
+            "http client",
+            "rest",
+            "web service"
+        ],
+        "abandoned": "guzzlehttp/guzzle"
+    },
+    {
+        "name": "rackspace/php-opencloud",
+        "version": "v1.16.0",
+        "version_normalized": "1.16.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/rackspace/php-opencloud.git",
+            "reference": "d6b71feed7f9e7a4b52e0240a79f06473ba69c8c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/rackspace/php-opencloud/zipball/d6b71feed7f9e7a4b52e0240a79f06473ba69c8c",
+            "reference": "d6b71feed7f9e7a4b52e0240a79f06473ba69c8c",
+            "shasum": ""
+        },
+        "require": {
+            "guzzle/guzzle": "~3.8",
+            "mikemccabe/json-patch-php": "~0.1",
+            "php": ">=5.4",
+            "psr/log": "~1.0"
+        },
+        "require-dev": {
+            "apigen/apigen": "~4.0",
+            "fabpot/php-cs-fixer": "1.0.*@dev",
+            "jakub-onderka/php-parallel-lint": "0.*",
+            "phpspec/prophecy": "~1.4",
+            "phpunit/phpunit": "4.3.*",
+            "satooshi/php-coveralls": "0.6.*@dev"
+        },
+        "time": "2016-01-29T10:34:57+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "OpenCloud": [
+                    "lib/"
+                ]
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Jamie Hannaford",
+                "email": "jamie.hannaford@rackspace.com",
+                "homepage": "https://github.com/jamiehannaford"
+            }
+        ],
+        "description": "PHP SDK for Rackspace/OpenStack APIs",
+        "keywords": [
+            "Openstack",
+            "nova",
+            "opencloud",
+            "rackspace",
+            "swift"
+        ]
+    },
+    {
+        "name": "phpseclib/phpseclib",
+        "version": "2.0.4",
+        "version_normalized": "2.0.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/phpseclib/phpseclib.git",
+            "reference": "ab8028c93c03cc8d9c824efa75dc94f1db2369bf"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/ab8028c93c03cc8d9c824efa75dc94f1db2369bf",
+            "reference": "ab8028c93c03cc8d9c824efa75dc94f1db2369bf",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "phing/phing": "~2.7",
+            "phpunit/phpunit": "~4.0",
+            "sami/sami": "~2.0",
+            "squizlabs/php_codesniffer": "~2.0"
+        },
+        "suggest": {
+            "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
+            "ext-libsodium": "SSH2/SFTP can make use of some algorithms provided by the libsodium-php extension.",
+            "ext-mcrypt": "Install the Mcrypt extension in order to speed up a few other cryptographic operations.",
+            "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations."
+        },
+        "time": "2016-10-04T00:57:04+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "phpseclib/bootstrap.php"
+            ],
+            "psr-4": {
+                "phpseclib\\": "phpseclib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jim Wigginton",
+                "email": "terrafrost@php.net",
+                "role": "Lead Developer"
+            },
+            {
+                "name": "Patrick Monnerat",
+                "email": "pm@datasphere.ch",
+                "role": "Developer"
+            },
+            {
+                "name": "Andreas Fischer",
+                "email": "bantu@phpbb.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Hans-Jürgen Petrich",
+                "email": "petrich@tronic-media.com",
+                "role": "Developer"
+            },
+            {
+                "name": "Graham Campbell",
+                "email": "graham@alt-three.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
+        "homepage": "http://phpseclib.sourceforge.net",
+        "keywords": [
+            "BigInteger",
+            "aes",
+            "asn.1",
+            "asn1",
+            "blowfish",
+            "crypto",
+            "cryptography",
+            "encryption",
+            "rsa",
+            "security",
+            "sftp",
+            "signature",
+            "signing",
+            "ssh",
+            "twofish",
+            "x.509",
+            "x509"
+        ]
     }
 ]

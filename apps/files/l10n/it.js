@@ -69,9 +69,8 @@ OC.L10N.register(
     "_%n byte_::_%n bytes_" : ["%n byte","%n byte"],
     "Favorited" : "Preferiti",
     "Favorite" : "Preferito",
-    "Folder" : "Cartella",
+    "Copy direct link (only works for users who have access to this file/folder)" : "Copia link diretto (funziona solo per utenti che hanno accesso a questo file / cartella)",
     "New folder" : "Nuova cartella",
-    "Upload" : "Carica",
     "An error occurred while trying to update the tags" : "Si è verificato un errore durante il tentativo di aggiornare le etichette",
     "Added to favorites" : "Aggiunto ai preferiti",
     "Removed from favorites" : "Rimosso dai preferiti",
@@ -120,6 +119,7 @@ OC.L10N.register(
     "Select all" : "Seleziona tutto",
     "Upload too large" : "Caricamento troppo grande",
     "The files you are trying to upload exceed the maximum size for file uploads on this server." : "I file che stai provando a caricare superano la dimensione massima consentita su questo server.",
+    "No favorites yet" : "Nessun preferito ancora",
     "Files and folders you mark as favorite will show up here" : "I file e le cartelle che marchi come preferiti saranno mostrati qui",
     "Shared with you" : "Condivisi con te",
     "Shared with others" : "Condivisi con altri",
@@ -138,6 +138,8 @@ OC.L10N.register(
     "Soon..." : "Presto...",
     "File upload is in progress. Leaving the page now will cancel the upload." : "Caricamento del file in corso. La chiusura della pagina annullerà il caricamento.",
     "Copy local link" : "Copia collegamento locale",
+    "Folder" : "Cartella",
+    "Upload" : "Carica",
     "No favorites" : "Nessun preferito"
 },
 "nplurals=2; plural=(n != 1);");

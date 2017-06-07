@@ -29,7 +29,6 @@ namespace OCA\Files_Sharing;
 
 use OC\Files\Cache\Wrapper\CacheJail;
 use OCP\Files\Cache\ICacheEntry;
-use OCP\Files\Storage\IStorage;
 
 /**
  * Metadata cache for shared files
@@ -51,6 +50,8 @@ class Cache extends CacheJail {
 
 	private $ownerDisplayName;
 
+	private $numericId;
+
 	/**
 	 * @param \OCA\Files_Sharing\SharedStorage $storage
 	 * @param ICacheEntry $sourceRootInfo
@@ -58,6 +59,7 @@ class Cache extends CacheJail {
 	public function __construct($storage, ICacheEntry $sourceRootInfo) {
 		$this->storage = $storage;
 		$this->sourceRootInfo = $sourceRootInfo;
+		$this->numericId = $sourceRootInfo->getStorageId();
 		parent::__construct(
 			null,
 			$this->sourceRootInfo->getPath()

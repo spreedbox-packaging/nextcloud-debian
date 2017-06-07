@@ -70,8 +70,8 @@ class UUIDFixInsert implements IRepairStep {
 	 * @since 9.1.0
 	 */
 	public function run(IOutput $output) {
-		$installedVersion = $this->config->getAppValue('user_ldap', 'installed_version', '1.1.2');
-		if(version_compare($installedVersion, '1.1.2') !== -1) {
+		$installedVersion = $this->config->getAppValue('user_ldap', 'installed_version', '1.2.1');
+		if(version_compare($installedVersion, '1.2.1') !== -1) {
 			return;
 		}
 

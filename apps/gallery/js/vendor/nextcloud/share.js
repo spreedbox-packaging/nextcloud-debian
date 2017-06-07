@@ -229,7 +229,12 @@
 
 					html += '<label for="linkText" class="hidden-visually">' + t('core', 'Link') +
 						'</label>';
+					html += '<div id="linkText-container">';
 					html += '<input id="linkText" type="text" readonly="readonly" />';
+					html += '<a id="linkTextMore" class="button icon-more" href="#"></a>';
+					html += '<div id="linkSocial" class="popovermenu bubble menu hidden"></div>';
+					html += '</div>';
+
 					html +=
 						'<input type="checkbox" class="checkbox checkbox--right" ' +
 						'name="showPassword" id="showPassword" value="1" />' +
@@ -338,19 +343,78 @@
 					source: function (search, response) {
 						var $loading = $('#dropdown .shareWithLoading');
 						$loading.removeClass('hidden');
-						// Can be replaced with Sharee API
-						// https://github.com/owncloud/core/pull/18234
-						$.get(OC.filePath('core', 'ajax', 'share.php'), {
-							fetch: 'getShareWith',
+						$.get(OC.linkToOCS('apps/files_sharing/api/v1') + 'sharees', {
+							format: 'json',
 							search: search.term.trim(),
-							limit: 200,
-							itemShares: this.itemShares,
+							perPage: 200,
 							itemType: itemType
 						}, function (result) {
 							$loading.addClass('hidden');
-							if (result.status == 'success' && result.data.length > 0) {
-								$("#shareWith").autocomplete("option", "autoFocus", true);
-								response(result.data);
+							if (result.ocs.meta.statuscode === 100) {
+								var users = result.ocs.data.exact.users.concat(result.ocs.data.users);
+								var groups = result.ocs.data.exact.groups.concat(result.ocs.data.groups);
+								var remotes = result.ocs.data.exact.remotes.concat(result.ocs.data.remotes);
+								var lookup = result.ocs.data.lookup;
+								var emails = [],
+									circles = [];
+								if (typeof(result.ocs.data.emails) !== 'undefined') {
+									emails = result.ocs.data.exact.emails.concat(result.ocs.data.emails);
+								}
+								if (typeof(result.ocs.data.circles) !== 'undefined') {
+									circles = result.ocs.data.exact.circles.concat(result.ocs.data.circles);
+								}
+
+								var usersLength;
+								var groupsLength;
+								var remotesLength;
+								var emailsLength;
+								var circlesLength;
+
+								var i, j;
+
+								//Filter out the current user
+								usersLength = users.length;
+								for (i = 0; i < usersLength; i++) {
+									if (users[i].value.shareWith === OC.currentUser) {
+										users.splice(i, 1);
+										break;
+									}
+								}
+
+								var suggestions = users.concat(groups).concat(remotes).concat(emails).concat(circles).concat(lookup);
+
+								if (suggestions.length > 0) {
+									$('#shareWith')
+										.autocomplete("option", "autoFocus", true);
+
+									response(suggestions);
+
+									// show a notice that the list is truncated
+									// this is the case if one of the search results is at least as long as the max result config option
+									if (oc_config['sharing.maxAutocompleteResults'] > 0 &&
+										Math.min(perPage, oc_config['sharing.maxAutocompleteResults'])
+										<= Math.max(users.length, groups.length, remotes.length, emails.length, lookup.length)) {
+
+										var message = t('core', 'This list is maybe truncated - please refine your search term to see more results.');
+										$('.ui-autocomplete').append('<li class="autocomplete-note">' + message + '</li>');
+									}
+
+								} else {
+									var title = t('core', 'No users or groups found for {search}', {search: $('#shareWith').val()});
+									if (!view.configModel.get('allowGroupSharing')) {
+										title = t('core', 'No users found for {search}', {search: $('#shareWith').val()});
+									}
+									$('#shareWith').addClass('error')
+										.attr('data-original-title', title)
+										.tooltip('hide')
+										.tooltip({
+											placement: 'bottom',
+											trigger: 'manual'
+										})
+										.tooltip('fixTitle')
+										.tooltip('show');
+									response();
+								}
 							} else {
 								response();
 							}
@@ -535,6 +599,31 @@
 			$('#emailPrivateLink #email').show();
 			$('#emailPrivateLink #emailButton').show();
 			$('#allowPublicUploadWrapper').show();
+			$('#linkTextMore').show();
+			$('#linkSocial').hide();
+			$('#linkSocial').html('');
+
+			var ul = $('<ul/>');
+
+			OC.Share.Social.Collection.each(function(model) {
+				var url = model.get('url');
+				url = url.replace('{{reference}}', link);
+
+				var li = $('<li>' +
+					'<a href="#" class="menuitem pop-up" data-url="' + url + '" data-window="'+model.get('newWindow')+'">' +
+					'<span class="icon ' + model.get('iconClass') + '"></span>' +
+					'<span>' + model.get('name') + '</span>' +
+					'</a>');
+				li.appendTo(ul);
+			});
+			ul.appendTo('#linkSocial');
+
+			if (OC.Share.Social.Collection.length === 0) {
+				$('#linkTextMore').hide();
+				$linkText.addClass('no-menu-item');
+			} else {
+				$linkText.removeClass('no-menu-item');
+			}
 		},
 		/**
 		 *
@@ -543,6 +632,8 @@
 			$('#linkText').slideUp(OC.menuSpeed);
 			$('#defaultExpireMessage').hide();
 			$('#showPassword+label').hide();
+			$('#linkSocial').hide();
+			$('#linkTextMore').hide();
 			$('#linkPass').slideUp(OC.menuSpeed);
 			$('#emailPrivateLink #email').hide();
 			$('#emailPrivateLink #emailButton').hide();
@@ -971,6 +1062,8 @@ $(document).ready(function () {
 			$('#linkText').val('');
 			$('#showPassword').prop('checked', false);
 			$('#linkPass').hide();
+			$('#linkSocial').hide();
+			$('#linkTextMore').hide();
 			$('#sharingDialogAllowPublicUpload').prop('checked', false);
 			$('#expirationCheckbox').prop('checked', false);
 			$('#expirationDate').hide();
@@ -1234,6 +1327,39 @@ $(document).ready(function () {
 				OC.dialogs.alert(t('core', result.data.message), t('core', 'Warning'));
 			}
 		});
+	});
 
+	$(document).on('click', '#dropdown .pop-up', function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+
+		var url = $(event.currentTarget).data('url');
+		var newWindow = $(event.currentTarget).data('window');
+		$(event.currentTarget).tooltip('hide');
+		if (url) {
+			if (newWindow === true) {
+				var width = 600;
+				var height = 400;
+				var left = (screen.width / 2) - (width / 2);
+				var top = (screen.height / 2) - (height / 2);
+
+				window.open(url, 'name', 'width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
+			} else {
+				window.location.href = url;
+			}
+		}
+	});
+
+	$(document).on('click', '.icon-more', function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+
+		var children = event.currentTarget.parentNode.children;
+
+		$.each(children, function (key, value) {
+			if (value.classList.contains('popovermenu')) {
+				$(value).toggle();
+			}
+		});
 	});
 });

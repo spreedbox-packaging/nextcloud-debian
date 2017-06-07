@@ -34,7 +34,6 @@ namespace OC;
 use InterfaSys\LogNormalizer\Normalizer;
 
 use \OCP\ILogger;
-use OCP\Security\StringUtils;
 use OCP\Util;
 
 /**
@@ -63,6 +62,7 @@ class Log implements ILogger {
 
 	protected $methodsWithSensitiveParameters = [
 		// Session/User
+		'completeLogin',
 		'login',
 		'checkPassword',
 		'loginWithPassword',

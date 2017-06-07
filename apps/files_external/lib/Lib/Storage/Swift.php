@@ -37,6 +37,7 @@ namespace OCA\Files_External\Lib\Storage;
 
 use Guzzle\Http\Url;
 use Guzzle\Http\Exception\ClientErrorResponseException;
+use Icewind\Streams\CallbackWrapper;
 use Icewind\Streams\IteratorDirectory;
 use OpenCloud;
 use OpenCloud\Common\Exceptions;
@@ -372,6 +373,10 @@ class Swift extends \OC\Files\Storage\Common {
 		$path = $this->normalizePath($path);
 
 		switch ($mode) {
+			case 'a':
+			case 'ab':
+			case 'a+':
+				return false;
 			case 'r':
 			case 'rb':
 				try {
@@ -394,12 +399,9 @@ class Swift extends \OC\Files\Storage\Common {
 				}
 			case 'w':
 			case 'wb':
-			case 'a':
-			case 'ab':
 			case 'r+':
 			case 'w+':
 			case 'wb+':
-			case 'a+':
 			case 'x':
 			case 'x+':
 			case 'c':
@@ -410,7 +412,6 @@ class Swift extends \OC\Files\Storage\Common {
 					$ext = '';
 				}
 				$tmpFile = \OCP\Files::tmpFile($ext);
-				\OC\Files\Stream\Close::registerCallback($tmpFile, array($this, 'writeBack'));
 				// Fetch existing file if required
 				if ($mode[0] !== 'w' && $this->file_exists($path)) {
 					if ($mode[0] === 'x') {
@@ -419,14 +420,11 @@ class Swift extends \OC\Files\Storage\Common {
 					}
 					$source = $this->fopen($path, 'r');
 					file_put_contents($tmpFile, $source);
-					// Seek to end if required
-					if ($mode[0] === 'a') {
-						fseek($tmpFile, 0, SEEK_END);
-					}
 				}
-				self::$tmpFiles[$tmpFile] = $path;
-
-				return fopen('close://' . $tmpFile, $mode);
+				$handle = fopen($tmpFile, $mode);
+				return CallbackWrapper::wrap($handle, null, null, function () use ($path, $tmpFile) {
+					$this->writeBack($tmpFile, $path);
+				});
 		}
 	}
 
@@ -615,12 +613,9 @@ class Swift extends \OC\Files\Storage\Common {
 		return $this->container;
 	}
 
-	public function writeBack($tmpFile) {
-		if (!isset(self::$tmpFiles[$tmpFile])) {
-			return false;
-		}
+	public function writeBack($tmpFile, $path) {
 		$fileData = fopen($tmpFile, 'r');
-		$this->getContainer()->uploadObject(self::$tmpFiles[$tmpFile], $fileData);
+		$this->getContainer()->uploadObject($path, $fileData);
 		// invalidate target object to force repopulation on fetch
 		$this->objectCache->remove(self::$tmpFiles[$tmpFile]);
 		unlink($tmpFile);

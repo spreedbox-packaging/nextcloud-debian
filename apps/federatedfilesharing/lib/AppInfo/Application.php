@@ -45,15 +45,13 @@ class Application extends App {
 		$container->registerService('RequestHandlerController', function(SimpleContainer $c) use ($server) {
 			$addressHandler = new AddressHandler(
 				$server->getURLGenerator(),
-				$server->getL10N('federatedfilesharing')
+				$server->getL10N('federatedfilesharing'),
+				$server->getCloudIdManager()
 			);
 			$notification = new Notifications(
 				$addressHandler,
 				$server->getHTTPClientService(),
-				new \OCA\FederatedFileSharing\DiscoveryManager(
-					$server->getMemCacheFactory(),
-					$server->getHTTPClientService()
-				),
+				$server->query(\OCP\OCS\IDiscoveryService::class),
 				\OC::$server->getJobList()
 			);
 			return new RequestHandlerController(
@@ -64,7 +62,8 @@ class Application extends App {
 				$server->getShareManager(),
 				$notification,
 				$addressHandler,
-				$server->getUserManager()
+				$server->getUserManager(),
+				$server->getCloudIdManager()
 			);
 		});
 	}
@@ -94,16 +93,13 @@ class Application extends App {
 	protected function initFederatedShareProvider() {
 		$addressHandler = new \OCA\FederatedFileSharing\AddressHandler(
 			\OC::$server->getURLGenerator(),
-			\OC::$server->getL10N('federatedfilesharing')
-		);
-		$discoveryManager = new \OCA\FederatedFileSharing\DiscoveryManager(
-			\OC::$server->getMemCacheFactory(),
-			\OC::$server->getHTTPClientService()
+			\OC::$server->getL10N('federatedfilesharing'),
+			\OC::$server->getCloudIdManager()
 		);
 		$notifications = new \OCA\FederatedFileSharing\Notifications(
 			$addressHandler,
 			\OC::$server->getHTTPClientService(),
-			$discoveryManager,
+			\OC::$server->query(\OCP\OCS\IDiscoveryService::class),
 			\OC::$server->getJobList()
 		);
 		$tokenHandler = new \OCA\FederatedFileSharing\TokenHandler(
@@ -119,7 +115,8 @@ class Application extends App {
 			\OC::$server->getLogger(),
 			\OC::$server->getLazyRootFolder(),
 			\OC::$server->getConfig(),
-			\OC::$server->getUserManager()
+			\OC::$server->getUserManager(),
+			\OC::$server->getCloudIdManager()
 		);
 	}
 

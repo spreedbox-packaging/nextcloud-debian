@@ -69,9 +69,9 @@ OC.L10N.register(
     "_%n byte_::_%n bytes_" : ["%n bæti","%n bæti"],
     "Favorited" : "Sett í eftirlæti",
     "Favorite" : "Eftirlæti",
-    "Folder" : "Mappa",
+    "Copy direct link (only works for users who have access to this file/folder)" : "Afrita beinan tengil (virkar bara fyrir notendur sem eiga aðgang að þessari skrá/möppu)",
     "New folder" : "Ný mappa",
-    "Upload" : "Senda inn",
+    "Upload file" : "Senda inn skrá",
     "An error occurred while trying to update the tags" : "Villa kom upp við að reyna að uppfæra merkin",
     "Added to favorites" : "Bætt í eftirlæti",
     "Removed from favorites" : "Fjarlægt úr eftirlætum",
@@ -120,6 +120,7 @@ OC.L10N.register(
     "Select all" : "Velja allt",
     "Upload too large" : "Innsend skrá er of stór",
     "The files you are trying to upload exceed the maximum size for file uploads on this server." : "Skrárnar sem þú ert að senda inn eru stærri en hámarks innsendingarstærð á þessum netþjóni.",
+    "No favorites yet" : "Engin eftirlæti ennþá",
     "Files and folders you mark as favorite will show up here" : "Skrár og möppur sem þú merkir sem eftirlæti birtast hér",
     "Shared with you" : "Deilt með þér",
     "Shared with others" : "Deilt með öðrum",
@@ -138,6 +139,8 @@ OC.L10N.register(
     "Soon..." : "Bráðum...",
     "File upload is in progress. Leaving the page now will cancel the upload." : "Innsending í gangi. Ef þú ferð af þessari síðu mun innsending hætta.",
     "Copy local link" : "Afrita staðværan tengil",
+    "Folder" : "Mappa",
+    "Upload" : "Senda inn",
     "No favorites" : "Engin eftirlæti"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

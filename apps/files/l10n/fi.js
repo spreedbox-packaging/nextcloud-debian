@@ -70,9 +70,8 @@ OC.L10N.register(
     "Favorited" : "Lisätty suosikkeihin",
     "Favorite" : "Suosikki",
     "Copy direct link (only works for users who have access to this file/folder)" : "Kopioi suora linkki (toimii vain käyttäjillä, joilla on pääsyoikeus tähän tiedostoon/kansioon)",
-    "Folder" : "Kansio",
     "New folder" : "Uusi kansio",
-    "Upload" : "Lähetä",
+    "Upload file" : "Lähetä tiedosto",
     "An error occurred while trying to update the tags" : "Tunnisteiden päivitystä yrittäessä tapahtui virhe",
     "Added to favorites" : "Lisätty suosikkeihin",
     "Removed from favorites" : "Poistettu suosikeista",
@@ -121,6 +120,7 @@ OC.L10N.register(
     "Select all" : "Valitse kaikki",
     "Upload too large" : "Lähetettävä tiedosto on liian suuri",
     "The files you are trying to upload exceed the maximum size for file uploads on this server." : "Lähetettäväksi valitsemasi tiedostot ylittävät palvelimen salliman tiedostokoon rajan.",
+    "No favorites yet" : "Ei vielä suosikkeja",
     "Files and folders you mark as favorite will show up here" : "Suosikeiksi merkitsemäsi tiedostot ja kansiot näkyvät täällä",
     "Shared with you" : "Jaettu kanssasi",
     "Shared with others" : "Jaettu muille",
@@ -139,6 +139,8 @@ OC.L10N.register(
     "Soon..." : "Pian...",
     "File upload is in progress. Leaving the page now will cancel the upload." : "Tiedoston lähetys on meneillään. Sivulta poistuminen nyt peruu tiedoston lähetyksen.",
     "Copy local link" : "Kopioi paikallinen linkki",
+    "Folder" : "Kansio",
+    "Upload" : "Lähetä",
     "No favorites" : "Ei suosikkeja"
 },
 "nplurals=2; plural=(n != 1);");

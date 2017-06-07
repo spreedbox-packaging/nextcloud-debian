@@ -571,11 +571,10 @@ class KeyManager {
 
 	/**
 	 * @param string $purpose
-	 * @param bool $timestamp
-	 * @param bool $includeUserKeys
+	 * @param string $uid
 	 */
-	public function backupAllKeys($purpose, $timestamp = true, $includeUserKeys = true) {
-//		$backupDir = $this->keyStorage->;
+	public function backupUserKeys($purpose, $uid) {
+		$this->keyStorage->backupUserKeys(Encryption::ID, $purpose, $uid);
 	}
 
 	/**
@@ -584,7 +583,6 @@ class KeyManager {
 	 * @param string $uid
 	 */
 	public function deleteUserKeys($uid) {
-		$this->backupAllKeys('password_reset');
 		$this->deletePublicKey($uid);
 		$this->deletePrivateKey($uid);
 	}
@@ -689,7 +687,7 @@ class KeyManager {
 	public function getMasterKeyPassword() {
 		$password = $this->config->getSystemValue('secret');
 		if (empty($password)){
-			throw new \Exception('Can not get secret from ownCloud instance');
+			throw new \Exception('Can not get secret from Nextcloud instance');
 		}
 
 		return $password;

@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Config.php Parameters &mdash; Nextcloud 11 Server Administration Manual 11 alpha documentation</title>
+    <title>Config.php Parameters &mdash; Nextcloud 12 Server Administration Manual 12 documentation</title>
     
     <link rel="stylesheet" href="../_static/" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '11 alpha',
+        VERSION:     '12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,8 +28,8 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Nextcloud 11 Server Administration Manual 11 alpha documentation" href="../contents.html" />
-    <link rel="up" title="Nextcloud Server Configuration" href="index.html" />
+    <link rel="top" title="Nextcloud 12 Server Administration Manual 12 documentation" href="../contents.html" />
+    <link rel="up" title="Server Configuration" href="index.html" />
     <link rel="next" title="Email Configuration" href="email_configuration.html" />
     <link rel="prev" title="Defining Background Jobs" href="background_jobs_configuration.html" />
 <meta charset='utf-8'>
@@ -66,10 +66,10 @@
 <li><a href="../contents.html">Table of Contents</a></li>
 									</ul>
                   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">Nextcloud 11 Server Administration Manual Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Nextcloud 11 Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Nextcloud Server Configuration</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Server Configuration</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="security_setup_warnings.html">Warnings on Admin Page</a></li>
 <li class="toctree-l2"><a class="reference internal" href="occ_command.html">Using the occ Command</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activity_configuration.html">Configuring the Activity App</a></li>
@@ -110,7 +110,7 @@
 <li class="toctree-l2"><a class="reference internal" href="reverse_proxy_configuration.html">Reverse Proxy Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="thirdparty_php_configuration.html">Using Third Party PHP Components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="automatic_configuration.html">Automatic Configuration Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="server_tuning.html">Nextcloud Server Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server_tuning.html">Server Tuning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="theming.html">Theming</a></li>
 </ul>
 </li>
@@ -337,13 +337,6 @@ on. If no enabled apps are found it defaults to the Files app.</p>
 </div>
 <p><code class="docutils literal"><span class="pre">true</span></code> enables the Help menu item in the user menu (top right of the
 Nextcloud Web interface). <code class="docutils literal"><span class="pre">false</span></code> removes the Help item.</p>
-<div class="highlight-python"><div class="highlight"><pre>&#39;enable_avatars&#39; =&gt; true,
-</pre></div>
-</div>
-<p><code class="docutils literal"><span class="pre">true</span></code> enables avatars, or user profile photos. These appear on the User
-page, on user&#8217;s Personal pages and are used by some apps (contacts, mail,
-etc). <code class="docutils literal"><span class="pre">false</span></code> disables them.</p>
-<p>Defaults to <code class="docutils literal"><span class="pre">true</span></code></p>
 <div class="highlight-python"><div class="highlight"><pre>&#39;allow_user_to_change_display_name&#39; =&gt; true,
 </pre></div>
 </div>
@@ -400,10 +393,11 @@ IMAP (OC_User_IMAP), SMB (OC_User_SMB), and FTP (OC_User_FTP).</p>
 <div class="highlight-python"><div class="highlight"><pre>&#39;lost_password_link&#39; =&gt; &#39;https://example.org/link/to/password/reset&#39;,
 </pre></div>
 </div>
-<p>If your user backend does not allow to reset the password (e.g. when it&#8217;s a
+<p>If your user backend does not allow password resets (e.g. when it&#8217;s a
 read-only user backend like LDAP), you can specify a custom link, where the
 user is redirected to, when clicking the &#8220;reset password&#8221; link after a failed
 login-attempt.</p>
+<p>In case you do not want to provide any link, replace the url with &#8216;disabled&#8217;</p>
 </div>
 <div class="section" id="mail-parameters">
 <h2>Mail Parameters<a class="headerlink" href="#mail-parameters" title="Permalink to this headline">¶</a></h2>
@@ -544,11 +538,11 @@ every scenario and needs thus some manual configuration.</p>
 accessible at. So if Nextcloud is accessible via &#8220;<a class="reference external" href="https://mycloud.org/nextcloud">https://mycloud.org/nextcloud</a>&#8221;
 the correct value would most likely be &#8220;/nextcloud&#8221;. If Nextcloud is running
 under &#8220;<a class="reference external" href="https://mycloud.org/">https://mycloud.org/</a>&#8221; then it would be &#8220;/&#8221;.</p>
-<p>Note that above rule is not valid in every case, there are some rare setup
+<p>Note that the above rule is not valid in every case, as there are some rare setup
 cases where this may not apply. However, to avoid any update problems this
 configuration value is explicitly opt-in.</p>
-<p>After setting this value run <cite>occ maintenance:update:htaccess</cite> and when following
-conditions are met Nextcloud uses URLs without index.php in it:</p>
+<p>After setting this value run <cite>occ maintenance:update:htaccess</cite>. Now, when the
+following conditions are met Nextcloud URLs won&#8217;t contain <cite>index.php</cite>:</p>
 <ul class="simple">
 <li><cite>mod_rewrite</cite> is installed</li>
 <li><cite>mod_env</cite> is installed</li>
@@ -1052,7 +1046,7 @@ filesystem instead of the database to keep the comments.</p>
 </div>
 <p>Replaces the default System Tags Manager Factory. This can be utilized if an
 own or 3rdParty SystemTagsManager should be used that – for instance – uses the
-filesystem instead of the database to keep the comments.</p>
+filesystem instead of the database to keep the tags.</p>
 <p>Defaults to <code class="docutils literal"><span class="pre">\OC\SystemTag\ManagerFactory</span></code></p>
 </div>
 <div class="section" id="maintenance">
@@ -1068,12 +1062,6 @@ doing some maintenance work, you need to set the value of the maintenance
 parameter to true. Please keep in mind that users who are already logged-in
 are kicked out of Nextcloud instantly.</p>
 <p>Defaults to <code class="docutils literal"><span class="pre">false</span></code></p>
-<div class="highlight-python"><div class="highlight"><pre>&#39;singleuser&#39; =&gt; false,
-</pre></div>
-</div>
-<p>When set to <code class="docutils literal"><span class="pre">true</span></code>, the Nextcloud instance will be unavailable for all
-users who are not in the <code class="docutils literal"><span class="pre">admin</span></code> group.</p>
-<p>Defaults to <code class="docutils literal"><span class="pre">false</span></code></p>
 </div>
 <div class="section" id="ssl">
 <h2>SSL<a class="headerlink" href="#ssl" title="Permalink to this headline">¶</a></h2>
@@ -1084,10 +1072,6 @@ users who are not in the <code class="docutils literal"><span class="pre">admin<
 </div>
 <p>Extra SSL options to be used for configuration.</p>
 <p>Defaults to an empty array.</p>
-<div class="highlight-python"><div class="highlight"><pre>&#39;enable_certificate_management&#39; =&gt; false,
-</pre></div>
-</div>
-<p>Allow the configuration of system wide trusted certificates</p>
 </div>
 <div class="section" id="memory-caching-backend-configuration">
 <h2>Memory caching backend configuration<a class="headerlink" href="#memory-caching-backend-configuration" title="Permalink to this headline">¶</a></h2>
@@ -1123,19 +1107,50 @@ For the local cache (you can configure two) take APCu.</li>
 <li>If unset, defaults to the value of memcache.local</li>
 </ul>
 <p>Defaults to <code class="docutils literal"><span class="pre">none</span></code></p>
-<div class="highlight-python"><div class="highlight"><pre>&#39;redis&#39; =&gt; array(
+<div class="highlight-python"><div class="highlight"><pre>&#39;redis&#39; =&gt; [
         &#39;host&#39; =&gt; &#39;localhost&#39;, // can also be a unix domain socket: &#39;/tmp/redis.sock&#39;
         &#39;port&#39; =&gt; 6379,
         &#39;timeout&#39; =&gt; 0.0,
         &#39;password&#39; =&gt; &#39;&#39;, // Optional, if not defined no password will be used.
         &#39;dbindex&#39; =&gt; 0, // Optional, if undefined SELECT will not run and will use Redis Server&#39;s default DB Index.
-),
+],
 </pre></div>
 </div>
-<p>Connection details for redis to use for memory caching.</p>
+<p>Connection details for redis to use for memory caching in a single server configuration.</p>
 <p>For enhanced security it is recommended to configure Redis
 to require a password. See <a class="reference external" href="http://redis.io/topics/security">http://redis.io/topics/security</a>
 for more information.</p>
+<div class="highlight-python"><div class="highlight"><pre>&#39;redis.cluster&#39; =&gt; [
+        &#39;seeds&#39; =&gt; [ // provide some/all of the cluster servers to bootstrap discovery, port required
+                &#39;localhost:7000&#39;,
+                &#39;localhost:7001&#39;
+        ],
+        &#39;timeout&#39; =&gt; 0.0,
+        &#39;read_timeout&#39; =&gt; 0.0,
+        &#39;failover_mode&#39; =&gt; \RedisCluster::FAILOVER_ERROR
+],
+</pre></div>
+</div>
+<p>Connection details for a Redis Cluster</p>
+<p>Only for use with Redis Clustering, for Sentinel-based setups use the single
+server configuration above, and perform HA on the hostname.</p>
+<p>Redis Cluster support requires the php module phpredis in version 3.0.0 or
+higher for PHP 7+ or phpredis in version 2.2.8 for PHP 5.6.</p>
+<dl class="docutils">
+<dt>Available failover modes:</dt>
+<dd><ul class="first last simple">
+<li>\RedisCluster::FAILOVER_NONE - only send commands to master nodes (default)</li>
+<li>\RedisCluster::FAILOVER_ERROR - failover to slaves for read commands if master is unavailable (recommended)</li>
+<li>\RedisCluster::FAILOVER_DISTRIBUTE - randomly distribute read commands across master and slaves</li>
+</ul>
+</dd>
+</dl>
+<p>WARNING: FAILOVER_DISTRIBUTE is a not recommended setting and we strongly
+suggest to not use it if you use Redis for file locking. Due to the way Redis
+is synchronised it could happen, that the read for an existing lock is
+scheduled to a slave that is not fully synchronised with the connected master
+which then causes a FileLocked exception.</p>
+<p>See <a class="reference external" href="https://redis.io/topics/cluster-spec">https://redis.io/topics/cluster-spec</a> for details about the Redis cluster</p>
 <div class="highlight-python"><div class="highlight"><pre>&#39;memcached_servers&#39; =&gt; array(
         // hostname, port and optional weight. Also see:
         // http://www.php.net/manual/en/memcached.addservers.php
@@ -1191,7 +1206,7 @@ completed within one day.</p>
 <div class="highlight-python"><div class="highlight"><pre>&#39;objectstore&#39; =&gt; [
         &#39;class&#39; =&gt; &#39;OC\\Files\\ObjectStore\\Swift&#39;,
         &#39;arguments&#39; =&gt; [
-                // trystack will user your facebook id as the user name
+                // trystack will use your facebook id as the user name
                 &#39;username&#39; =&gt; &#39;facebook100000123456789&#39;,
                 // in the trystack dashboard go to user -&gt; settings -&gt; API Password to
                 // generate a password
@@ -1237,9 +1252,19 @@ to be fetched in addition to any requested file.</p>
 </pre></div>
 </div>
 <p>Replaces the default Share Provider Factory. This can be utilized if
-own or 3rdParty Share Providers be used that – for instance – uses the
+own or 3rdParty Share Providers are used that – for instance – use the
 filesystem instead of the database to keep the share information.</p>
 <p>Defaults to <code class="docutils literal"><span class="pre">\OC\Share20\ProviderFactory</span></code></p>
+<div class="highlight-python"><div class="highlight"><pre>&#39;sharing.maxAutocompleteResults&#39; =&gt; 0,
+</pre></div>
+</div>
+<p>Define max number of results returned by the user search for auto-completion
+Default is unlimited (value set to 0).</p>
+<div class="highlight-python"><div class="highlight"><pre>&#39;sharing.minSearchStringLength&#39; =&gt; 0,
+</pre></div>
+</div>
+<p>Define the minimum length of the search string before we start auto-completion
+Default is no limit (value set to 0)</p>
 </div>
 <div class="section" id="all-other-configuration-options">
 <h2>All other configuration options<a class="headerlink" href="#all-other-configuration-options" title="Permalink to this headline">¶</a></h2>
@@ -1259,14 +1284,20 @@ can be &#8216;WAL&#8217; or &#8216;DELETE&#8217; see for more details <a class="
 <div class="highlight-python"><div class="highlight"><pre>&#39;mysql.utf8mb4&#39; =&gt; false,
 </pre></div>
 </div>
-<p>If this setting is set to true MySQL can handle 4 byte characters instead of
-3 byte characters</p>
+<p>During setup, if requirements are met (see below), this setting is set to true
+and MySQL can handle 4 byte characters instead of 3 byte characters.</p>
+<p>If you want to convert an existing 3-byte setup into a 4-byte setup please
+set the parameters in MySQL as mentioned below and run the migration command:</p>
+<blockquote>
+<div>./occ db:convert-mysql-charset</div></blockquote>
+<p>The config setting will be set automatically after a successful run.</p>
+<p>Consult the documentation for more details.</p>
 <p>MySQL requires a special setup for longer indexes (&gt; 767 bytes) which are
 needed:</p>
 <p>[mysqld]
-innodb_large_prefix=true
-innodb_file_format=barracuda
-innodb_file_per_table=true</p>
+innodb_large_prefix=ON
+innodb_file_format=Barracuda
+innodb_file_per_table=ON</p>
 <dl class="docutils">
 <dt>Tables will be created with</dt>
 <dd><ul class="first last simple">
@@ -1282,7 +1313,6 @@ innodb_file_per_table=true</p>
 <a class="reference external" href="https://mariadb.com/kb/en/mariadb/xtradbinnodb-server-system-variables/#innodb_large_prefix">https://mariadb.com/kb/en/mariadb/xtradbinnodb-server-system-variables/#innodb_large_prefix</a>
 <a class="reference external" href="http://www.tocker.ca/2013/10/31/benchmarking-innodb-page-compression-performance.html">http://www.tocker.ca/2013/10/31/benchmarking-innodb-page-compression-performance.html</a>
 <a class="reference external" href="http://mechanics.flite.com/blog/2014/07/29/using-innodb-large-prefix-to-avoid-error-1071/">http://mechanics.flite.com/blog/2014/07/29/using-innodb-large-prefix-to-avoid-error-1071/</a></p>
-<p>WARNING: EXPERIMENTAL</p>
 <div class="highlight-python"><div class="highlight"><pre>&#39;supportedDatabases&#39; =&gt; array(
         &#39;sqlite&#39;,
         &#39;mysql&#39;,
@@ -1437,7 +1467,7 @@ shared files.</p>
 <div class="highlight-python"><div class="highlight"><pre>&#39;filelocking.ttl&#39; =&gt; 60*60,
 </pre></div>
 </div>
-<p>Set the time-to-live for locks in secconds.</p>
+<p>Set the lock&#8217;s time-to-live in seconds.</p>
 <p>Any lock older than this will be automatically cleaned up.</p>
 <dl class="docutils">
 <dt>Defaults to <code class="docutils literal"><span class="pre">60*60</span></code> seconds (1 hour) or the php</dt>
@@ -1450,6 +1480,14 @@ shared files.</p>
 <p>Because most memcache backends can clean values without warning using redis
 is highly recommended to <em>avoid data loss</em>.</p>
 <p>Defaults to <code class="docutils literal"><span class="pre">none</span></code></p>
+<div class="highlight-python"><div class="highlight"><pre>&#39;filelocking.debug&#39; =&gt; false,
+</pre></div>
+</div>
+<p>Enable locking debug logging</p>
+<p>Note that this can lead to a very large volume of log items being written which can lead
+to performance degradation and large log files on busy instance.</p>
+<p>Thus enabling this in production for longer periods of time is not recommended
+or should be used together with the <code class="docutils literal"><span class="pre">log.condition</span></code> setting.</p>
 <div class="highlight-python"><div class="highlight"><pre>&#39;upgrade.disable-web&#39; =&gt; false,
 </pre></div>
 </div>
@@ -1479,6 +1517,10 @@ the user has resolved conflicts.</p>
 configuration. DO NOT ADD THIS SWITCH TO YOUR CONFIGURATION!</p>
 <p>If you, brave person, have read until here be aware that you should not
 modify <em>ANY</em> settings in this file without reading the documentation.</p>
+<div class="highlight-python"><div class="highlight"><pre>&#39;lookup_server&#39; =&gt; &#39;https://lookup.nextcloud.com&#39;,
+</pre></div>
+</div>
+<p>use a custom lookup server to publish user data</p>
 </div>
 <div class="section" id="app-config-options">
 <h2>App config options<a class="headerlink" href="#app-config-options" title="Permalink to this headline">¶</a></h2>

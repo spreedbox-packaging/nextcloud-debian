@@ -69,9 +69,9 @@ OC.L10N.register(
     "_%n byte_::_%n bytes_" : ["%n 字节"],
     "Favorited" : "已收藏",
     "Favorite" : "收藏",
-    "Folder" : "文件夹",
+    "Copy direct link (only works for users who have access to this file/folder)" : "复制直接链接(仅适用于有权访问此文件/文件夹的用户)",
     "New folder" : "新建文件夹",
-    "Upload" : "上传",
+    "Upload file" : "上传文件",
     "An error occurred while trying to update the tags" : "更新标签时出错",
     "Added to favorites" : "添加到收藏",
     "Removed from favorites" : "取消收藏",
@@ -120,6 +120,7 @@ OC.L10N.register(
     "Select all" : "全部选择",
     "Upload too large" : "上传文件过大",
     "The files you are trying to upload exceed the maximum size for file uploads on this server." : "正在上传的文件超过了此服务器允许上传的最大容量限制",
+    "No favorites yet" : "还没有“我喜欢的”",
     "Files and folders you mark as favorite will show up here" : "收藏的文件和文件夹会在这里显示",
     "Shared with you" : "与您分享",
     "Shared with others" : "与他人分享",
@@ -138,6 +139,8 @@ OC.L10N.register(
     "Soon..." : "很快...",
     "File upload is in progress. Leaving the page now will cancel the upload." : "文件正在上传中. 离开此页将会取消上传.",
     "Copy local link" : "复制本地链接",
+    "Folder" : "文件夹",
+    "Upload" : "上传",
     "No favorites" : "无收藏"
 },
 "nplurals=1; plural=0;");
