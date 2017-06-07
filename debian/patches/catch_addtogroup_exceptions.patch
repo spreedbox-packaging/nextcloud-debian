@@ -1,16 +1,24 @@
---- a/settings/ajax/togglegroups.php
-+++ b/settings/ajax/togglegroups.php
-@@ -80,7 +80,12 @@
- 	$usersInGroup=OC_Group::usersInGroup($group);
- }
- else{
--	$success = OC_Group::addToGroup( $username, $group );
-+	try {
-+		$success = OC_Group::addToGroup( $username, $group );
-+	} catch (Exception $e) {
-+		$success = false;
-+		$error = $e->getMessage();
-+	}
- }
- 
- // Return Success story
+--- a/settings/Controller/UsersController.php
++++ b/settings/Controller/UsersController.php
+@@ -422,7 +422,20 @@
+ 					if(empty($group)) {
+ 						$group = $this->groupManager->createGroup($groupName);
+ 					}
+-					$group->addUser($user);
++					try {
++						$group->addUser($user);
++					} catch (Exception $e) {
++						$message = $exception->getMessage();
++						if (!$message) {
++							$message = $this->l10n->t('Unable to add user to group.');
++						}
++						return new DataResponse(
++							[
++								'message' => (string) $message,
++							],
++							Http::STATUS_FORBIDDEN
++						);
++					}
+ 				}
+ 			}
+ 			/**

@@ -1,6 +1,6 @@
 --- a/lib/private/Files/Storage/Local.php
 +++ b/lib/private/Files/Storage/Local.php
-@@ -45,7 +45,7 @@
+@@ -46,7 +46,7 @@
  
  	protected $dataDirLength;
  

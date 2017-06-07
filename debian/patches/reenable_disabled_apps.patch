@@ -1,13 +1,23 @@
 --- a/lib/private/Updater.php
 +++ b/lib/private/Updater.php
-@@ -289,6 +289,15 @@
+@@ -260,7 +260,7 @@
+ 		}
+ 
+ 		// update all shipped apps
+-		$this->checkAppsRequirements();
++		$disabledApps = $this->checkAppsRequirements();
+ 		$this->doAppUpgrade();
+ 
+ 		// Update the appfetchers version so it downloads the correct list from the appstore
+@@ -292,6 +292,16 @@
  			$this->emit('\OC\Updater', 'finishedCheckCodeIntegrity');
  		}
  
 +		// Re-enable disabled apps again
 +		foreach ($disabledApps as $app) {
 +			try {
-+				\OC_App::enable($app);
++				$a = new OC_App();
++				$a->enable($app);
 +			} catch (\Exception $e) {
 +				$this->log->logException($e, ['app' => $app]);
 +			}

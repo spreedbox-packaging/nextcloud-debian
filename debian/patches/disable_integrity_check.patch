@@ -1,10 +1,10 @@
 --- a/lib/private/IntegrityCheck/Checker.php
 +++ b/lib/private/IntegrityCheck/Checker.php
-@@ -96,6 +96,7 @@ class Checker {
+@@ -96,6 +96,7 @@
  	 * @return bool
  	 */
  	public function isCodeCheckEnforced() {
 +		return false;
- 		$signedChannels = [
- 			'daily',
- 			'testing',
+ 		$notSignedChannels = [ '', 'git'];
+ 		if (in_array($this->environmentHelper->getChannel(), $notSignedChannels, true)) {
+ 			return false;
