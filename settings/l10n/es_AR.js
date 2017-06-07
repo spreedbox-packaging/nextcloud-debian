@@ -1,7 +1,6 @@
 OC.L10N.register(
     "settings",
     {
-    "Enabled" : "Habilitado",
     "Wrong password" : "Clave incorrecta",
     "Saved" : "Guardado",
     "No user supplied" : "No se ha indicado el usuario",
@@ -41,7 +40,6 @@ OC.L10N.register(
     "Login" : "Ingresar",
     "Plain" : "Plano",
     "NT LAN Manager" : "Administrador NT LAN",
-    "This is used for sending out notifications." : "Esto es usado para enviar notificaciones.",
     "Send mode" : "Modo de envio",
     "Encryption" : "Encriptación",
     "From address" : "Dirección remitente",
@@ -56,7 +54,6 @@ OC.L10N.register(
     "Send email" : "Enviar correo",
     "System locale can not be set to a one which supports UTF-8." : "La localización del sistema no puede cambiarse a una que soporta UTF-8",
     "This means that there might be problems with certain characters in file names." : "Esto significa que puede haber problemas con ciertos caracteres en los nombres de archivos.",
-    "Cron" : "Cron",
     "Execute one task with each page loaded" : "Ejecutá una tarea con cada pagina cargada.",
     "cron.php is registered at a webcron service to call cron.php every 15 minutes over http." : "cron.php está registrado en el servicio webcron para llamarlo cada 15 minutos usando http.",
     "Version" : "Versión",
@@ -94,13 +91,16 @@ OC.L10N.register(
     "change full name" : "Cambiar nombre completo",
     "set new password" : "Configurar nueva contraseña",
     "Default" : "Predeterminado",
+    "Enabled" : "Habilitado",
     "Please provide an admin recovery password, otherwise all user data will be lost" : "Por favor provea de una contraseña de recuperación administrativa, sino se perderá todos los datos del usuario",
     "test email settings" : "Configuración de correo de prueba.",
     "Admins can't remove themself from the admin group" : "Los administradores no se pueden quitar a si mismos del grupo administrador. ",
     "Unable to add user to group %s" : "No fue posible agregar el usuario al grupo %s",
     "Unable to remove user from group %s" : "No es posible borrar al usuario del grupo %s",
     "Sending..." : "Enviando...",
+    "This is used for sending out notifications." : "Esto es usado para enviar notificaciones.",
     "The PHP module 'fileinfo' is missing. We strongly recommend to enable this module to get best results with mime-type detection." : "El módulo PHP 'fileinfo' no existe. Es recomendable que actives este módulo para obtener mejores resultados con la detección mime-type",
+    "Cron" : "Cron",
     "Cheers!" : "¡Saludos!"
 },
 "nplurals=2; plural=(n != 1);");

@@ -56,13 +56,7 @@ style(
 
 		<div class="header-appname-container">
 			<h1 class="header-appname">
-				<?php
-				if (\OCP\App::isEnabled('enterprise_key')) {
-					print_unescaped($theme->getHTMLName());
-				} else {
-					p($theme->getName());
-				}
-				?>
+				<?php print_unescaped($theme->getHTMLName()); ?>
 			</h1>
 		</div>
 

@@ -1,7 +1,6 @@
 OC.L10N.register(
     "settings",
     {
-    "Enabled" : "បាន​បើក",
     "Wrong password" : "ខុស​ពាក្យ​សម្ងាត់",
     "Saved" : "បាន​រក្សាទុក",
     "Authentication error" : "កំហុស​ការ​ផ្ទៀង​ផ្ទាត់​ភាព​ត្រឹម​ត្រូវ",
@@ -38,7 +37,6 @@ OC.L10N.register(
     "Server address" : "អាសយដ្ឋាន​ម៉ាស៊ីន​បម្រើ",
     "Port" : "ច្រក",
     "Send email" : "ផ្ញើ​អ៊ីមែល",
-    "Cron" : "Cron",
     "Version" : "កំណែ",
     "Sharing" : "ការ​ចែក​រំលែក",
     "Allow apps to use the Share API" : "អនុញ្ញាត​ឲ្យ​កម្មវិធី​ប្រើ API ចែក​រំលែក",
@@ -66,11 +64,13 @@ OC.L10N.register(
     "Other" : "ផ្សេងៗ",
     "set new password" : "កំណត់​ពាក្យ​សម្ងាត់​ថ្មី",
     "Default" : "លំនាំ​ដើម",
+    "Enabled" : "បាន​បើក",
     "test email settings" : "សាក​ល្បង​ការ​កំណត់​អ៊ីមែល",
     "Admins can't remove themself from the admin group" : "អ្នក​គ្រប់​គ្រង​មិន​អាច​លុប​ខ្លួន​ឯង​ចេញ​ពី​ក្រុម​អ្នក​គ្រប់​គ្រង​ឡើយ",
     "Unable to add user to group %s" : "មិន​អាច​បន្ថែម​អ្នក​ប្រើ​ទៅ​ក្រុម %s",
     "Unable to remove user from group %s" : "មិន​អាច​ដក​អ្នក​ប្រើ​ចេញ​ពី​ក្រុម​ %s",
     "Sending..." : "កំពុង​ផ្ញើ...",
-    "The PHP module 'fileinfo' is missing. We strongly recommend to enable this module to get best results with mime-type detection." : "ខ្វះ​ម៉ូឌុល 'fileinfo' ។ យើង​សូម​ណែនាំ​ឲ្យ​បើក​ម៉ូឌុល​នេះ ដើម្បី​ទទួល​បាន​លទ្ធផល​ល្អ​នៃ​ការ​សម្គាល់​ប្រភេទ mime ។"
+    "The PHP module 'fileinfo' is missing. We strongly recommend to enable this module to get best results with mime-type detection." : "ខ្វះ​ម៉ូឌុល 'fileinfo' ។ យើង​សូម​ណែនាំ​ឲ្យ​បើក​ម៉ូឌុល​នេះ ដើម្បី​ទទួល​បាន​លទ្ធផល​ល្អ​នៃ​ការ​សម្គាល់​ប្រភេទ mime ។",
+    "Cron" : "Cron"
 },
 "nplurals=1; plural=0;");

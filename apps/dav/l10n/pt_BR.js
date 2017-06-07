@@ -4,7 +4,7 @@ OC.L10N.register(
     "Calendar" : "Calendário",
     "Todos" : "Tarefas",
     "{actor} created calendar {calendar}" : "{actor} criou o calendário {calendar}",
-    "You created calendar {calendar}" : "Voce criou o calendário {calendar}",
+    "You created calendar {calendar}" : "Você criou o calendário {calendar}",
     "{actor} deleted calendar {calendar}" : "{actor} excluiu o calendário {calendar}",
     "You deleted calendar {calendar}" : "Você excluiu o calendário {calendar}",
     "{actor} updated calendar {calendar}" : "{actor} atualizou o calendário {calendar}",
@@ -42,6 +42,7 @@ OC.L10N.register(
     "Contact birthdays" : "Aniversário dos contatos",
     "Personal" : "Pessoal",
     "Contacts" : "Contatos",
+    "WebDAV" : "WebDAV",
     "Technical details" : "Detalhes técnicos",
     "Remote Address: %s" : "Endereço remoto: %s",
     "Request ID: %s" : "ID do solicitante: %s"

@@ -70,9 +70,8 @@ OC.L10N.register(
     "Favorited" : "Marqué comme favori",
     "Favorite" : "Favoris",
     "Copy direct link (only works for users who have access to this file/folder)" : "Copier lien direct (fonctionne seulement pour les utilisateurs qui ont accès a ce fichier/dossier)",
-    "Folder" : "Dossier",
     "New folder" : "Nouveau dossier",
-    "Upload" : "Téléverser",
+    "Upload file" : "Téléverser un fichier",
     "An error occurred while trying to update the tags" : "Une erreur est survenue lors de la mise à jour des étiquettes",
     "Added to favorites" : "Ajouté aux favoris",
     "Removed from favorites" : "Retiré des favoris",
@@ -121,6 +120,7 @@ OC.L10N.register(
     "Select all" : "Tout sélectionner",
     "Upload too large" : "Téléversement trop volumineux",
     "The files you are trying to upload exceed the maximum size for file uploads on this server." : "Les fichiers que vous essayez d'envoyer dépassent la taille maximale d'envoi permise par ce serveur.",
+    "No favorites yet" : "Aucun favoris pour l'instant",
     "Files and folders you mark as favorite will show up here" : "Les fichiers et dossiers ajoutés à vos favoris apparaîtront ici",
     "Shared with you" : "Partagés avec vous",
     "Shared with others" : "Partagés avec d'autres",
@@ -139,6 +139,8 @@ OC.L10N.register(
     "Soon..." : "Bientôt…",
     "File upload is in progress. Leaving the page now will cancel the upload." : "L'envoi du fichier est en cours. Quitter cette page maintenant annulera l'envoi du fichier.",
     "Copy local link" : "Copier le dossier local",
+    "Folder" : "Dossier",
+    "Upload" : "Téléverser",
     "No favorites" : "Aucun favori"
 },
 "nplurals=2; plural=(n > 1);");

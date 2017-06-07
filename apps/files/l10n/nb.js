@@ -69,9 +69,9 @@ OC.L10N.register(
     "_%n byte_::_%n bytes_" : ["%n byte","%n Byte"],
     "Favorited" : "Er favoritt",
     "Favorite" : "Gjør til favoritt",
-    "Folder" : "Mappe",
+    "Copy direct link (only works for users who have access to this file/folder)" : "Kopier direkte lenke (virker bare for brukere som har tilgang til denne fila/mappa)",
     "New folder" : "Ny mappe",
-    "Upload" : "Last opp",
+    "Upload file" : "Last opp fil",
     "An error occurred while trying to update the tags" : "En feil oppstod under oppdatering av merkelappene",
     "Added to favorites" : "Lagt til i favoritter",
     "Removed from favorites" : "Fjernet fra favoritter",
@@ -120,6 +120,7 @@ OC.L10N.register(
     "Select all" : "Velg alle",
     "Upload too large" : "Filen er for stor",
     "The files you are trying to upload exceed the maximum size for file uploads on this server." : "Filene du prøver å laste opp er for store til å laste opp til denne tjeneren.",
+    "No favorites yet" : "Ingen favoritter enda",
     "Files and folders you mark as favorite will show up here" : "Filer og mapper som du gjør til favoritter vises her",
     "Shared with you" : "Delt med deg",
     "Shared with others" : "Delt med andre",
@@ -138,6 +139,8 @@ OC.L10N.register(
     "Soon..." : "Snart...",
     "File upload is in progress. Leaving the page now will cancel the upload." : "Filopplasting pågår. Forlater du siden nå avbrytes opplastingen.",
     "Copy local link" : "Kopier lokal lenke",
+    "Folder" : "Mappe",
+    "Upload" : "Last opp",
     "No favorites" : "Ingen favoritter"
 },
 "nplurals=2; plural=(n != 1);");

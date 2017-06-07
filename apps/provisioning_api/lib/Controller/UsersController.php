@@ -30,19 +30,21 @@
 namespace OCA\Provisioning_API\Controller;
 
 use OC\Accounts\AccountManager;
-use \OC_Helper;
+use OC\Settings\Mailer\NewUserMailHelper;
+use OC_Helper;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCS\OCSException;
 use OCP\AppFramework\OCS\OCSForbiddenException;
-use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\OCSController;
 use OCP\Files\NotFoundException;
 use OCP\IConfig;
+use OCP\IGroup;
 use OCP\IGroupManager;
 use OCP\ILogger;
 use OCP\IRequest;
 use OCP\IUserManager;
 use OCP\IUserSession;
+use OCP\L10N\IFactory;
 
 class UsersController extends OCSController {
 
@@ -58,6 +60,10 @@ class UsersController extends OCSController {
 	private $accountManager;
 	/** @var ILogger */
 	private $logger;
+	/** @var IFactory */
+	private $l10nFactory;
+	/** @var NewUserMailHelper */
+	private $newUserMailHelper;
 
 	/**
 	 * @param string $appName
@@ -68,6 +74,8 @@ class UsersController extends OCSController {
 	 * @param IUserSession $userSession
 	 * @param AccountManager $accountManager
 	 * @param ILogger $logger
+	 * @param IFactory $l10nFactory
+	 * @param NewUserMailHelper $newUserMailHelper
 	 */
 	public function __construct($appName,
 								IRequest $request,
@@ -76,7 +84,9 @@ class UsersController extends OCSController {
 								IGroupManager $groupManager,
 								IUserSession $userSession,
 								AccountManager $accountManager,
-								ILogger $logger) {
+								ILogger $logger,
+								IFactory $l10nFactory,
+								NewUserMailHelper $newUserMailHelper) {
 		parent::__construct($appName, $request);
 
 		$this->userManager = $userManager;
@@ -85,6 +95,8 @@ class UsersController extends OCSController {
 		$this->userSession = $userSession;
 		$this->accountManager = $accountManager;
 		$this->logger = $logger;
+		$this->l10nFactory = $l10nFactory;
+		$this->newUserMailHelper = $newUserMailHelper;
 	}
 
 	/**
@@ -243,25 +255,31 @@ class UsersController extends OCSController {
 		// Admin? Or SubAdmin?
 		if($this->groupManager->isAdmin($currentLoggedInUser->getUID())
 			|| $this->groupManager->getSubAdmin()->isUserAccessible($currentLoggedInUser, $targetUserObject)) {
-			$data['enabled'] = $this->config->getUserValue($userId, 'core', 'enabled', 'true');
+			$data['enabled'] = $this->config->getUserValue($targetUserObject->getUID(), 'core', 'enabled', 'true');
 		} else {
 			// Check they are looking up themselves
-			if($currentLoggedInUser->getUID() !== $userId) {
+			if($currentLoggedInUser->getUID() !== $targetUserObject->getUID()) {
 				throw new OCSException('', \OCP\API::RESPOND_UNAUTHORISED);
 			}
 		}
 
 		$userAccount = $this->accountManager->getUser($targetUserObject);
+		$groups = $this->groupManager->getUserGroups($targetUserObject);
+		$gids = [];
+		foreach ($groups as $group) {
+			$gids[] = $group->getDisplayName();
+		}
 
 		// Find the data
 		$data['id'] = $targetUserObject->getUID();
-		$data['quota'] = $this->fillStorageInfo($userId);
-		$data['email'] = $targetUserObject->getEMailAddress();
-		$data['displayname'] = $targetUserObject->getDisplayName();
-		$data['phone'] = $userAccount[\OC\Accounts\AccountManager::PROPERTY_PHONE]['value'];
-		$data['address'] = $userAccount[\OC\Accounts\AccountManager::PROPERTY_ADDRESS]['value'];
-		$data['webpage'] = $userAccount[\OC\Accounts\AccountManager::PROPERTY_WEBSITE]['value'];
-		$data['twitter'] = $userAccount[\OC\Accounts\AccountManager::PROPERTY_TWITTER]['value'];
+		$data['quota'] = $this->fillStorageInfo($targetUserObject->getUID());
+		$data[AccountManager::PROPERTY_EMAIL] = $targetUserObject->getEMailAddress();
+		$data[AccountManager::PROPERTY_DISPLAYNAME] = $targetUserObject->getDisplayName();
+		$data[AccountManager::PROPERTY_PHONE] = $userAccount[AccountManager::PROPERTY_PHONE]['value'];
+		$data[AccountManager::PROPERTY_ADDRESS] = $userAccount[AccountManager::PROPERTY_ADDRESS]['value'];
+		$data[AccountManager::PROPERTY_WEBSITE] = $userAccount[AccountManager::PROPERTY_WEBSITE]['value'];
+		$data[AccountManager::PROPERTY_TWITTER] = $userAccount[AccountManager::PROPERTY_TWITTER]['value'];
+		$data['groups'] = $gids;
 
 		return $data;
 	}
@@ -289,11 +307,16 @@ class UsersController extends OCSController {
 		}
 
 		$permittedFields = [];
-		if($userId === $currentLoggedInUser->getUID()) {
+		if($targetUser->getUID() === $currentLoggedInUser->getUID()) {
 			// Editing self (display, email)
 			$permittedFields[] = 'display';
-			$permittedFields[] = 'email';
+			$permittedFields[] = AccountManager::PROPERTY_DISPLAYNAME;
+			$permittedFields[] = AccountManager::PROPERTY_EMAIL;
 			$permittedFields[] = 'password';
+			$permittedFields[] = AccountManager::PROPERTY_PHONE;
+			$permittedFields[] = AccountManager::PROPERTY_ADDRESS;
+			$permittedFields[] = AccountManager::PROPERTY_WEBSITE;
+			$permittedFields[] = AccountManager::PROPERTY_TWITTER;
 			// If admin they can edit their own quota
 			if($this->groupManager->isAdmin($currentLoggedInUser->getUID())) {
 				$permittedFields[] = 'quota';
@@ -305,9 +328,14 @@ class UsersController extends OCSController {
 			|| $this->groupManager->isAdmin($currentLoggedInUser->getUID())) {
 				// They have permissions over the user
 				$permittedFields[] = 'display';
-				$permittedFields[] = 'quota';
+				$permittedFields[] = AccountManager::PROPERTY_DISPLAYNAME;
+				$permittedFields[] = AccountManager::PROPERTY_EMAIL;
 				$permittedFields[] = 'password';
-				$permittedFields[] = 'email';
+				$permittedFields[] = AccountManager::PROPERTY_PHONE;
+				$permittedFields[] = AccountManager::PROPERTY_ADDRESS;
+				$permittedFields[] = AccountManager::PROPERTY_WEBSITE;
+				$permittedFields[] = AccountManager::PROPERTY_TWITTER;
+				$permittedFields[] = 'quota';
 			} else {
 				// No rights
 				throw new OCSException('', \OCP\API::RESPOND_UNAUTHORISED);
@@ -320,13 +348,14 @@ class UsersController extends OCSController {
 		// Process the edit
 		switch($key) {
 			case 'display':
+			case AccountManager::PROPERTY_DISPLAYNAME:
 				$targetUser->setDisplayName($value);
 				break;
 			case 'quota':
 				$quota = $value;
-				if($quota !== 'none' and $quota !== 'default') {
+				if($quota !== 'none' && $quota !== 'default') {
 					if (is_numeric($quota)) {
-						$quota = floatval($quota);
+						$quota = (float) $quota;
 					} else {
 						$quota = \OCP\Util::computerFileSize($quota);
 					}
@@ -346,11 +375,21 @@ class UsersController extends OCSController {
 			case 'password':
 				$targetUser->setPassword($value);
 				break;
-			case 'email':
+			case AccountManager::PROPERTY_EMAIL:
 				if(filter_var($value, FILTER_VALIDATE_EMAIL)) {
 					$targetUser->setEMailAddress($value);
 				} else {
 					throw new OCSException('', 102);
+				}
+				break;
+			case AccountManager::PROPERTY_PHONE:
+			case AccountManager::PROPERTY_ADDRESS:
+			case AccountManager::PROPERTY_WEBSITE:
+			case AccountManager::PROPERTY_TWITTER:
+				$userAccount = $this->accountManager->getUser($targetUser);
+				if ($userAccount[$key]['value'] !== $value) {
+					$userAccount[$key]['value'] = $value;
+					$this->accountManager->updateUser($targetUser, $userAccount);
 				}
 				break;
 			default:
@@ -470,6 +509,7 @@ class UsersController extends OCSController {
 			// Looking up someone else
 			if($subAdminManager->isUserAccessible($loggedInUser, $targetUser)) {
 				// Return the group that the method caller is subadmin of for the user in question
+				/** @var IGroup[] $getSubAdminsGroups */
 				$getSubAdminsGroups = $subAdminManager->getSubAdminsGroups($loggedInUser);
 				foreach ($getSubAdminsGroups as $key => $group) {
 					$getSubAdminsGroups[$key] = $group->getGID();
@@ -489,6 +529,8 @@ class UsersController extends OCSController {
 
 	/**
 	 * @PasswordConfirmationRequired
+	 * @NoAdminRequired
+	 *
 	 * @param string $userId
 	 * @param string $groupid
 	 * @return DataResponse
@@ -506,6 +548,13 @@ class UsersController extends OCSController {
 		}
 		if($targetUser === null) {
 			throw new OCSException('', 103);
+		}
+
+		// If they're not an admin, check they are a subadmin of the group in question
+		$loggedInUser = $this->userSession->getUser();
+		$subAdminManager = $this->groupManager->getSubAdmin();
+		if (!$this->groupManager->isAdmin($loggedInUser->getUID()) && !$subAdminManager->isSubAdminOfGroup($loggedInUser, $group)) {
+			throw new OCSException('', 104);
 		}
 
 		// Add user to group
@@ -541,25 +590,33 @@ class UsersController extends OCSController {
 
 		// If they're not an admin, check they are a subadmin of the group in question
 		$subAdminManager = $this->groupManager->getSubAdmin();
-		if(!$this->groupManager->isAdmin($loggedInUser->getUID()) && !$subAdminManager->isSubAdminofGroup($loggedInUser, $group)) {
+		if (!$this->groupManager->isAdmin($loggedInUser->getUID()) && !$subAdminManager->isSubAdminOfGroup($loggedInUser, $group)) {
 			throw new OCSException('', 104);
 		}
+
 		// Check they aren't removing themselves from 'admin' or their 'subadmin; group
-		if($userId === $loggedInUser->getUID()) {
-			if($this->groupManager->isAdmin($loggedInUser->getUID())) {
-				if($group->getGID() === 'admin') {
+		if ($targetUser->getUID() === $loggedInUser->getUID()) {
+			if ($this->groupManager->isAdmin($loggedInUser->getUID())) {
+				if ($group->getGID() === 'admin') {
 					throw new OCSException('Cannot remove yourself from the admin group', 105);
 				}
 			} else {
-				// Not an admin, check they are not removing themself from their subadmin group
-				$subAdminGroups = $subAdminManager->getSubAdminsGroups($loggedInUser);
-				foreach ($subAdminGroups as $key => $group) {
-					$subAdminGroups[$key] = $group->getGID();
-				}
+				// Not an admin, so the user must be a subadmin of this group, but that is not allowed.
+				throw new OCSException('Cannot remove yourself from this group as you are a SubAdmin', 105);
+			}
 
-				if(in_array($group->getGID(), $subAdminGroups, true)) {
-					throw new OCSException('Cannot remove yourself from this group as you are a SubAdmin', 105);
-				}
+		} else if (!$this->groupManager->isAdmin($loggedInUser->getUID())) {
+			/** @var IGroup[] $subAdminGroups */
+			$subAdminGroups = $subAdminManager->getSubAdminsGroups($loggedInUser);
+			$subAdminGroups = array_map(function (IGroup $subAdminGroup) {
+				return $subAdminGroup->getGID();
+			}, $subAdminGroups);
+			$userGroups = $this->groupManager->getUserGroupIds($targetUser);
+			$userSubAdminGroups = array_intersect($subAdminGroups, $userGroups);
+
+			if (count($userSubAdminGroups) <= 1) {
+				// Subadmin must not be able to remove a user from all their subadmin groups.
+				throw new OCSException('Cannot remove user from this group as this is the only remaining group you are a SubAdmin of', 105);
 			}
 		}
 
@@ -588,10 +645,10 @@ class UsersController extends OCSController {
 		}
 		// Check if group exists
 		if($group === null) {
-			throw new OCSException('Group:'.$groupid.' does not exist',  102);
+			throw new OCSException('Group does not exist',  102);
 		}
 		// Check if trying to make subadmin of admin group
-		if(strtolower($groupid) === 'admin') {
+		if($group->getGID() === 'admin') {
 			throw new OCSException('Cannot create subadmins for admin group', 103);
 		}
 
@@ -633,7 +690,7 @@ class UsersController extends OCSController {
 			throw new OCSException('Group does not exist', 101);
 		}
 		// Check if they are a subadmin of this said group
-		if(!$subAdminManager->isSubAdminofGroup($user, $group)) {
+		if(!$subAdminManager->isSubAdminOfGroup($user, $group)) {
 			throw new OCSException('User is not a subadmin of this group', 102);
 		}
 
@@ -693,5 +750,55 @@ class UsersController extends OCSController {
 			$data = [];
 		}
 		return $data;
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @PasswordConfirmationRequired
+	 *
+	 * resend welcome message
+	 *
+	 * @param string $userId
+	 * @return DataResponse
+	 * @throws OCSException
+	 */
+	public function resendWelcomeMessage($userId) {
+		$currentLoggedInUser = $this->userSession->getUser();
+
+		$targetUser = $this->userManager->get($userId);
+		if($targetUser === null) {
+			throw new OCSException('', \OCP\API::RESPOND_NOT_FOUND);
+		}
+
+		// Check if admin / subadmin
+		$subAdminManager = $this->groupManager->getSubAdmin();
+		if(!$subAdminManager->isUserAccessible($currentLoggedInUser, $targetUser)
+			&& !$this->groupManager->isAdmin($currentLoggedInUser->getUID())) {
+			// No rights
+			throw new OCSException('', \OCP\API::RESPOND_UNAUTHORISED);
+		}
+
+		$email = $targetUser->getEMailAddress();
+		if ($email === '' || $email === null) {
+			throw new OCSException('Email address not available', 101);
+		}
+		$username = $targetUser->getUID();
+		$lang = $this->config->getUserValue($username, 'core', 'lang', 'en');
+		if (!$this->l10nFactory->languageExists('settings', $lang)) {
+			$lang = 'en';
+		}
+
+		$l10n = $this->l10nFactory->get('settings', $lang);
+
+		try {
+			$this->newUserMailHelper->setL10N($l10n);
+			$emailTemplate = $this->newUserMailHelper->generateTemplate($targetUser, false);
+			$this->newUserMailHelper->sendMail($targetUser, $emailTemplate);
+		} catch(\Exception $e) {
+			$this->logger->error("Can't send new user mail to $email: " . $e->getMessage(), array('app' => 'settings'));
+			throw new OCSException('Sending email failed', 102);
+		}
+
+		return new DataResponse();
 	}
 }

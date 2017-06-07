@@ -33,11 +33,13 @@ namespace OC\Settings\Controller;
 use OC\Accounts\AccountManager;
 use OC\AppFramework\Http;
 use OC\ForbiddenException;
-use OC\User\User;
+use OC\Settings\Mailer\NewUserMailHelper;
+use OC\Security\IdentityProof\Manager;
 use OCP\App\IAppManager;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\DataResponse;
-use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Utility\ITimeFactory;
+use OCP\BackgroundJob\IJobList;
 use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IL10N;
@@ -49,7 +51,8 @@ use OCP\IUserManager;
 use OCP\IUserSession;
 use OCP\Mail\IMailer;
 use OCP\IAvatarManager;
-use Punic\Exception;
+use OCP\Security\ICrypto;
+use OCP\Security\ISecureRandom;
 
 /**
  * @package OC\Settings\Controller
@@ -69,14 +72,8 @@ class UsersController extends Controller {
 	private $config;
 	/** @var ILogger */
 	private $log;
-	/** @var \OC_Defaults */
-	private $defaults;
 	/** @var IMailer */
 	private $mailer;
-	/** @var string */
-	private $fromMailAddress;
-	/** @var IURLGenerator */
-	private $urlGenerator;
 	/** @var bool contains the state of the encryption app */
 	private $isEncryptionAppEnabled;
 	/** @var bool contains the state of the admin recovery setting */
@@ -85,6 +82,18 @@ class UsersController extends Controller {
 	private $avatarManager;
 	/** @var AccountManager */
 	private $accountManager;
+	/** @var ISecureRandom */
+	private $secureRandom;
+	/** @var NewUserMailHelper */
+	private $newUserMailHelper;
+	/** @var ITimeFactory */
+	private $timeFactory;
+	/** @var ICrypto */
+	private $crypto;
+	/** @var Manager */
+	private $keyManager;
+	/** @var IJobList */
+	private $jobList;
 
 	/**
 	 * @param string $appName
@@ -96,13 +105,17 @@ class UsersController extends Controller {
 	 * @param bool $isAdmin
 	 * @param IL10N $l10n
 	 * @param ILogger $log
-	 * @param \OC_Defaults $defaults
 	 * @param IMailer $mailer
-	 * @param string $fromMailAddress
 	 * @param IURLGenerator $urlGenerator
 	 * @param IAppManager $appManager
 	 * @param IAvatarManager $avatarManager
 	 * @param AccountManager $accountManager
+	 * @param ISecureRandom $secureRandom
+	 * @param NewUserMailHelper $newUserMailHelper
+	 * @param ITimeFactory $timeFactory
+	 * @param ICrypto $crypto
+	 * @param Manager $keyManager
+	 * @param IJobList $jobList
 	 */
 	public function __construct($appName,
 								IRequest $request,
@@ -113,14 +126,17 @@ class UsersController extends Controller {
 								$isAdmin,
 								IL10N $l10n,
 								ILogger $log,
-								\OC_Defaults $defaults,
 								IMailer $mailer,
-								$fromMailAddress,
 								IURLGenerator $urlGenerator,
 								IAppManager $appManager,
 								IAvatarManager $avatarManager,
-								AccountManager $accountManager
-) {
+								AccountManager $accountManager,
+								ISecureRandom $secureRandom,
+								NewUserMailHelper $newUserMailHelper,
+								ITimeFactory $timeFactory,
+								ICrypto $crypto,
+								Manager $keyManager,
+								IJobList $jobList) {
 		parent::__construct($appName, $request);
 		$this->userManager = $userManager;
 		$this->groupManager = $groupManager;
@@ -129,12 +145,15 @@ class UsersController extends Controller {
 		$this->isAdmin = $isAdmin;
 		$this->l10n = $l10n;
 		$this->log = $log;
-		$this->defaults = $defaults;
 		$this->mailer = $mailer;
-		$this->fromMailAddress = $fromMailAddress;
-		$this->urlGenerator = $urlGenerator;
 		$this->avatarManager = $avatarManager;
 		$this->accountManager = $accountManager;
+		$this->secureRandom = $secureRandom;
+		$this->newUserMailHelper = $newUserMailHelper;
+		$this->timeFactory = $timeFactory;
+		$this->crypto = $crypto;
+		$this->keyManager = $keyManager;
+		$this->jobList = $jobList;
 
 		// check for encryption state - TODO see formatUserForIndex
 		$this->isEncryptionAppEnabled = $appManager->isEnabledForUser('encryption');
@@ -188,12 +207,10 @@ class UsersController extends Controller {
 		}
 
 		$avatarAvailable = false;
-		if ($this->config->getSystemValue('enable_avatars', true) === true) {
-			try {
-				$avatarAvailable = $this->avatarManager->getAvatar($user->getUID())->exists();
-			} catch (\Exception $e) {
-				//No avatar yet
-			}
+		try {
+			$avatarAvailable = $this->avatarManager->getAvatar($user->getUID())->exists();
+		} catch (\Exception $e) {
+			//No avatar yet
 		}
 
 		return [
@@ -208,6 +225,7 @@ class UsersController extends Controller {
 			'email' => $displayName,
 			'isRestoreDisabled' => !$restorePossible,
 			'isAvatarAvailable' => $avatarAvailable,
+			'isEnabled' => $user->isEnabled(),
 		];
 	}
 
@@ -236,11 +254,6 @@ class UsersController extends Controller {
 	 * TODO: Tidy up and write unit tests - code is mainly static method calls
 	 */
 	public function index($offset = 0, $limit = 10, $gid = '', $pattern = '', $backend = '') {
-		// FIXME: The JS sends the group '_everyone' instead of no GID for the "all users" group.
-		if($gid === '_everyone') {
-			$gid = '';
-		}
-
 		// Remove backends
 		if(!empty($backend)) {
 			$activeBackends = $this->userManager->getBackends();
@@ -255,15 +268,18 @@ class UsersController extends Controller {
 
 		$users = [];
 		if ($this->isAdmin) {
-
-			if($gid !== '') {
+			if($gid !== '' && $gid !== '_disabledUsers') {
 				$batch = $this->getUsersForUID($this->groupManager->displayNamesInGroup($gid, $pattern, $limit, $offset));
 			} else {
 				$batch = $this->userManager->search($pattern, $limit, $offset);
 			}
 
 			foreach ($batch as $user) {
-				$users[] = $this->formatUserForIndex($user);
+				if( ($gid !== '_disabledUsers' && $user->isEnabled()) ||
+					($gid === '_disabledUsers' && !$user->isEnabled())
+				) {
+					$users[] = $this->formatUserForIndex($user);
+				}
 			}
 
 		} else {
@@ -276,7 +292,7 @@ class UsersController extends Controller {
 			$subAdminOfGroups = $gids;
 
 			// Set the $gid parameter to an empty value if the subadmin has no rights to access a specific group
-			if($gid !== '' && !in_array($gid, $subAdminOfGroups)) {
+			if($gid !== '' && $gid !== '_disabledUsers' && !in_array($gid, $subAdminOfGroups)) {
 				$gid = '';
 			}
 
@@ -301,7 +317,11 @@ class UsersController extends Controller {
 					$this->groupManager->getUserGroupIds($user),
 					$subAdminOfGroups
 				));
-				$users[] = $this->formatUserForIndex($user, $userGroups);
+				if( ($gid !== '_disabledUsers' && $user->isEnabled()) ||
+					($gid === '_disabledUsers' && !$user->isEnabled())
+				) {
+					$users[] = $this->formatUserForIndex($user, $userGroups);
+				}
 			}
 		}
 
@@ -318,12 +338,12 @@ class UsersController extends Controller {
 	 * @param string $email
 	 * @return DataResponse
 	 */
-	public function create($username, $password, array $groups=array(), $email='') {
+	public function create($username, $password, array $groups=[], $email='') {
 		if($email !== '' && !$this->mailer->validateMailAddress($email)) {
 			return new DataResponse(
-				array(
+				[
 					'message' => (string)$this->l10n->t('Invalid mail address')
-				),
+				],
 				Http::STATUS_UNPROCESSABLE_ENTITY
 			);
 		}
@@ -346,23 +366,37 @@ class UsersController extends Controller {
 			}
 
 			if (empty($groups)) {
-				$groups = $this->groupManager->getSubAdmin()->getSubAdminsGroups($currentUser);
-				// New class returns IGroup[] so convert back
-				$gids = [];
-				foreach ($groups as $group) {
-					$gids[] = $group->getGID();
-				}
-				$groups = $gids;
+				return new DataResponse(
+					[
+						'message' => $this->l10n->t('No valid group selected'),
+					],
+					Http::STATUS_FORBIDDEN
+				);
 			}
 		}
 
 		if ($this->userManager->userExists($username)) {
 			return new DataResponse(
-				array(
+				[
 					'message' => (string)$this->l10n->t('A user with that name already exists.')
-				),
+				],
 				Http::STATUS_CONFLICT
 			);
+		}
+
+		$generatePasswordResetToken = false;
+		if ($password === '') {
+			if ($email === '') {
+				return new DataResponse(
+					[
+						'message' => (string)$this->l10n->t('To send a password link to the user an email address is required.')
+					],
+					Http::STATUS_UNPROCESSABLE_ENTITY
+				);
+			}
+
+			$password = $this->secureRandom->generate(32);
+			$generatePasswordResetToken = true;
 		}
 
 		try {
@@ -373,14 +407,14 @@ class UsersController extends Controller {
 				$message = $this->l10n->t('Unable to create user.');
 			}
 			return new DataResponse(
-				array(
+				[
 					'message' => (string) $message,
-				),
+				],
 				Http::STATUS_FORBIDDEN
 			);
 		}
 
-		if($user instanceof User) {
+		if($user instanceof IUser) {
 			if($groups !== null) {
 				foreach($groups as $groupName) {
 					$group = $this->groupManager->get($groupName);
@@ -396,31 +430,11 @@ class UsersController extends Controller {
 			 */
 			if($email !== '') {
 				$user->setEMailAddress($email);
-
-				// data for the mail template
-				$mailData = array(
-					'username' => $username,
-					'url' => $this->urlGenerator->getAbsoluteURL('/')
-				);
-
-				$mail = new TemplateResponse('settings', 'email.new_user', $mailData, 'blank');
-				$mailContent = $mail->render();
-
-				$mail = new TemplateResponse('settings', 'email.new_user_plain_text', $mailData, 'blank');
-				$plainTextMailContent = $mail->render();
-
-				$subject = $this->l10n->t('Your %s account was created', [$this->defaults->getName()]);
-
 				try {
-					$message = $this->mailer->createMessage();
-					$message->setTo([$email => $username]);
-					$message->setSubject($subject);
-					$message->setHtmlBody($mailContent);
-					$message->setPlainBody($plainTextMailContent);
-					$message->setFrom([$this->fromMailAddress => $this->defaults->getName()]);
-					$this->mailer->send($message);
+					$emailTemplate = $this->newUserMailHelper->generateTemplate($user, $generatePasswordResetToken);
+					$this->newUserMailHelper->sendMail($user, $emailTemplate);
 				} catch(\Exception $e) {
-					$this->log->error("Can't send new user mail to $email: " . $e->getMessage(), array('app' => 'settings'));
+					$this->log->error("Can't send new user mail to $email: " . $e->getMessage(), ['app' => 'settings']);
 				}
 			}
 			// fetch users groups
@@ -433,9 +447,9 @@ class UsersController extends Controller {
 		}
 
 		return new DataResponse(
-			array(
-				'message' => (string)$this->l10n->t('Unable to create user.')
-			),
+			[
+				'message' => (string) $this->l10n->t('Unable to create user.')
+			],
 			Http::STATUS_FORBIDDEN
 		);
 
@@ -454,24 +468,24 @@ class UsersController extends Controller {
 
 		if($userId === $id) {
 			return new DataResponse(
-				array(
+				[
 					'status' => 'error',
-					'data' => array(
-						'message' => (string)$this->l10n->t('Unable to delete user.')
-					)
-				),
+					'data' => [
+						'message' => (string) $this->l10n->t('Unable to delete user.')
+					]
+				],
 				Http::STATUS_FORBIDDEN
 			);
 		}
 
 		if(!$this->isAdmin && !$this->groupManager->getSubAdmin()->isUserAccessible($this->userSession->getUser(), $user)) {
 			return new DataResponse(
-				array(
+				[
 					'status' => 'error',
-					'data' => array(
+					'data' => [
 						'message' => (string)$this->l10n->t('Authentication error')
-					)
-				),
+					]
+				],
 				Http::STATUS_FORBIDDEN
 			);
 		}
@@ -479,26 +493,182 @@ class UsersController extends Controller {
 		if($user) {
 			if($user->delete()) {
 				return new DataResponse(
-					array(
+					[
 						'status' => 'success',
-						'data' => array(
+						'data' => [
 							'username' => $id
-						)
-					),
+						]
+					],
 					Http::STATUS_NO_CONTENT
 				);
 			}
 		}
 
 		return new DataResponse(
-			array(
+			[
 				'status' => 'error',
-				'data' => array(
+				'data' => [
 					'message' => (string)$this->l10n->t('Unable to delete user.')
-				)
-			),
+				]
+			],
 			Http::STATUS_FORBIDDEN
 		);
+	}
+
+	/**
+	 * @NoAdminRequired
+	 *
+	 * @param string $id
+	 * @param int $enabled
+	 * @return DataResponse
+	 */
+	public function setEnabled($id, $enabled) {
+		$enabled = (bool)$enabled;
+		if($enabled) {
+			$errorMsgGeneral = (string) $this->l10n->t('Error while enabling user.');
+		} else {
+			$errorMsgGeneral = (string) $this->l10n->t('Error while disabling user.');
+		}
+
+		$userId = $this->userSession->getUser()->getUID();
+		$user = $this->userManager->get($id);
+
+		if ($userId === $id) {
+			return new DataResponse(
+				[
+					'status' => 'error',
+					'data' => [
+						'message' => $errorMsgGeneral
+					]
+				], Http::STATUS_FORBIDDEN
+			);
+		}
+
+		if($user) {
+			if (!$this->isAdmin && !$this->groupManager->getSubAdmin()->isUserAccessible($this->userSession->getUser(), $user)) {
+				return new DataResponse(
+					[
+						'status' => 'error',
+						'data' => [
+							'message' => (string) $this->l10n->t('Authentication error')
+						]
+					],
+					Http::STATUS_FORBIDDEN
+				);
+			}
+
+			$user->setEnabled($enabled);
+			return new DataResponse(
+				[
+					'status' => 'success',
+					'data' => [
+						'username' => $id,
+						'enabled' => $enabled
+					]
+				]
+			);
+		} else {
+			return new DataResponse(
+				[
+					'status' => 'error',
+					'data' => [
+						'message' => $errorMsgGeneral
+					]
+				],
+				Http::STATUS_FORBIDDEN
+			);
+		}
+
+	}
+
+	/**
+	 * Set the mail address of a user
+	 *
+	 * @NoAdminRequired
+	 * @NoSubadminRequired
+	 * @PasswordConfirmationRequired
+	 *
+	 * @param string $account
+	 * @param bool $onlyVerificationCode only return verification code without updating the data
+	 * @return DataResponse
+	 */
+	public function getVerificationCode($account, $onlyVerificationCode) {
+
+		$user = $this->userSession->getUser();
+
+		if ($user === null) {
+			return new DataResponse([], Http::STATUS_BAD_REQUEST);
+		}
+
+		$accountData = $this->accountManager->getUser($user);
+		$cloudId = $user->getCloudId();
+		$message = "Use my Federated Cloud ID to share with me: " . $cloudId;
+		$signature = $this->signMessage($user, $message);
+
+		$code = $message . ' ' . $signature;
+		$codeMd5 = $message . ' ' . md5($signature);
+
+		switch ($account) {
+			case 'verify-twitter':
+				$accountData[AccountManager::PROPERTY_TWITTER]['verified'] = AccountManager::VERIFICATION_IN_PROGRESS;
+				$msg = $this->l10n->t('In order to verify your Twitter account, post the following tweet on Twitter (please make sure to post it without any line breaks):');
+				$code = $codeMd5;
+				$type = AccountManager::PROPERTY_TWITTER;
+				$data = $accountData[AccountManager::PROPERTY_TWITTER]['value'];
+				$accountData[AccountManager::PROPERTY_TWITTER]['signature'] = $signature;
+				break;
+			case 'verify-website':
+				$accountData[AccountManager::PROPERTY_WEBSITE]['verified'] = AccountManager::VERIFICATION_IN_PROGRESS;
+				$msg = $this->l10n->t('In order to verify your Website, store the following content in your web-root at \'.well-known/CloudIdVerificationCode.txt\' (please make sure that the complete text is in one line):');
+				$type = AccountManager::PROPERTY_WEBSITE;
+				$data = $accountData[AccountManager::PROPERTY_WEBSITE]['value'];
+				$accountData[AccountManager::PROPERTY_WEBSITE]['signature'] = $signature;
+				break;
+			default:
+				return new DataResponse([], Http::STATUS_BAD_REQUEST);
+		}
+
+		if ($onlyVerificationCode === false) {
+			$this->accountManager->updateUser($user, $accountData);
+
+			$this->jobList->add('OC\Settings\BackgroundJobs\VerifyUserData',
+				[
+					'verificationCode' => $code,
+					'data' => $data,
+					'type' => $type,
+					'uid' => $user->getUID(),
+					'try' => 0,
+					'lastRun' => $this->getCurrentTime()
+				]
+			);
+		}
+
+		return new DataResponse(['msg' => $msg, 'code' => $code]);
+	}
+
+	/**
+	 * get current timestamp
+	 *
+	 * @return int
+	 */
+	protected function getCurrentTime() {
+		return time();
+	}
+
+	/**
+	 * sign message with users private key
+	 *
+	 * @param IUser $user
+	 * @param string $message
+	 *
+	 * @return string base64 encoded signature
+	 */
+	protected function signMessage(IUser $user, $message) {
+		$privateKey = $this->keyManager->getKey($user)->getPrivate();
+		openssl_sign(json_encode($message), $signature, $privateKey, OPENSSL_ALGO_SHA512);
+		$signatureBase64 = base64_encode($signature);
+
+		return $signatureBase64;
 	}
 
 	/**
@@ -536,14 +706,14 @@ class UsersController extends Controller {
 									$twitterScope
 	) {
 
-		if(!empty($email) && !$this->mailer->validateMailAddress($email)) {
+		if (!empty($email) && !$this->mailer->validateMailAddress($email)) {
 			return new DataResponse(
-				array(
+				[
 					'status' => 'error',
-					'data' => array(
-						'message' => (string)$this->l10n->t('Invalid mail address')
-					)
-				),
+					'data' => [
+						'message' => (string) $this->l10n->t('Invalid mail address')
+					]
+				],
 				Http::STATUS_UNPROCESSABLE_ENTITY
 			);
 		}
@@ -563,9 +733,9 @@ class UsersController extends Controller {
 		try {
 			$this->saveUserSettings($user, $data);
 			return new DataResponse(
-				array(
+				[
 					'status' => 'success',
-					'data' => array(
+					'data' => [
 						'userId' => $user->getUID(),
 						'avatarScope' => $avatarScope,
 						'displayname' => $displayname,
@@ -576,9 +746,9 @@ class UsersController extends Controller {
 						'websiteScope' => $websiteScope,
 						'address' => $address,
 						'addressScope' => $addressScope,
-						'message' => (string)$this->l10n->t('Settings saved')
-					)
-				),
+						'message' => (string) $this->l10n->t('Settings saved')
+					]
+				],
 				Http::STATUS_OK
 			);
 		} catch (ForbiddenException $e) {
@@ -744,36 +914,36 @@ class UsersController extends Controller {
 			&& !$this->groupManager->getSubAdmin()->isUserAccessible($this->userSession->getUser(), $user)
 		) {
 			return new DataResponse(
-				array(
+				[
 					'status' => 'error',
-					'data' => array(
-						'message' => (string)$this->l10n->t('Forbidden')
-					)
-				),
+					'data' => [
+						'message' => (string) $this->l10n->t('Forbidden')
+					]
+				],
 				Http::STATUS_FORBIDDEN
 			);
 		}
 
 		if($mailAddress !== '' && !$this->mailer->validateMailAddress($mailAddress)) {
 			return new DataResponse(
-				array(
+				[
 					'status' => 'error',
-					'data' => array(
-						'message' => (string)$this->l10n->t('Invalid mail address')
-					)
-				),
+					'data' => [
+						'message' => (string) $this->l10n->t('Invalid mail address')
+					]
+				],
 				Http::STATUS_UNPROCESSABLE_ENTITY
 			);
 		}
 
 		if (!$user) {
 			return new DataResponse(
-				array(
+				[
 					'status' => 'error',
-					'data' => array(
-						'message' => (string)$this->l10n->t('Invalid user')
-					)
-				),
+					'data' => [
+						'message' => (string) $this->l10n->t('Invalid user')
+					]
+				],
 				Http::STATUS_UNPROCESSABLE_ENTITY
 			);
 		}
@@ -781,12 +951,12 @@ class UsersController extends Controller {
 		// for the permission of setting a email address
 		if (!$user->canChangeDisplayName()) {
 			return new DataResponse(
-				array(
+				[
 					'status' => 'error',
-					'data' => array(
-						'message' => (string)$this->l10n->t('Unable to change mail address')
-					)
-				),
+					'data' => [
+						'message' => (string) $this->l10n->t('Unable to change mail address')
+					]
+				],
 				Http::STATUS_FORBIDDEN
 			);
 		}
@@ -797,14 +967,14 @@ class UsersController extends Controller {
 		try {
 			$this->saveUserSettings($user, $userData);
 			return new DataResponse(
-				array(
+				[
 					'status' => 'success',
-					'data' => array(
+					'data' => [
 						'username' => $id,
 						'mailAddress' => $mailAddress,
-						'message' => (string)$this->l10n->t('Email saved')
-					)
-				),
+						'message' => (string) $this->l10n->t('Email saved')
+					]
+				],
 				Http::STATUS_OK
 			);
 		} catch (ForbiddenException $e) {

@@ -70,9 +70,8 @@ OC.L10N.register(
     "Favorited" : "Favoriet",
     "Favorite" : "Favoriet",
     "Copy direct link (only works for users who have access to this file/folder)" : "Kopieer de link direct (werkt alleen voor gebruikers met toegang tot map/bestand)",
-    "Folder" : "Map",
     "New folder" : "Nieuwe map",
-    "Upload" : "Uploaden",
+    "Upload file" : "Bestand uploaden",
     "An error occurred while trying to update the tags" : "Er trad een fout op bij jouw poging om de markeringen bij te werken",
     "Added to favorites" : "Toevoegen aan favorieten",
     "Removed from favorites" : "Verwijderen uit favorieten",
@@ -121,6 +120,7 @@ OC.L10N.register(
     "Select all" : "Alles selecteren",
     "Upload too large" : "Upload is te groot",
     "The files you are trying to upload exceed the maximum size for file uploads on this server." : "De bestanden die je probeert te uploaden zijn groter dan de maximaal toegestane  bestandsgrootte voor deze server.",
+    "No favorites yet" : "Nog geen favorieten",
     "Files and folders you mark as favorite will show up here" : "Bestanden en mappen die je als favoriet aanmerkt, worden hier getoond",
     "Shared with you" : "Gedeeld met jou",
     "Shared with others" : "Gedeeld met anderen",
@@ -139,6 +139,8 @@ OC.L10N.register(
     "Soon..." : "Binnenkort...",
     "File upload is in progress. Leaving the page now will cancel the upload." : "Bestandsupload is bezig. Wanneer de pagina nu verlaten wordt, stopt de upload.",
     "Copy local link" : "Kopiëren lokale link",
+    "Folder" : "Map",
+    "Upload" : "Uploaden",
     "No favorites" : "Geen favorieten"
 },
 "nplurals=2; plural=(n != 1);");

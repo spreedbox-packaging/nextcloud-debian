@@ -117,4 +117,5 @@ class PublicLinks extends Base {
 		}
 		return [];
 	}
+
 }

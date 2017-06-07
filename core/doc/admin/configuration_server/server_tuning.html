@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Nextcloud Server Tuning &mdash; Nextcloud 11 Server Administration Manual 11 alpha documentation</title>
+    <title>Server Tuning &mdash; Nextcloud 12 Server Administration Manual 12 documentation</title>
     
     <link rel="stylesheet" href="../_static/" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '11 alpha',
+        VERSION:     '12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -28,8 +28,8 @@
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
-    <link rel="top" title="Nextcloud 11 Server Administration Manual 11 alpha documentation" href="../contents.html" />
-    <link rel="up" title="Nextcloud Server Configuration" href="index.html" />
+    <link rel="top" title="Nextcloud 12 Server Administration Manual 12 documentation" href="../contents.html" />
+    <link rel="up" title="Server Configuration" href="index.html" />
     <link rel="next" title="Theming" href="theming.html" />
     <link rel="prev" title="Automatic Configuration Setup" href="automatic_configuration.html" />
 <meta charset='utf-8'>
@@ -66,10 +66,10 @@
 <li><a href="../contents.html">Table of Contents</a></li>
 									</ul>
                   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">Nextcloud 11 Server Administration Manual Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Nextcloud 11 Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release_notes.html">Release Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Nextcloud Server Configuration</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Server Configuration</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="security_setup_warnings.html">Warnings on Admin Page</a></li>
 <li class="toctree-l2"><a class="reference internal" href="occ_command.html">Using the occ Command</a></li>
 <li class="toctree-l2"><a class="reference internal" href="activity_configuration.html">Configuring the Activity App</a></li>
@@ -87,7 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="reverse_proxy_configuration.html">Reverse Proxy Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="thirdparty_php_configuration.html">Using Third Party PHP Components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="automatic_configuration.html">Automatic Configuration Setup</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Nextcloud Server Tuning</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Server Tuning</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#using-cron-to-perform-background-jobs">Using cron to perform background jobs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#caching">Caching</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#using-mariadb-mysql-instead-of-sqlite">Using MariaDB/MySQL instead of SQLite</a></li>
@@ -129,8 +129,8 @@
   </li>
 </ul>
 						
-  <div class="section" id="nextcloud-server-tuning">
-<h1>Nextcloud Server Tuning<a class="headerlink" href="#nextcloud-server-tuning" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="server-tuning">
+<h1>Server Tuning<a class="headerlink" href="#server-tuning" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="using-cron-to-perform-background-jobs">
 <h2>Using cron to perform background jobs<a class="headerlink" href="#using-cron-to-perform-background-jobs" title="Permalink to this headline">¶</a></h2>
 <p>See <a class="reference internal" href="background_jobs_configuration.html"><em>Defining Background Jobs</em></a> for a description and the

@@ -29,7 +29,8 @@ namespace OC\Core\Command\Maintenance;
 
 use InvalidArgumentException;
 use OC\Setup;
-use OCP\IConfig;
+use OC\SystemConfig;
+use OCP\Defaults;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -40,11 +41,11 @@ use Symfony\Component\Console\Question\Question;
 class Install extends Command {
 
 	/**
-	 * @var IConfig
+	 * @var SystemConfig
 	 */
 	private $config;
 
-	public function __construct(IConfig $config) {
+	public function __construct(SystemConfig $config) {
 		parent::__construct();
 		$this->config = $config;
 	}
@@ -70,7 +71,7 @@ class Install extends Command {
 		// validate the environment
 		$server = \OC::$server;
 		$setupHelper = new Setup($this->config, $server->getIniWrapper(),
-			$server->getL10N('lib'), $server->getThemingDefaults(), $server->getLogger(),
+			$server->getL10N('lib'), $server->query(Defaults::class), $server->getLogger(),
 			$server->getSecureRandom());
 		$sysInfo = $setupHelper->getSystemInfo(true);
 		$errors = $sysInfo['errors'];
