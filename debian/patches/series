@@ -8,3 +8,4 @@ allow_symlink_writes.patch
 secure_internal_requests.patch
 catch_addtogroup_exceptions.patch
 download_above_2g.patch
+fix_page_title.patch

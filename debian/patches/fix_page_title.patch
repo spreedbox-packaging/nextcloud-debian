@@ -1,0 +1,28 @@
+--- a/apps/theming/lib/ThemingDefaults.php
++++ b/apps/theming/lib/ThemingDefaults.php
+@@ -44,6 +44,8 @@
+ 	/** @var string */
+ 	private $name;
+ 	/** @var string */
++	private $title;
++	/** @var string */
+ 	private $url;
+ 	/** @var string */
+ 	private $slogan;
+@@ -79,6 +81,7 @@
+ 		$this->util = $util;
+ 
+ 		$this->name = parent::getName();
++		$this->title = parent::getTitle();
+ 		$this->url = parent::getBaseUrl();
+ 		$this->slogan = parent::getSlogan();
+ 		$this->color = parent::getColorPrimary();
+@@ -93,7 +96,7 @@
+ 	}
+ 
+ 	public function getTitle() {
+-		return $this->getName();
++		return strip_tags($this->config->getAppValue('theming', 'name', $this->title));
+ 	}
+ 
+ 	public function getEntity() {
