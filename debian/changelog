@@ -1,3 +1,13 @@
+nextcloud (12.0.0-1~strukturag+0) trusty; urgency=medium
+
+  * Use new upstream repository to mirror tags/branches.
+  * Imported Upstream version 12.0.0
+  * Updated patches for new upstream version.
+  * Depend on Nextcloud migration package.
+  * Added patch to fix page title (upstream issue #5374).
+
+ -- Joachim Bauch <bauch@struktur.de>  Wed, 14 Jun 2017 11:15:05 +0200
+
 nextcloud (11.0.3-1~strukturag+0) trusty; urgency=medium
 
   * Imported Upstream version 11.0.3
