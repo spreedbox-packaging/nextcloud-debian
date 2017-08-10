@@ -1,6 +1,6 @@
 --- a/lib/base.php
 +++ b/lib/base.php
-@@ -675,7 +675,9 @@
+@@ -679,7 +679,9 @@
  		self::checkInstalled();
  
  		OC_Response::addSecurityHeaders();

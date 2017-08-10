@@ -1,6 +1,6 @@
 --- a/settings/Controller/UsersController.php
 +++ b/settings/Controller/UsersController.php
-@@ -422,7 +422,20 @@
+@@ -429,7 +429,20 @@
  					if(empty($group)) {
  						$group = $this->groupManager->createGroup($groupName);
  					}
@@ -24,7 +24,7 @@
  			/**
 --- a/apps/provisioning_api/lib/Controller/UsersController.php
 +++ b/apps/provisioning_api/lib/Controller/UsersController.php
-@@ -558,7 +558,15 @@
+@@ -588,7 +588,15 @@
  		}
  
  		// Add user to group
