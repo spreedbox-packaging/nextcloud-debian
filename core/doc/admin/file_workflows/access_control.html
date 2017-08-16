@@ -29,9 +29,9 @@
     <script type="text/javascript" src="../_static/bootstrap-3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="Nextcloud 12 Server Administration Manual 12 documentation" href="../contents.html" />
-    <link rel="up" title="File Sharing and Management" href="index.html" />
-    <link rel="next" title="Database Configuration" href="../configuration_database/index.html" />
-    <link rel="prev" title="Controlling File Versions and Aging" href="file_versioning.html" />
+    <link rel="up" title="File Workflows" href="index.html" />
+    <link rel="next" title="Automated Tagging of Files" href="automated_tagging.html" />
+    <link rel="prev" title="File Workflows" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -71,19 +71,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_server/index.html">Server Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_user/index.html">User Management</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">File Sharing and Management</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="file_sharing_configuration.html">File Sharing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="federated_cloud_sharing_configuration.html">Configuring Federation Sharing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="big_file_upload_configuration.html">Uploading big files &gt; 512MB</a></li>
-<li class="toctree-l2"><a class="reference internal" href="default_files_configuration.html">Providing Default Files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="external_storage_configuration_gui.html">Configuring External Storage (GUI)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="external_storage_configuration.html">Configuring External Storage (Configuration File)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="external_storage/auth_mechanisms.html">External Storage Authentication mechanisms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="primary_storage.html">Primary Storage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="encryption_configuration.html">Encryption Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="files_locking_transactional.html">Transactional File Locking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="previews_configuration.html">Previews Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_versioning.html">Controlling File Versions and Aging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration_files/index.html">File Sharing and Management</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">File Workflows</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="">Files Access Control</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#denied-access">Denied access</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
@@ -93,6 +82,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#available-rules">Available rules</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="automated_tagging.html">Automated Tagging of Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="retention.html">Retention of Files</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_database/index.html">Database Configuration</a></li>
@@ -113,11 +104,11 @@
             
 <ul class="prevnext-title list-unstyled list-inline">
   <li class="prev">
-    <a href="file_versioning.html" title="Previous Chapter: Controlling File Versions and Aging"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Controlling F...</span>
+    <a href="index.html" title="Previous Chapter: File Workflows"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; File Workflows</span>
     </a>
   </li>
   <li class="next">
-    <a href="../configuration_database/index.html" title="Next Chapter: Database Configuration"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Database Conf... &raquo;</span>
+    <a href="automated_tagging.html" title="Next Chapter: Automated Tagging of Files"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Automated Tag... &raquo;</span>
     </a>
   </li>
 </ul>
@@ -209,19 +200,33 @@ there directly. Therefor it is recommended to disable the <code class="docutils 
 <span id="available-rules-label"></span><h2>Available rules<a class="headerlink" href="#available-rules" title="Permalink to this headline">¶</a></h2>
 <p>All rules can also be inverted (from <code class="docutils literal"><span class="pre">is</span></code> to <code class="docutils literal"><span class="pre">is</span> <span class="pre">not</span></code>) using the operator
 option.</p>
-<ul class="simple">
-<li><strong>File collaborative tag:</strong> Either the file itself, or any of the file
-owner&#8217;s parent folders needs to be tagged with the tag.</li>
-<li><strong>File mimetype:</strong> The mimetype of the file, e.g. <code class="docutils literal"><span class="pre">text/plain</span></code></li>
-<li><strong>File size:</strong> The size of the file (<em>Only available on upload</em>)</li>
-<li><strong>Request remote address:</strong> An IP range (either v4 or v6) for the accessing user</li>
-<li><strong>Request time:</strong> Time span and timezone when the request happens</li>
-<li><strong>Request URL:</strong> The URL which requests the file. (<em>This is the URL the file
-is served from, not the URL the user is currently looking at.</em>)</li>
-<li><strong>Request user agent:</strong> The user agent of the users browser or client.
+<ul>
+<li><p class="first"><strong>File collaborative tag:</strong> Either the file itself, or any of the file
+owner&#8217;s parent folders needs to be tagged with the tag.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Tags used in access control rules should be restricted tags,
+otherwise any user can remove the tag to access the file again.
+The best way to do this is with the <a class="reference internal" href="automated_tagging.html"><em>Automated Tagging of Files</em></a>.</p>
+</div>
+</li>
+<li><p class="first"><strong>File mimetype:</strong> The mimetype of the file, e.g. <code class="docutils literal"><span class="pre">text/plain</span></code></p>
+</li>
+<li><p class="first"><strong>File size:</strong> The size of the file (<em>Only available on upload</em>)</p>
+</li>
+<li><p class="first"><strong>Request remote address:</strong> An IP range (either v4 or v6) for the accessing user</p>
+</li>
+<li><p class="first"><strong>Request time:</strong> Time span and timezone when the request happens</p>
+</li>
+<li><p class="first"><strong>Request URL:</strong> The URL which requests the file. (<em>This is the URL the file
+is served from, not the URL the user is currently looking at.</em>)</p>
+</li>
+<li><p class="first"><strong>Request user agent:</strong> The user agent of the users browser or client.
 Nextcloud desktop, Android and iOS clients are available as preconfigured
-options.</li>
-<li><strong>User group membership:</strong> Whether the user is a member of the given group.</li>
+options.</p>
+</li>
+<li><p class="first"><strong>User group membership:</strong> Whether the user is a member of the given group.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -230,11 +235,11 @@ options.</li>
             
 <ul class="prevnext-title list-unstyled list-inline">
   <li class="prev">
-    <a href="file_versioning.html" title="Previous Chapter: Controlling File Versions and Aging"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; Controlling F...</span>
+    <a href="index.html" title="Previous Chapter: File Workflows"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; File Workflows</span>
     </a>
   </li>
   <li class="next">
-    <a href="../configuration_database/index.html" title="Next Chapter: Database Configuration"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Database Conf... &raquo;</span>
+    <a href="automated_tagging.html" title="Next Chapter: Automated Tagging of Files"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">Automated Tag... &raquo;</span>
     </a>
   </li>
 </ul>

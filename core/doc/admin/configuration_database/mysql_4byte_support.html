@@ -72,6 +72,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../configuration_server/index.html">Server Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_user/index.html">User Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration_files/index.html">File Sharing and Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_workflows/index.html">File Workflows</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Database Configuration</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="db_conversion.html">Converting Database Type</a></li>
 <li class="toctree-l2"><a class="reference internal" href="linux_database_configuration.html">Database Configuration</a></li>
@@ -116,7 +117,7 @@ installation needs to be tweaked a bit.</p>
 </li>
 <li><p class="first">Make sure the following InnoDB settings are set on your MySQL server:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">mysqld</span><span class="p">]</span>
-<span class="n">innodb_large_prefix</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">innodb_large_prefix</span><span class="o">=</span><span class="n">true</span>
 <span class="n">innodb_file_format</span><span class="o">=</span><span class="n">barracuda</span>
 <span class="n">innodb_file_per_table</span><span class="o">=</span><span class="mi">1</span>
 </pre></div>
