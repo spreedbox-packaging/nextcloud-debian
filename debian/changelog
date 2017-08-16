@@ -1,3 +1,9 @@
+nextcloud (12.0.2-1~strukturag+0) trusty; urgency=medium
+
+  * Imported Upstream version 12.0.2
+
+ -- Joachim Bauch <bauch@struktur.de>  Wed, 16 Aug 2017 09:04:38 +0200
+
 nextcloud (12.0.1-1~strukturag+0) trusty; urgency=medium
 
   * Imported Upstream version 12.0.1
